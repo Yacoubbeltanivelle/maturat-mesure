@@ -1,36 +1,69 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Maturat Mesure
 
-## Getting Started
+Refonte complète d'un site Next.js statique pour **MATURAT MESURE**, entreprise française orientée mesure industrielle, traitement d'air comprimé et traitement du signal.
 
-First, run the development server:
+## Stack
+
+- Next.js 16.2.4 App Router
+- React 19.2.4
+- TypeScript
+- Tailwind CSS v4
+- Framer Motion
+- GitHub Pages via `next build` + `output: "export"`
+
+## Lancer le projet
 
 ```bash
+npm install
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Le site est accessible sur `http://localhost:3000`.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Build
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+```bash
+npm run build
+```
 
-## Learn More
+Le build statique est généré dans `out/`.
 
-To learn more about Next.js, take a look at the following resources:
+## Structure utile
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+```text
+app/
+  page.tsx                    Home
+  solutions/page.tsx          Panorama des familles
+  solutions/[slug]/page.tsx   Pattern dynamique pour les familles
+  expel/page.tsx              Page produit dédiée
+  about/page.tsx              Expertise / entreprise
+  contact/page.tsx            Contact / devis
+  mentions-legales/page.tsx   Mentions légales
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+components/site/              Composants de site réutilisables
+components/ui/                Boutons et primitives UI
+lib/data.ts                   Contenu, routes, configuration SEO
+docs/                         Recherche, spec, design system, QA
+```
 
-## Deploy on Vercel
+## Contenu et cadrage
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+Les livrables de cadrage sont dans `docs/` :
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+- `docs/research-brief.md`
+- `docs/spec-site.md`
+- `docs/design-system.md`
+- `docs/qa-release.md`
+
+## Déploiement GitHub Pages
+
+Le dépôt conserve le workflow GitHub Pages existant.
+
+- `next.config.ts` garde `output: "export"`
+- la base de prod reste `/maturat-mesure`
+- le workflow `.github/workflows/deploy.yml` publie le dossier `out`
+
+## Notes
+
+- La page contact utilise un e-mail pré-rempli côté client pour rester compatible avec un site statique.
+- Les contenus ont été réécrits en français avec priorité aux faits vérifiés et aux familles visibles dans les sources publiques.

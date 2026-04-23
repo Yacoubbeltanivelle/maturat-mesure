@@ -1,200 +1,155 @@
 import type { Metadata } from "next";
-import { COMPANY } from "@/lib/data";
-import { CtaSection } from "@/components/home/CtaSection";
-import { Shield, Zap, Users, MapPin, Phone, Mail } from "lucide-react";
-import Link from "next/link";
+import { Reveal } from "@/components/site/Reveal";
+import { Section } from "@/components/site/Section";
+import { Button } from "@/components/ui/Button";
+import {
+  COMPANY,
+  COMPANY_FACTS,
+  SOLUTION_FAMILIES,
+  TRUST_MARKERS,
+  getAbsoluteUrl,
+} from "@/lib/data";
+import { ArrowRight, Building2, MapPin } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "À propos",
-  description: "Maturat Mesure SARL — Spécialiste en mesure industrielle et traitement du signal, basé à Martigues. Depuis 2015, au service de l'industrie provençale.",
+  title: "Expertise et entreprise",
+  description:
+    "Repères sur Maturat Mesure: positionnement, présence à Martigues, familles de solutions et ancrage dans l'écosystème mesure industriel.",
+  alternates: {
+    canonical: getAbsoluteUrl("/about"),
+  },
 };
-
-const VALUES = [
-  { icon: Shield, title: "Fiabilité", desc: "Des produits sélectionnés pour leur robustesse et leur longévité. Chaque référence est choisie pour performer durablement en environnement industriel." },
-  { icon: Zap, title: "Innovation", desc: "Développement de solutions à forte valeur ajoutée, comme l'EXPEL, notre filtre d'air comprimé breveté qui redéfinit les standards de filtration industrielle." },
-  { icon: Users, title: "Proximité", desc: "Un interlocuteur technique disponible et réactif. Nous accompagnons nos clients de la sélection produit à la mise en service." },
-];
-
-const EVENTS = [
-  { name: "Mesures Solutions Expo 2026", desc: "Salon international de la mesure et de l'instrumentation" },
-  { name: "SEPEM Martigues", desc: "Salon des équipements, process et maintenance" },
-  { name: "Réseau Mesure", desc: "Adhérent actif du réseau professionnel de la mesure" },
-];
 
 export default function AboutPage() {
   return (
     <>
-      {/* Hero */}
-      <div className="bg-surface border-b border-border pt-28 pb-16">
-        <div className="container-site">
-          <nav className="flex items-center gap-2 text-xs text-muted mb-6">
-            <Link href="/" className="hover:text-orange transition-colors">Accueil</Link>
-            <span>/</span>
-            <span>À propos</span>
-          </nav>
+      <Section>
+        <Reveal>
+          <p className="eyebrow">Expertise</p>
+          <h1 className="mt-4 max-w-4xl text-balance font-[var(--font-display)] text-[clamp(3rem,6vw,5.4rem)] font-semibold leading-[0.94] tracking-[-0.07em] text-[var(--color-ink)]">
+            Une entreprise industrielle présente à Martigues, tournée vers la
+            mesure, l’air comprimé et le signal.
+          </h1>
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">
+            Cette page réunit les faits vérifiés utiles à la décision:
+            création de la société, implantation à Martigues, adhésion au
+            Réseau Mesure, présence sur salons professionnels et couverture de
+            familles de solutions clairement identifiées.
+          </p>
+        </Reveal>
+      </Section>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="eyebrow mb-4 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-orange inline-block" />
-                Maturat Mesure SARL — Martigues
-              </p>
-              <h1 className="text-display text-ink mb-5">
-                L&apos;instrumentation industrielle au cœur de l&apos;industrie
-              </h1>
-              <p className="text-base text-muted leading-relaxed max-w-lg">
-                Maturat Mesure est une SARL spécialisée dans la mesure industrielle et le traitement du signal, basée à Martigues, au cœur de l&apos;industrie provençale.
-              </p>
-            </div>
-
-            {/* Stats */}
-            <div className="grid grid-cols-2 gap-4">
-              {[
-                { value: "2015", label: "Fondée" },
-                { value: "8", label: "Familles produit" },
-                { value: "APE 46.69B", label: "Code activité" },
-                { value: "PACA", label: "Région" },
-              ].map((s) => (
-                <div key={s.label} className="bg-white rounded-2xl border border-border p-5 text-center">
-                  <div className="text-xl font-extrabold text-orange tracking-tight mb-1">{s.value}</div>
-                  <div className="text-xs text-muted font-semibold tracking-widest uppercase">{s.label}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      {/* Mission + Values */}
-      <section className="py-20 bg-white">
-        <div className="container-site">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-start">
-            <div>
-              <p className="eyebrow mb-4 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-orange inline-block" />
-                Notre mission
-              </p>
-              <h2 className="text-heading text-ink mb-6">Des solutions fiables pour chaque défi de mesure</h2>
-              <div className="space-y-5 text-muted leading-relaxed">
-                <p>Maturat Mesure accompagne les professionnels de l&apos;industrie dans la sélection, l&apos;intégration et le déploiement de solutions de mesure adaptées à leurs contraintes spécifiques.</p>
-                <p>Notre expertise couvre l&apos;ensemble de la chaîne de mesure industrielle : de la pression au pH, du contrôle électrique à l&apos;analyse environnementale, en passant par notre solution brevetée de traitement d&apos;air comprimé EXPEL.</p>
-                <p>Nous privilégions des alliances solides avec des partenaires combinant fiabilité et innovation, pour vous proposer des produits durables qui répondent aux exigences professionnelles les plus élevées.</p>
+      <Section tone="soft">
+        <div className="grid gap-6 lg:grid-cols-[1fr_1fr]">
+          <Reveal>
+            <div className="panel rounded-[2rem] p-6 sm:p-8">
+              <div className="icon-chip">
+                <Building2 className="h-5 w-5" />
               </div>
-            </div>
-
-            <div id="valeurs">
-              <p className="eyebrow mb-6 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-orange inline-block" />
-                Nos valeurs
+              <h2 className="mt-6 text-[2rem] font-semibold tracking-[-0.05em] text-[var(--color-ink)]">
+                Positionnement
+              </h2>
+              <p className="mt-4 text-base leading-8 text-[var(--color-muted)]">
+                {COMPANY.description}
               </p>
-              <div className="flex flex-col gap-4">
-                {VALUES.map((v) => (
-                  <div key={v.title} className="flex gap-4 p-5 bg-surface rounded-xl border border-border">
-                    <div className="w-9 h-9 rounded-lg bg-orange/10 flex items-center justify-center shrink-0">
-                      <v.icon size={16} className="text-orange" />
-                    </div>
-                    <div>
-                      <div className="font-bold text-ink mb-1">{v.title}</div>
-                      <p className="text-sm text-muted leading-relaxed">{v.desc}</p>
-                    </div>
-                  </div>
+              <p className="mt-4 text-base leading-8 text-[var(--color-muted)]">
+                Les sources professionnelles décrivent également une activité de
+                développement de solutions de mesures et une volonté de travailler
+                avec des partenaires orientés innovation et pérennité produit.
+              </p>
+            </div>
+          </Reveal>
+
+          <Reveal delay={0.08}>
+            <div className="panel rounded-[2rem] p-6 sm:p-8">
+              <div className="icon-chip">
+                <MapPin className="h-5 w-5" />
+              </div>
+              <h2 className="mt-6 text-[2rem] font-semibold tracking-[-0.05em] text-[var(--color-ink)]">
+                Ancrage
+              </h2>
+              <p className="mt-4 text-base leading-8 text-[var(--color-muted)]">
+                Siège actuel à {COMPANY.city}, dans la zone industrielle Colline
+                Sud. Cet ancrage local facilite une relation directe, concrète
+                et rassurante pour des acheteurs et équipes techniques.
+              </p>
+              <div className="mt-6 flex flex-wrap gap-3">
+                {TRUST_MARKERS.map((item) => (
+                  <span className="tag-pill" key={item.title}>
+                    {item.title}
+                  </span>
                 ))}
               </div>
             </div>
-          </div>
+          </Reveal>
         </div>
-      </section>
+      </Section>
 
-      {/* Network presence */}
-      <section className="py-20 bg-blue text-white">
-        <div className="container-site">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-            <div>
-              <p className="eyebrow text-white/40 mb-4 flex items-center gap-2">
-                <span className="w-1.5 h-1.5 rounded-full bg-orange inline-block" />
-                Présence professionnelle
-              </p>
-              <h2 className="text-heading text-white mb-5">Un acteur reconnu du réseau industriel</h2>
-              <p className="text-white/60 leading-relaxed">
-                Maturat Mesure est membre actif du <strong className="text-white">Réseau Mesure</strong> et participe régulièrement aux grands rendez-vous de l&apos;instrumentation industrielle en France.
-              </p>
-            </div>
-            <div className="flex flex-col gap-4">
-              {EVENTS.map((e) => (
-                <div key={e.name} className="bg-white/6 border border-white/10 rounded-xl p-5">
-                  <div className="font-bold text-white mb-1">{e.name}</div>
-                  <div className="text-sm text-white/50">{e.desc}</div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
+      <Section>
+        <Reveal>
+          <h2 className="max-w-3xl text-balance text-[clamp(2rem,3vw,3.2rem)] font-semibold tracking-[-0.06em] text-[var(--color-ink)]">
+            Des faits utiles pour rassurer avant la prise de contact.
+          </h2>
+        </Reveal>
 
-      {/* Location */}
-      <section className="py-20 bg-surface">
-        <div className="container-site">
-          <p className="eyebrow text-center mb-4 flex items-center justify-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-orange inline-block" />
-            Où nous trouver
-          </p>
-          <h2 className="text-heading text-ink text-center mb-12">Martigues, Bouches-du-Rhône</h2>
-
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-            <div className="bg-white rounded-2xl border border-border p-8">
-              <h3 className="font-bold text-ink text-lg mb-6">Coordonnées</h3>
-              <div className="flex flex-col gap-5">
-                <div className="flex gap-4 items-start">
-                  <div className="w-9 h-9 bg-orange/10 rounded-lg flex items-center justify-center shrink-0">
-                    <MapPin size={16} className="text-orange" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-sm text-ink mb-0.5">Adresse</div>
-                    <div className="text-sm text-muted leading-relaxed">{COMPANY.address}<br />{COMPANY.city}</div>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-center">
-                  <div className="w-9 h-9 bg-orange/10 rounded-lg flex items-center justify-center shrink-0">
-                    <Phone size={16} className="text-orange" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-sm text-ink mb-0.5">Téléphone</div>
-                    <a href={COMPANY.phoneHref} className="text-sm text-muted hover:text-orange transition-colors">{COMPANY.phone}</a>
-                  </div>
-                </div>
-                <div className="flex gap-4 items-center">
-                  <div className="w-9 h-9 bg-orange/10 rounded-lg flex items-center justify-center shrink-0">
-                    <Mail size={16} className="text-orange" />
-                  </div>
-                  <div>
-                    <div className="font-semibold text-sm text-ink mb-0.5">Email</div>
-                    <a href={`mailto:${COMPANY.email}`} className="text-sm text-muted hover:text-orange transition-colors">{COMPANY.email}</a>
-                  </div>
-                </div>
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-3">
+          {COMPANY_FACTS.map((fact, index) => (
+            <Reveal delay={index * 0.04} key={fact.label}>
+              <div className="panel rounded-[1.75rem] p-6">
+                <p className="text-xs uppercase tracking-[0.2em] text-[var(--color-subtle)]">
+                  {fact.label}
+                </p>
+                <p className="mt-4 text-[1.45rem] font-semibold tracking-[-0.05em] text-[var(--color-ink)]">
+                  {fact.value}
+                </p>
               </div>
-            </div>
-
-            <div className="bg-border/30 rounded-2xl flex flex-col items-center justify-center gap-4 p-10 min-h-[240px]">
-              <MapPin size={36} className="text-border" />
-              <p className="text-sm text-muted text-center">ZI Colline Sud, 13500 Martigues</p>
-              <a
-                href="https://maps.google.com/?q=1+rue+Barthelemy+Thimonnier+13500+Martigues"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 px-5 py-2.5 bg-orange text-white text-sm font-semibold rounded-lg hover:bg-orange-dark transition-colors"
-              >
-                Voir sur Google Maps
-              </a>
-            </div>
-          </div>
+            </Reveal>
+          ))}
         </div>
-      </section>
+      </Section>
 
-      <CtaSection
-        eyebrow="Travaillons ensemble"
-        title="Un projet d'instrumentation ?"
-        description="Contactez notre équipe technique pour étudier vos besoins et trouver la solution adaptée à votre application."
-      />
+      <Section tone="soft">
+        <Reveal>
+          <h2 className="max-w-3xl text-balance text-[clamp(2rem,3vw,3.2rem)] font-semibold tracking-[-0.06em] text-[var(--color-ink)]">
+            Huit familles qui structurent l’expertise sans diluer le message.
+          </h2>
+        </Reveal>
+
+        <div className="mt-10 grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {SOLUTION_FAMILIES.map((family, index) => (
+            <Reveal delay={index * 0.04} key={family.slug}>
+              <div className="panel h-full rounded-[1.75rem] p-6">
+                <p className="text-xs uppercase tracking-[0.22em] text-[var(--color-blue)]">
+                  {family.shortName}
+                </p>
+                <h3 className="mt-5 text-xl font-semibold tracking-[-0.04em] text-[var(--color-ink)]">
+                  {family.name}
+                </h3>
+                <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">
+                  {family.summary}
+                </p>
+              </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <div className="panel flex flex-col items-start justify-between gap-5 rounded-[2rem] p-8 lg:flex-row lg:items-center">
+            <div>
+              <p className="eyebrow">Passer à l’action</p>
+              <h2 className="mt-4 text-balance text-[clamp(2rem,3vw,3.1rem)] font-semibold tracking-[-0.06em] text-[var(--color-ink)]">
+                Un besoin qualifié mérite un échange rapide.
+              </h2>
+            </div>
+            <Button href="/contact" size="lg">
+              Ouvrir la page contact
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </Reveal>
+      </Section>
     </>
   );
 }

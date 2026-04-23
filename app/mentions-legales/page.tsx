@@ -1,69 +1,107 @@
 import type { Metadata } from "next";
-import { COMPANY } from "@/lib/data";
-import Link from "next/link";
+import { Section } from "@/components/site/Section";
+import { Reveal } from "@/components/site/Reveal";
+import { COMPANY, SITE_URL, getAbsoluteUrl } from "@/lib/data";
 
 export const metadata: Metadata = {
   title: "Mentions légales",
+  description:
+    "Informations légales et pratiques relatives au site vitrine Maturat Mesure.",
+  alternates: {
+    canonical: getAbsoluteUrl("/mentions-legales"),
+  },
 };
 
-export default function MentionsLegalesPage() {
+export default function LegalPage() {
   return (
-    <>
-      <div className="bg-surface border-b border-border pt-28 pb-12">
-        <div className="container-site">
-          <nav className="flex items-center gap-2 text-xs text-muted mb-6">
-            <Link href="/" className="hover:text-orange transition-colors">Accueil</Link>
-            <span>/</span>
-            <span>Mentions légales</span>
-          </nav>
-          <h1 className="text-display text-ink">Mentions légales</h1>
-        </div>
+    <Section>
+      <Reveal>
+        <p className="eyebrow">Mentions légales</p>
+        <h1 className="mt-4 max-w-3xl text-balance font-[var(--font-display)] text-[clamp(3rem,6vw,5rem)] font-semibold leading-[0.94] tracking-[-0.07em] text-[var(--color-ink)]">
+          Informations légales du site.
+        </h1>
+      </Reveal>
+
+      <div className="mt-10 grid gap-5 lg:grid-cols-2">
+        <Reveal>
+          <article className="panel rounded-[1.75rem] p-6">
+            <h2 className="text-2xl font-semibold tracking-[-0.05em] text-[var(--color-ink)]">
+              Éditeur
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+              {COMPANY.legalName}
+              <br />
+              SIREN {COMPANY.siren}
+              <br />
+              SIRET {COMPANY.siret}
+              <br />
+              Code APE {COMPANY.ape}
+              <br />
+              Gérant: {COMPANY.manager}
+            </p>
+            <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+              {COMPANY.addressLine2}
+              <br />
+              {COMPANY.addressLine1}
+              <br />
+              {COMPANY.postalCode} {COMPANY.city}, {COMPANY.country}
+            </p>
+            <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+              Téléphone: <a href={COMPANY.phoneHref}>{COMPANY.phoneDisplay}</a>
+              <br />
+              E-mail:{" "}
+              <a href={`mailto:${COMPANY.primaryEmail}`}>{COMPANY.primaryEmail}</a>
+            </p>
+          </article>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <article className="panel rounded-[1.75rem] p-6">
+            <h2 className="text-2xl font-semibold tracking-[-0.05em] text-[var(--color-ink)]">
+              Hébergement
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+              Site statique déployé via GitHub Pages.
+              <br />
+              GitHub, Inc.
+              <br />
+              88 Colin P Kelly Jr St
+              <br />
+              San Francisco, CA 94107, USA
+            </p>
+            <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+              URL du site: <a href={SITE_URL}>{SITE_URL}</a>
+            </p>
+          </article>
+        </Reveal>
+
+        <Reveal>
+          <article className="panel rounded-[1.75rem] p-6">
+            <h2 className="text-2xl font-semibold tracking-[-0.05em] text-[var(--color-ink)]">
+              Propriété intellectuelle
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+              Les textes, éléments graphiques et composants du site sont
+              destinés à la présentation de l’activité de Maturat Mesure. Toute
+              reproduction ou réutilisation sans autorisation préalable doit
+              être validée par l’éditeur du site.
+            </p>
+          </article>
+        </Reveal>
+
+        <Reveal delay={0.08}>
+          <article className="panel rounded-[1.75rem] p-6">
+            <h2 className="text-2xl font-semibold tracking-[-0.05em] text-[var(--color-ink)]">
+              Données personnelles
+            </h2>
+            <p className="mt-4 text-sm leading-7 text-[var(--color-muted)]">
+              Le site ne comporte pas de collecte serveur native. La page contact
+              prépare un e-mail via le client de messagerie de l’utilisateur,
+              sans stockage côté site.
+            </p>
+          </article>
+        </Reveal>
       </div>
-
-      <section className="py-16 bg-white">
-        <div className="container-site max-w-3xl">
-          <div className="prose prose-slate max-w-none space-y-10">
-
-            <div>
-              <h2 className="text-xl font-bold text-ink mb-4">Éditeur du site</h2>
-              <div className="text-muted leading-relaxed space-y-1">
-                <p><strong className="text-ink">Maturat Mesure</strong></p>
-                <p>SARL — SIRET : {COMPANY.siret}</p>
-                <p>Code APE : {COMPANY.ape}</p>
-                <p>{COMPANY.address}</p>
-                <p>{COMPANY.city}</p>
-                <p>Téléphone : <a href={COMPANY.phoneHref} className="text-orange hover:underline">{COMPANY.phone}</a></p>
-                <p>Email : <a href={`mailto:${COMPANY.email}`} className="text-orange hover:underline">{COMPANY.email}</a></p>
-              </div>
-            </div>
-
-            <div id="confidentialite">
-              <h2 className="text-xl font-bold text-ink mb-4">Politique de confidentialité</h2>
-              <p className="text-muted leading-relaxed">
-                Les données collectées via le formulaire de contact (nom, prénom, email, téléphone, message) sont utilisées exclusivement pour traiter votre demande et vous répondre. Elles ne sont ni vendues, ni transmises à des tiers.
-              </p>
-              <p className="text-muted leading-relaxed mt-3">
-                Conformément au Règlement Général sur la Protection des Données (RGPD — UE 2016/679), vous disposez d&apos;un droit d&apos;accès, de rectification et de suppression de vos données. Pour exercer ces droits, contactez-nous à{" "}
-                <a href={`mailto:${COMPANY.email}`} className="text-orange hover:underline">{COMPANY.email}</a>.
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-ink mb-4">Hébergement</h2>
-              <p className="text-muted leading-relaxed">
-                Ce site est hébergé par GitHub Pages (GitHub, Inc. — 88 Colin P Kelly Jr St, San Francisco, CA 94107, USA).
-              </p>
-            </div>
-
-            <div>
-              <h2 className="text-xl font-bold text-ink mb-4">Propriété intellectuelle</h2>
-              <p className="text-muted leading-relaxed">
-                L&apos;ensemble du contenu de ce site (textes, illustrations, design) est la propriété de Maturat Mesure SARL. Toute reproduction sans autorisation préalable est interdite.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-    </>
+    </Section>
   );
 }

@@ -4,54 +4,82 @@ import { cn } from "@/lib/utils";
 import Link from "next/link";
 import { forwardRef } from "react";
 
-type ButtonVariant = "primary" | "secondary" | "ghost" | "blue";
+type ButtonVariant = "primary" | "secondary" | "ghost" | "dark";
 type ButtonSize = "sm" | "md" | "lg";
 
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
-  variant?: ButtonVariant;
-  size?: ButtonSize;
-  href?: string;
   children: React.ReactNode;
+  className?: string;
+  href?: string;
+  size?: ButtonSize;
+  variant?: ButtonVariant;
 }
 
-const variantClasses: Record<ButtonVariant, string> = {
+const variantStyles: Record<ButtonVariant, string> = {
   primary:
-    "bg-orange text-white hover:bg-orange-dark shadow-[0_2px_12px_rgba(245,93,0,0.3)] hover:shadow-[0_4px_24px_rgba(245,93,0,0.4)]",
+    "border border-transparent bg-[var(--color-signal)] text-white shadow-[0_18px_40px_rgba(236,107,44,0.22)] hover:bg-[var(--color-signal-strong)]",
   secondary:
-    "bg-transparent text-ink border border-border hover:border-ink hover:bg-surface",
-  ghost: "bg-transparent text-muted hover:text-ink",
-  blue: "bg-blue text-white hover:bg-blue-mid shadow-[0_2px_12px_rgba(27,58,107,0.25)]",
+    "border border-[var(--color-line)] bg-white text-[var(--color-ink)] hover:border-[var(--color-blue)] hover:bg-[var(--color-panel-soft)]",
+  ghost:
+    "border border-transparent bg-transparent text-[var(--color-ink)] hover:bg-[var(--color-panel-soft)]",
+  dark:
+    "border border-[color:rgba(255,255,255,0.14)] bg-[var(--color-ink)] text-white hover:bg-[var(--color-ink-soft)]",
 };
 
-const sizeClasses: Record<ButtonSize, string> = {
-  sm: "px-4 py-2 text-xs gap-1.5",
-  md: "px-5 py-2.5 text-sm gap-2",
-  lg: "px-7 py-3.5 text-base gap-2.5",
+const sizeStyles: Record<ButtonSize, string> = {
+  sm: "h-10 px-4 text-sm",
+  md: "h-11 px-5 text-sm",
+  lg: "h-12 px-6 text-sm",
 };
 
 export const Button = forwardRef<HTMLButtonElement, ButtonProps>(
-  ({ variant = "primary", size = "md", className, children, href, ...props }, ref) => {
-    const baseClasses = cn(
-      "inline-flex items-center justify-center font-semibold rounded-lg transition-all duration-200 cursor-pointer whitespace-nowrap",
-      variantClasses[variant],
-      sizeClasses[size],
-      className
+  (
+    {
+      children,
+      className,
+      href,
+      size = "md",
+      type = "button",
+      variant = "primary",
+      ...props
+    },
+    ref,
+  ) => {
+    const isExternalLink =
+      typeof href === "string" &&
+      (href.startsWith("http") ||
+        href.startsWith("mailto:") ||
+        href.startsWith("tel:"));
+
+    const classes = cn(
+      "inline-flex items-center justify-center gap-2 rounded-full font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--color-signal)] focus-visible:ring-offset-2",
+      variantStyles[variant],
+      sizeStyles[size],
+      className,
     );
+
+    if (href && isExternalLink) {
+      return (
+        <a className={classes} href={href}>
+          {children}
+        </a>
+      );
+    }
 
     if (href) {
       return (
-        <Link href={href} className={baseClasses}>
+        <Link className={classes} href={href}>
           {children}
         </Link>
       );
     }
 
     return (
-      <button ref={ref} className={baseClasses} {...props}>
+      <button className={classes} ref={ref} type={type} {...props}>
         {children}
       </button>
     );
-  }
+  },
 );
 
 Button.displayName = "Button";

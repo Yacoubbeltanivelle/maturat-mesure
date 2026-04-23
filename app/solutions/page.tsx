@@ -1,111 +1,103 @@
 import type { Metadata } from "next";
-import { SOLUTIONS } from "@/lib/data";
-import { Section } from "@/components/ui/Section";
-import { Badge } from "@/components/ui/Badge";
-import { CtaSection } from "@/components/home/CtaSection";
-import { Wind, Gauge, Sliders, Zap, MonitorDot, Droplets, Pipette, Activity, ArrowRight } from "lucide-react";
-import Link from "next/link";
+import { Section, SectionHeading } from "@/components/site/Section";
+import { Reveal } from "@/components/site/Reveal";
+import { SolutionCard } from "@/components/site/SolutionCard";
+import { Button } from "@/components/ui/Button";
+import {
+  APPLICATION_CLUSTERS,
+  SOLUTION_FAMILIES,
+  getAbsoluteUrl,
+} from "@/lib/data";
+import { ArrowRight } from "lucide-react";
 
 export const metadata: Metadata = {
-  title: "Solutions",
-  description: "8 familles de solutions d'instrumentation industrielle — traitement d'air comprimé, instrumentation, contrôle, énergie, analyse et environnement.",
-};
-
-const ICONS: Record<string, React.ReactNode> = {
-  wind: <Wind size={28} />, gauge: <Gauge size={28} />, sliders: <Sliders size={28} />,
-  zap: <Zap size={28} />, "monitor-dot": <MonitorDot size={28} />, droplets: <Droplets size={28} />,
-  pipette: <Pipette size={28} />, activity: <Activity size={28} />,
+  title: "Solutions industrielles",
+  description:
+    "Panorama des familles de solutions: traitement d'air comprimé, instrumentation, contrôle, énergie électrique, multimètres, analyse liquide, échantillonnage et environnement.",
+  alternates: {
+    canonical: getAbsoluteUrl("/solutions"),
+  },
 };
 
 export default function SolutionsPage() {
   return (
     <>
-      {/* Page hero */}
-      <div className="bg-surface border-b border-border pt-28 pb-16">
-        <div className="container-site">
-          <nav className="flex items-center gap-2 text-xs text-muted mb-6" aria-label="Fil d'ariane">
-            <Link href="/" className="hover:text-orange transition-colors">Accueil</Link>
-            <span>/</span>
-            <span>Solutions</span>
-          </nav>
-          <p className="eyebrow mb-4 flex items-center gap-2">
-            <span className="w-1.5 h-1.5 rounded-full bg-orange inline-block" />
-            Catalogue complet
-          </p>
-          <h1 className="text-display text-ink max-w-2xl mb-5">
-            8 familles de solutions<br />pour l&apos;industrie
+      <Section>
+        <Reveal>
+          <p className="eyebrow">Solutions</p>
+          <h1 className="mt-4 max-w-4xl text-balance font-[var(--font-display)] text-[clamp(3rem,6vw,5.5rem)] font-semibold leading-[0.94] tracking-[-0.07em] text-[var(--color-ink)]">
+            Huit familles pour orienter rapidement le bon besoin industriel.
           </h1>
-          <p className="text-base text-muted max-w-xl leading-relaxed">
-            De la mesure de pression à la surveillance environnementale, une gamme complète d&apos;équipements d&apos;instrumentation industrielle.
+          <p className="mt-6 max-w-3xl text-lg leading-8 text-[var(--color-muted)]">
+            Cette vue d’ensemble présente chaque famille de solutions, facilite
+            le repérage par usage et met en avant EXPEL comme offre phare du
+            traitement d’air comprimé.
           </p>
+        </Reveal>
+
+        <div className="mt-10 flex flex-wrap gap-3">
+          {SOLUTION_FAMILIES.map((family) => (
+            <a className="tag-pill" href={`#${family.slug}`} key={family.slug}>
+              {family.shortName}
+            </a>
+          ))}
         </div>
-      </div>
+      </Section>
 
-      {/* Solution families */}
-      <div>
-        {SOLUTIONS.map((s, i) => (
-          <section
-            key={s.id}
-            id={s.id}
-            className={`py-16 lg:py-20 border-b border-border ${i % 2 === 1 ? "bg-surface" : "bg-white"}`}
-          >
-            <div className="container-site">
-              {/* Header */}
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 mb-10">
-                <div>
-                  <div className="flex items-center gap-3 mb-4">
-                    <div className="w-12 h-12 rounded-xl bg-blue-pale flex items-center justify-center text-blue">
-                      {ICONS[s.icon]}
-                    </div>
-                    <div className="text-xs font-bold tracking-widest uppercase text-muted">
-                      Famille {String(i + 1).padStart(2, "0")}
-                    </div>
-                  </div>
-                  <h2 className="text-heading text-ink mb-4">{s.name}</h2>
-                  <p className="text-muted leading-relaxed">{s.description}</p>
-                  {s.id === "air-comprime" && (
-                    <Link
-                      href="/expel"
-                      className="inline-flex items-center gap-2 mt-5 text-sm font-semibold text-orange hover:text-orange-dark transition-colors"
-                    >
-                      Voir EXPEL — Produit phare <ArrowRight size={14} />
-                    </Link>
-                  )}
-                </div>
-                <div className="flex flex-wrap gap-2 content-start pt-2">
-                  {s.tags.map((tag) => (
-                    <Badge key={tag} variant="blue">{tag}</Badge>
-                  ))}
-                </div>
+      <Section tone="soft">
+        <div className="grid gap-5 md:grid-cols-2 xl:grid-cols-4">
+          {SOLUTION_FAMILIES.map((family, index) => (
+            <Reveal delay={index * 0.04} key={family.slug}>
+              <div id={family.slug}>
+                <SolutionCard family={family} />
               </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
 
-              {/* Products */}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {s.products.map((p) => (
-                  <div
-                    key={p.name}
-                    className="bg-white rounded-xl border border-border p-5 hover:border-orange/30 hover:shadow-md transition-all duration-200"
-                  >
-                    <h3 className="font-bold text-sm text-ink mb-1.5">
-                      {p.name}
-                      {p.name === "Filtre EXPEL" && (
-                        <span className="ml-2 inline-flex items-center px-2 py-0.5 rounded text-[0.6rem] font-bold bg-orange text-white">Phare</span>
-                      )}
-                    </h3>
-                    <p className="text-xs text-muted leading-relaxed">{p.desc}</p>
-                  </div>
-                ))}
+      <Section>
+        <SectionHeading
+          eyebrow="Orienter le besoin"
+          title="Des usages concrets pour aider un visiteur à se situer."
+          description="Ces contextes d’application servent de passerelle entre besoin opérationnel, environnement industriel et famille de solutions."
+        />
+
+        <div className="mt-10 grid gap-5 lg:grid-cols-5">
+          {APPLICATION_CLUSTERS.map((cluster, index) => (
+            <Reveal delay={index * 0.05} key={cluster.title}>
+              <div className="panel h-full rounded-[1.75rem] p-5">
+                <p className="text-sm font-medium uppercase tracking-[0.2em] text-[var(--color-blue)]">
+                  {String(index + 1).padStart(2, "0")}
+                </p>
+                <h2 className="mt-5 text-lg font-semibold tracking-[-0.04em] text-[var(--color-ink)]">
+                  {cluster.title}
+                </h2>
+                <p className="mt-3 text-sm leading-7 text-[var(--color-muted)]">
+                  {cluster.description}
+                </p>
               </div>
+            </Reveal>
+          ))}
+        </div>
+      </Section>
+
+      <Section>
+        <Reveal>
+          <div className="panel flex flex-col items-start justify-between gap-5 rounded-[2rem] p-8 lg:flex-row lg:items-center">
+            <div>
+              <p className="eyebrow">Offre phare</p>
+              <h2 className="mt-4 text-balance text-[clamp(2rem,3vw,3.3rem)] font-semibold tracking-[-0.06em] text-[var(--color-ink)]">
+                EXPEL bénéficie d’une page dédiée pour aller plus loin.
+              </h2>
             </div>
-          </section>
-        ))}
-      </div>
-
-      <CtaSection
-        eyebrow="Un besoin spécifique ?"
-        title="Nous trouverons la solution adaptée."
-        description="Notre équipe technique analyse votre cahier des charges et vous propose le produit le mieux adapté."
-      />
+            <Button href="/expel" size="lg">
+              Ouvrir EXPEL
+              <ArrowRight className="h-4 w-4" />
+            </Button>
+          </div>
+        </Reveal>
+      </Section>
     </>
   );
 }
