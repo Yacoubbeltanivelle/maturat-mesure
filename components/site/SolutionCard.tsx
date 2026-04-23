@@ -9,7 +9,7 @@ interface SolutionCardProps {
 
 export function SolutionCard({ family }: SolutionCardProps) {
   return (
-    <article className="panel group flex h-full flex-col rounded-[1.75rem] p-6">
+    <article className="panel group flex h-full flex-col rounded-[1.75rem] p-6 transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_rgba(15,23,42,0.08)]">
       <div className="flex items-start justify-between gap-4">
         <div className="icon-chip">
           <IconMark className="h-5 w-5" icon={family.icon} />

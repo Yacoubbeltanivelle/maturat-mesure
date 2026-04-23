@@ -3,7 +3,10 @@ import type { NextConfig } from "next";
 const nextConfig: NextConfig = {
   output: "export",
   basePath: process.env.NODE_ENV === "production" ? "/maturat-mesure" : "",
-  images: { unoptimized: true },
+  images: {
+    loader: "custom",
+    loaderFile: "./lib/image-loader.ts",
+  },
   trailingSlash: true,
 };
 

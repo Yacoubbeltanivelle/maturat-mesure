@@ -17,7 +17,7 @@ export function ProductCard({
   compactImage = false,
 }: ProductCardProps) {
   return (
-    <article className="group panel flex h-full flex-col overflow-hidden rounded-[1.7rem]">
+    <article className="group panel flex h-full flex-col overflow-hidden rounded-[1.7rem] transition-transform duration-300 hover:-translate-y-1 hover:shadow-[0_24px_48px_rgba(15,23,42,0.08)]">
       <Link
         aria-label={`Voir la fiche produit ${product.name}`}
         className="relative block border-b border-[var(--color-line)] bg-[linear-gradient(180deg,rgba(255,255,255,0.98),rgba(241,246,251,0.95))]"
@@ -31,7 +31,7 @@ export function ProductCard({
         >
           <div
             className={cn(
-              "pointer-events-none absolute border border-[var(--color-line)] bg-white/82 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)]",
+              "pointer-events-none absolute border border-[var(--color-line)] bg-white/82 shadow-[inset_0_1px_0_rgba(255,255,255,0.9)] transition-colors duration-300 group-hover:border-[var(--color-line-strong)]",
               compactImage
                 ? "inset-3 rounded-[1.15rem] sm:inset-4 sm:rounded-[1.35rem]"
                 : "inset-4 rounded-[1.35rem]",
