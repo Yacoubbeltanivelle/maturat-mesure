@@ -1,0 +1,41 @@
+@import url('https://fonts.googleapis.com/css2?family=Manrope:wght@300;400;500;600;700;800&display=swap');
+@import "tailwindcss";
+
+@theme {
+  --color-orange:       #F55D00;
+  --color-orange-light: #FF7A2A;
+  --color-orange-dark:  #C44A00;
+  --color-blue:         #1B3A6B;
+  --color-blue-mid:     #2D5A9B;
+  --color-blue-light:   #4A7FC1;
+  --color-blue-pale:    #EEF3FA;
+  --color-ink:          #0A0F1A;
+  --color-muted:        #64748B;
+  --color-subtle:       #94A3B8;
+  --color-border:       #E2E8F0;
+  --color-surface:      #F8FAFC;
+  --font-sans: 'Manrope', system-ui, -apple-system, sans-serif;
+}
+
+@layer base {
+  *, *::before, *::after { box-sizing: border-box; }
+  html { font-size: 16px; scroll-behavior: smooth; -webkit-font-smoothing: antialiased; }
+  body { font-family: var(--font-sans); color: #0A0F1A; background: #fff; line-height: 1.6; }
+  ::selection { background: rgba(245,93,0,0.15); }
+  :focus-visible { outline: 2px solid #F55D00; outline-offset: 3px; border-radius: 4px; }
+}
+
+@layer utilities {
+  .container-site { max-width: 1400px; margin-inline: auto; padding-inline: clamp(1.25rem, 5vw, 5rem); }
+  .text-hero { font-size: clamp(3.5rem, 9vw, 8rem); font-weight: 800; letter-spacing: -0.05em; line-height: 0.92; }
+  .text-display { font-size: clamp(2.5rem, 6vw, 5rem); font-weight: 800; letter-spacing: -0.04em; line-height: 1; }
+  .text-heading { font-size: clamp(1.75rem, 4vw, 3rem); font-weight: 700; letter-spacing: -0.03em; line-height: 1.1; }
+  .eyebrow { font-size: 0.7rem; font-weight: 700; letter-spacing: 0.14em; text-transform: uppercase; color: #F55D00; }
+  .gradient-orange { background: linear-gradient(135deg,#F55D00,#FF7A2A); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .bg-grid { background-image: linear-gradient(rgba(27,58,107,0.05) 1px,transparent 1px),linear-gradient(90deg,rgba(27,58,107,0.05) 1px,transparent 1px); background-size: 40px 40px; }
+  .bg-grid-dark { background-image: linear-gradient(rgba(255,255,255,0.04) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.04) 1px,transparent 1px); background-size: 40px 40px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
+}
