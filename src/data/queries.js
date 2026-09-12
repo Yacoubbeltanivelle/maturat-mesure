@@ -1,0 +1,76 @@
+/* Lectures du catalogue. Fonctions pures : elles reçoivent le catalogue en
+ * paramètre, ne touchent ni au DOM ni à l'état, et restent donc testables. */
+
+const published = (entry) => entry.published !== false;
+
+export const familyById = (catalog, id) => catalog.families.find((f) => f.id === id) || null;
+export const familyBySlug = (catalog, slug) => catalog.families.find((f) => f.slug === slug) || null;
+export const familyByName = (catalog, name) => catalog.families.find((f) => f.name === name) || null;
+export const familyByCode = (catalog, code) => catalog.families.find((f) => f.code === code) || null;
+export const supplierById = (catalog, id) => catalog.suppliers.find((s) => s.id === id) || null;
+export const productById = (catalog, id) => catalog.products.find((p) => p.id === id) || null;
+export const productBySlug = (catalog, slug) => catalog.products.find((p) => p.slug === slug) || null;
+
+export const publishedFamilies = (catalog) => catalog.families.filter(published);
+export const publishedProducts = (catalog) => catalog.products.filter(published);
+
+/** Fiches rattachées à une famille. */
+export const productsOfFamily = (catalog, familyId) =>
+  publishedProducts(catalog).filter((p) => p.familyId === familyId);
+
+/** Fournisseurs réellement utilisés par au moins une fiche publiée. */
+export function suppliersInUse(catalog) {
+  const used = new Set(publishedProducts(catalog).map((p) => p.supplierId));
+  return catalog.suppliers.filter((s) => used.has(s.id));
+}
+
+/** Comparaison insensible aux accents et à la casse, pour la recherche. */
+export const normalize = (value) =>
+  String(value ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
+
+/** Texte indexé d'une fiche : ce qui la décrit elle-même, plus sa famille et son
+ *  fournisseur. Les principes de mesure de la famille sont volontairement exclus :
+ *  chercher « radar » ne doit pas remonter toutes les fiches de niveau. */
+function searchIndex(catalog, product) {
+  const family = familyById(catalog, product.familyId);
+  const supplier = supplierById(catalog, product.supplierId);
+  return normalize([
+    product.name, product.reference, product.summary, product.uses.join(' '),
+    product.specs.map((s) => `${s.label} ${s.value}`).join(' '),
+    family?.name, family?.longName, supplier?.name,
+  ].filter(Boolean).join(' '));
+}
+
+/** Recherche et filtres combinés. Aucun rechargement, aucun appel réseau. */
+export function filterProducts(catalog, { q = '', family = '', supplier = '' } = {}) {
+  const terms = normalize(q).split(/\s+/).filter(Boolean);
+  return publishedProducts(catalog).filter((product) => {
+    if (family && product.familyId !== family) return false;
+    if (supplier && product.supplierId !== supplier) return false;
+    if (!terms.length) return true;
+    const haystack = searchIndex(catalog, product);
+    return terms.every((term) => haystack.includes(term));
+  });
+}
+
+export const hasActiveFilters = ({ q = '', family = '', supplier = '' } = {}) =>
+  Boolean(q.trim() || family || supplier);
+
+/** Fiche complète : produit, famille et fournisseur résolus. */
+export function productContext(catalog, productId) {
+  const product = productById(catalog, productId);
+  if (!product) return null;
+  return {
+    product,
+    family: familyById(catalog, product.familyId),
+    supplier: supplierById(catalog, product.supplierId),
+  };
+}
+
+/** Le produit retenu reste-t-il cohérent avec la famille choisie dans le formulaire ?
+ *  Sert à ne pas garder une association périmée quand le visiteur change de besoin. */
+export function productMatchesFamilyName(catalog, productId, familyName) {
+  const context = productContext(catalog, productId);
+  if (!context) return false;
+  return context.family?.name === familyName;
+}

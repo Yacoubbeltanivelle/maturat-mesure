@@ -8,8 +8,11 @@ Codex vérifie un périmètre précis et sauvegarde les changements vérifiés.
 
 ## Direction artistique
 
-Atmospheric Precision est validée. Conserver la Hero, son fond bleu grainé animé et
-la section Dropout sur l'accueil. Pas de vert ajouté. Titres secondaires plus petits
+Atmospheric Precision est validée. Conserver le fond bleu grainé animé de la Hero.
+Suite au retour client, l'ouverture présente les quatre familles de mesure à parts
+égales ; Dropout conserve sa section dédiée plus bas, sans produit géant dans la Hero.
+Utiliser Houdec pour le visuel niveau et Fuji Electric pour le débit, aucun visuel Krohne.
+Pas de vert ajouté. Titres secondaires plus petits
 que le H1. L'attribut `data-pack="E"` du `<body>` porte toute la direction dans la
 feuille de style : ne pas le retirer.
 

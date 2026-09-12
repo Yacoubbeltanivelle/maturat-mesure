@@ -1,15 +1,11 @@
-import { state } from './state.js';
+import { state, catalog } from './state.js';
+import { parseRoute } from './lib/route.js';
 
-/* Routage par ancre. Les anciennes adresses du laboratoire de design (#E/home)
- * restent valides et pointent vers les memes pages. */
-export const ROUTES = ['home', 'dropout', 'quote'];
+export { ROUTES, hashFor, hashForFamily, hashForProduct } from './lib/route.js';
 
+/* Applique l'ancre courante à l'état. L'analyse elle-même vit dans lib/route.js. */
 export function readRoute() {
-  const raw = location.hash.slice(1).replace(/^E\//, '').replace(/^\//, '');
-  const page = raw.split('/')[0];
-  state.page = ROUTES.includes(page) ? page : 'home';
-}
-
-export function hashFor(page) {
-  return `#/${page}`;
+  const route = parseRoute(location.hash, catalog);
+  state.page = route.page;
+  state.slug = route.slug;
 }

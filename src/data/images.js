@@ -24,26 +24,26 @@ export const IMAGE_ASSETS = {
     "height": 3746
   },
   "306": {
-    "src": "assets/photos/flow-meter.jpg",
-    "title": "Débitmètre Coriolis OPTIMASS 7000",
-    "author": "KROHNE",
-    "credit": "KROHNE — CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:OPTIMASS_7000.jpg",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "width": 1561,
-    "height": 1181
+    "src": "assets/photos/flow-fuji-s-flow.png",
+    "title": "Débitmètre à ultrasons S-Flow — Fuji Electric",
+    "author": "Fuji Electric",
+    "credit": "Visuel fabricant — Fuji Electric, S-Flow",
+    "source": "https://www.fujielectric.fr/technologies/debitmetre-ultrasonique-integre-compact-s-flow/",
+    "license": "Visuel fabricant — droits réservés",
+    "licenseUrl": null,
+    "width": 500,
+    "height": 312
   },
   "202": {
-    "src": "assets/photos/level-meter.jpg",
-    "title": "Instrument de niveau à plongeur",
-    "author": "Alenka989",
-    "credit": "Alenka989 — CC BY-SA 4.0",
-    "source": "https://commons.wikimedia.org/wiki/File:%D0%91%D1%83%D0%B9%D0%BA%D0%BE%D0%B2%D1%8B%D0%B9_%D1%83%D1%80%D0%BE%D0%B2%D0%BD%D0%B5%D0%BC%D0%B5%D1%80.jpg",
-    "license": "CC BY-SA 4.0",
-    "licenseUrl": "https://creativecommons.org/licenses/by-sa/4.0/",
-    "width": 1905,
-    "height": 4796
+    "src": "assets/photos/level-houdec-810.png",
+    "title": "Indicateur magnétique de niveau type 810 — Houdec Innovation",
+    "author": "Houdec Innovation",
+    "credit": "Visuel fabricant — Houdec Innovation, type 810",
+    "source": "https://www.houdec.com/type-810",
+    "license": "Visuel fabricant — droits réservés",
+    "licenseUrl": null,
+    "width": 1888,
+    "height": 824
   },
   "132": {
     "src": "assets/photos/air-filter.jpg",

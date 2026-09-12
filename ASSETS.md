@@ -1,5 +1,28 @@
 # Asset provenance — Atmospheric Precision
 
+## Current replacements — client feedback
+
+The level and flow category images below supersede the historical KROHNE illustrations.
+The original `level-meter.jpg` and `flow-meter.jpg` are no longer distributed in `public/`.
+
+- `public/assets/photos/level-houdec-810.png`: Houdec Innovation type 810 magnetic
+  level indicator. Manufacturer source: https://www.houdec.com/type-810 . Download:
+  https://static.wixstatic.com/media/a713f7_b8922f16dd464993bc2cd3615e1218e2~mv2.png .
+  Original 1888 × 824 PNG; the UI crops background margins with CSS only.
+- `public/assets/photos/flow-fuji-s-flow.png`: Fuji Electric S-Flow ultrasonic
+  flowmeter. Manufacturer source:
+  https://www.fujielectric.fr/technologies/debitmetre-ultrasonique-integre-compact-s-flow/ .
+  Download: https://www.fujielectric.fr/wp-content/uploads/2023/11/debitmetre-ultrasonique-integre-fr-en-500x312-c-default.png .
+  Original 500 × 312 PNG, displayed proportionally.
+
+These manufacturer visuals were selected at the client's request. Rights remain
+with the manufacturers; no Creative Commons license or separate reuse permission
+is claimed. Attribution and source links are displayed in the visual credits,
+with nearby manufacturer identification on category cards and family pages.
+They illustrate families, not the fictitious product references in the demo.
+Pressure and temperature retain their Creative Commons attribution and licenses.
+The provenance notes below document earlier asset choices.
+
 ## Maturat identity
 
 The original Maturat Mesure logo is rendered from the vector logo in the user-supplied MATURAT plaquette 2026 PDF. The selected palette is taken from its vector fills: blue #4395D1, orange #F7941D and graphite #231F20, with white and lighter/darker derivatives for surfaces and readable text.
