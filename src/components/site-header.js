@@ -1,0 +1,6 @@
+import { asset } from '../lib/dom.js';
+
+/* En-tete du site : marque et parcours principal. */
+export function siteHeader() {
+  return `<a class="brand" href="#/home" aria-label="Maturat Mesure, accueil"><img src="${asset('assets/maturat-logo.png')}" alt="Maturat Mesure"></a><nav aria-label="Parcours"><button data-page="home">Solutions</button><button data-page="dropout">Dropout</button><button class="nav-action" data-page="quote"><span class="full-label">Définir mon besoin</span><span class="short-label">Mon besoin</span> <span>↗</span></button></nav>`;
+}

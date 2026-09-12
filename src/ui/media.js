@@ -1,0 +1,6 @@
+import { escapeHTML, asset } from '../lib/dom.js';
+import { IMAGE_ASSETS } from '../data/images.js';
+
+/* Images : le chemin passe par asset() pour suivre la base du site. */
+export const img=(id,alt,cls='',lazy=false)=>{const a=IMAGE_ASSETS[id];return `<img class="${cls}" src="${asset(a.src)}" alt="${escapeHTML(a.title)} — photo d’illustration" width="${a.width}" height="${a.height}" ${lazy?'loading="lazy"':''} decoding="async">`};
+export const dropoutImage=(cls='',lazy=false)=>`<img class="${cls}" src="${asset('assets/dropout-cutout.png')}" width="455" height="1738" alt="Séparateur Dropout, corps en aluminium et raccords bleus — visuel fourni amélioré" ${lazy?'loading="lazy"':''} decoding="async">`;
