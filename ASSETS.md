@@ -101,3 +101,50 @@ The existing generated blue-grain bitmap is preserved. A soft-light mesh layer u
 ## Shared grain on colored surfaces
 
 `dist/assets/surface-grain.svg` is a deterministic, seamless SVG noise texture (fixed seed, no animation). It is applied as a separate layer between colored surfaces and their content, including measurement cards, Dropout scenes, forms, navigation, controls and footer. It neither modifies product image pixels nor covers text; overlays ignore pointer events. The hero retains its original bitmap grain and Bloom Field motion.
+
+## Accueil — quatre photographies libres (12 septembre 2026)
+
+La Hero reprend la composition originale : scène centrale, titre en bas à gauche,
+introduction en bas à droite. La sélection libre concerne la Hero et les cartes
+de l’accueil ; les photos du catalogue ne changent pas.
+
+- `public/assets/photos/level-open-tank-cc.jpg` : détecteur de niveau à flotteur,
+  S.J. de Waard, CC BY 2.5, 3155 × 2003.
+  Source : https://commons.wikimedia.org/wiki/File:Float_switch_for_open_tanks.JPG
+  Original : https://upload.wikimedia.org/wikipedia/commons/2/21/Float_switch_for_open_tanks.JPG
+  Licence : https://creativecommons.org/licenses/by/2.5/
+- `public/assets/photos/flow-rotameter-cc.jpg` : rotamètre, Hannes Grobe,
+  CC BY-SA 3.0, 1372 × 4256.
+  Source : https://commons.wikimedia.org/wiki/File:Flow-tube-meter_hg.jpg
+  Original : https://upload.wikimedia.org/wikipedia/commons/4/42/Flow-tube-meter_hg.jpg
+  Licence : https://creativecommons.org/licenses/by-sa/3.0/
+
+Originaux sans retouche des pixels ; affichage proportionnel et mélange CSS avec
+le fond. Attributions proches des photos et sources/licences dans les crédits.
+La pression et la température gardent les photographies libres documentées ci-dessus.
+
+## Sélection actuelle de l’accueil — 13 septembre 2026
+
+À la demande de Yacoub, les quatre photos précédentes sont remplacées par des
+visuels fabricant nets, détourés et réellement transparents. Les fichiers PNG
+originaux sont conservés sans retouche de pixels. Le CSS ajuste leur échelle ;
+les marges transparentes latérales du Houdec sont hors du cadre d’affichage.
+Le layout et les autres pages ne sont pas modifiés par ce remplacement.
+
+- `public/assets/photos/home-level-houdec.png` — Houdec Innovation type 810,
+  1888 × 824. Source : https://www.houdec.com/indicateurs-de-niveau
+  Original : https://static.wixstatic.com/media/a713f7_eba08d9641ae48df8cd6f7cf44d5736c~mv2.png
+- `public/assets/photos/home-temperature-fuji.png` — Fuji Electric PT100, 682 × 682.
+  Source : https://www.fujielectric.fr/produit/mesure-de-temperature/sonde-de-temperature-pt100/
+  Original : https://www.fujielectric.fr/wp-content/uploads/2024/06/pt100-3d-1-vue-generale-header-fr-en.png
+- `public/assets/photos/home-pressure-fuji.png` — Fuji Electric FKC, 682 × 682.
+  Source : https://www.fujielectric.fr/en/product/pressure-measurement/differential-pressure-transmitter-fkc/
+  Original : https://www.fujielectric.fr/wp-content/uploads/2025/03/fkc-v6-t-vue-generale-diagonale-gauche-header-fr-en.png
+- `public/assets/photos/home-flow-fuji.png` — Fuji Electric M1000, 682 × 682.
+  Source : https://www.fujielectric.fr/produit/debitmetre-mesure-debit-liquides-eau-gaz-vapeur/debitmetre-electromagnetique-m1000/
+  Original : https://www.fujielectric.fr/wp-content/uploads/2024/06/m1000-vue-generale-header-fr-en.png
+
+Droits réservés aux fabricants. Usage accepté pour la maquette locale par Yacoub ;
+aucune licence libre ni permission de publication n’est affirmée. Crédits fabricant
+visibles sous les instruments et sources présentes dans la fiche des crédits.
+Les paragraphes précédents décrivent les sélections historiques.

@@ -23,7 +23,12 @@
 .catalog-grid > li { display: flex; min-width: 0; }
 .catalog-card { flex: 1; min-width: 0; color: inherit; transition: border-color .25s, box-shadow .25s; position: relative; isolation: isolate; overflow: hidden; display: grid; grid-template-columns: minmax(0, 1fr) 44%; grid-template-rows: auto 1fr; border: 1px solid #d9e5ef; border-radius: 14px; background: linear-gradient(120deg, #f6f8fb 20%, #e2eff9); min-height: 370px; padding: 30px; }
 .catalog-card::after, .catalog-dropout::after { content: ''; position: absolute; inset: 0; pointer-events: none; z-index: -1; background: var(--surface-grain); opacity: .65; }
-.catalog-card-02, .catalog-card-04 { background: linear-gradient(120deg, #f8f9fa 25%, #f5e5d0); }
+/* Une teinte par grandeur, cohérente avec le halo de chaque famille :
+ * niveau vert d'eau, température ambre, pression bleu-violet, débit cyan. */
+.catalog-card-01 { background: linear-gradient(120deg, #f7fbf9 22%, #dcece5); }
+.catalog-card-02 { background: linear-gradient(120deg, #f8f9fa 25%, #f5e5d0); }
+.catalog-card-03 { background: linear-gradient(120deg, #f8f9fc 22%, #e2e6f6); }
+.catalog-card-04 { background: linear-gradient(120deg, #f6fafc 22%, #d8ebf3); }
 .catalog-card-heading { position: relative; z-index: 1; }
 .catalog-card-heading .mono { font-size: 10px; color: var(--muted); }
 .catalog-card h3 { font-size: 29px; line-height: 1.2; letter-spacing: -.035em; margin-top: 13px; }
@@ -168,7 +173,48 @@
 .product-card:hover .product-card-arrow { transform: translate(3px, -3px); }
 
 /* Page de famille */
-.family-hero { display: grid; grid-template-columns: 1.45fr 1fr; align-items: center; gap: 50px; padding: 30px 0 60px; }
+/* Halo atmospherique : la couleur vient de la famille (--family-halo), posee
+ * derriere la hero. Tres diffus et sans bord visible, il differencie les
+ * grandeurs sans transformer la page en aplat colore. */
+.family-hero {
+  position: relative;
+  isolation: isolate;
+  display: grid;
+  grid-template-columns: 1.45fr 1fr;
+  align-items: center;
+  gap: 50px;
+  padding: 30px 0 60px;
+}
+.family-hero::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: -6% -12% 10%;
+  background: radial-gradient(60% 70% at 62% 42%, var(--family-halo, transparent) 0%, transparent 72%);
+  opacity: 0.85;
+  pointer-events: none;
+}
+.reduced .family-hero::before { opacity: 0.6; }
+
+/* Relevés techniques, à la manière d'un afficheur d'instrument */
+.family-readout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0;
+  margin: 32px 0 0;
+  border-top: 1px solid var(--line);
+}
+.family-readout-row {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  padding: 14px 28px 0 0;
+  margin-right: 28px;
+  border-right: 1px solid var(--line);
+}
+.family-readout-row:last-child { border-right: 0; margin-right: 0; padding-right: 0; }
+.family-readout dt { font-size: 9px; letter-spacing: 0.08em; color: var(--muted); }
+.family-readout dd { margin: 0; font-size: 15px; color: var(--catalog-blue); }
 .family-hero h1 { font-size: clamp(34px, 4.6vw, 62px); line-height: 1.06; margin-top: 22px; }
 .family-intro { margin-top: 24px; font-size: 16px; line-height: 1.8; max-width: 540px; }
 .family-principles { margin-top: 24px; }
@@ -217,6 +263,8 @@
 .spec-list dt { font-size: 13px; color: var(--muted); }
 .spec-list dd { margin: 0; font-size: 15px; overflow-wrap: anywhere; }
 .product-specs .small-note { margin-top: 16px; font-size: 12px; }
+/* Dans la colonne etroite d'une fiche, les usages se lisent mieux en liste simple. */
+.product-uses .family-uses-list { grid-template-columns: 1fr; gap: 10px; }
 .product-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 40px;
   padding-top: 30px; border-top: 1px solid var(--line); }
 .product-actions-links { display: flex; flex-wrap: wrap; gap: 14px 32px; }
@@ -254,6 +302,7 @@
   .catalog-clear { grid-column: 1 / -1; justify-self: start; }
   .family-hero, .product-hero { grid-template-columns: 1fr; gap: 34px; }
   .family-hero-photo img { height: 240px; }
+  .family-readout-row { padding-right: 18px; margin-right: 18px; }
   .product-body { grid-template-columns: 1fr; gap: 36px; }
 }
 @media (max-width: 650px) {

@@ -25,6 +25,24 @@ function familyVisual(family) {
   return `<div class="family-hero-mark">${familyMark(family.code, 'family-mark-large')}<span class="mono">${escapeHTML(family.code)} / ${escapeHTML(family.name.toUpperCase())}</span></div>`;
 }
 
+/* Relevés techniques discrets, à la manière d'un afficheur d'instrument.
+ * Toutes les valeurs sont lues dans les données : rien n'est inventé ici. */
+function familyReadout(family, productCount) {
+  const rows = [
+    ['FAMILLE', family.code],
+    family.unit ? ['UNITÉ', family.unit] : null,
+    ['PRINCIPES', String(family.principles.length).padStart(2, '0')],
+    ['FICHES', String(productCount).padStart(2, '0')],
+  ].filter(Boolean);
+
+  return `<dl class="family-readout" aria-label="Repères de la famille">
+    ${rows.map(([label, value]) => `<div class="family-readout-row">
+      <dt class="mono">${escapeHTML(label)}</dt>
+      <dd class="mono">${escapeHTML(value)}</dd>
+    </div>`).join('')}
+  </dl>`;
+}
+
 export function family() {
   const entry = familyBySlug(catalog, state.slug);
   if (!entry) return notFound();
@@ -32,7 +50,7 @@ export function family() {
   const list = productsOfFamily(catalog, entry.id);
   const count = list.length === 1 ? '1 fiche de démonstration' : `${list.length} fiches de démonstration`;
 
-  return `<div class="family-page">
+  return `<div class="family-page" style="--family-halo: ${escapeHTML(entry.color)}">
     ${breadcrumb([
       { label: 'Accueil', href: '#/home' },
       { label: 'Produits', href: '#/products' },
@@ -45,6 +63,7 @@ export function family() {
         <h1 id="family-title">${escapeHTML(entry.longName)}</h1>
         <p class="family-intro">${escapeHTML(entry.intro)}</p>
         <ul class="catalog-tags family-principles">${entry.principles.map((p) => `<li>${escapeHTML(p)}</li>`).join('')}</ul>
+        ${familyReadout(entry, list.length)}
       </div>
       ${familyVisual(entry)}
     </section>

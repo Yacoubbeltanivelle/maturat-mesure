@@ -11,6 +11,11 @@ export const supplierById = (catalog, id) => catalog.suppliers.find((s) => s.id 
 export const productById = (catalog, id) => catalog.products.find((p) => p.id === id) || null;
 export const productBySlug = (catalog, slug) => catalog.products.find((p) => p.slug === slug) || null;
 
+/** Une fiche désignée par son identifiant ou par son slug : l'administration
+ *  accepte les deux dans ses adresses. */
+export const productByIdOrSlug = (catalog, key) =>
+  productById(catalog, key) || productBySlug(catalog, key);
+
 export const publishedFamilies = (catalog) => catalog.families.filter(published);
 export const publishedProducts = (catalog) => catalog.products.filter(published);
 
@@ -41,17 +46,27 @@ function searchIndex(catalog, product) {
   ].filter(Boolean).join(' '));
 }
 
+/** Une fiche répond-elle aux termes cherchés ? Partagé par la recherche publique
+ *  et par celle de l'administration, qui ne portent pas sur le même périmètre. */
+export function matchesQuery(catalog, product, q = '') {
+  const terms = normalize(q).split(/\s+/).filter(Boolean);
+  if (!terms.length) return true;
+  const haystack = searchIndex(catalog, product);
+  return terms.every((term) => haystack.includes(term));
+}
+
 /** Recherche et filtres combinés. Aucun rechargement, aucun appel réseau. */
 export function filterProducts(catalog, { q = '', family = '', supplier = '' } = {}) {
-  const terms = normalize(q).split(/\s+/).filter(Boolean);
   return publishedProducts(catalog).filter((product) => {
     if (family && product.familyId !== family) return false;
     if (supplier && product.supplierId !== supplier) return false;
-    if (!terms.length) return true;
-    const haystack = searchIndex(catalog, product);
-    return terms.every((term) => haystack.includes(term));
+    return matchesQuery(catalog, product, q);
   });
 }
+
+/** Recherche de l'administration : toutes les fiches, masquées comprises. */
+export const searchAllProducts = (catalog, q = '') =>
+  catalog.products.filter((product) => matchesQuery(catalog, product, q));
 
 export const hasActiveFilters = ({ q = '', family = '', supplier = '' } = {}) =>
   Boolean(q.trim() || family || supplier);

@@ -1,7 +1,7 @@
 import { state, catalog } from './state.js';
 import { parseRoute } from './lib/route.js';
 
-export { ROUTES, hashFor, hashForFamily, hashForProduct } from './lib/route.js';
+export { ROUTES, isAdminPage, hashFor, hashForFamily, hashForProduct } from './lib/route.js';
 
 /* Applique l'ancre courante à l'état. L'analyse elle-même vit dans lib/route.js. */
 export function readRoute() {

@@ -2,12 +2,15 @@ import './styles/fonts.css';
 import './styles/style.css';
 import './styles/products.css';
 import './styles/home.css';
+import './styles/editorial.css';
+import './styles/admin.css';
 
 import { $, $$ } from './lib/dom.js';
 import { state, draft, catalog, resetDraft, resetSimulation } from './state.js';
 import { SITE } from './data/site.js';
 import { productContext, productMatchesFamilyName, hasActiveFilters } from './data/queries.js';
-import { readRoute, hashFor } from './router.js';
+import { applyProductEdit, productFormValues } from './simulation/catalog-actions.js';
+import { readRoute, hashFor, isAdminPage } from './router.js';
 
 import { siteHeader } from './components/site-header.js';
 import { siteFooter } from './components/site-footer.js';
@@ -23,6 +26,13 @@ import { products, catalogResultsHTML } from './pages/products.js';
 import { family, familyTitle } from './pages/family.js';
 import { product, productTitle } from './pages/product.js';
 import { notFound } from './pages/not-found.js';
+import { about } from './pages/about.js';
+import { faq } from './pages/faq.js';
+import { suppliers } from './pages/suppliers.js';
+import { adminNotFound } from './admin/admin-shell.js';
+import { adminDashboard } from './admin/dashboard.js';
+import { adminCatalogList, adminCatalogResultsHTML } from './admin/catalog-list.js';
+import { adminProductEditor, adminProductTitle } from './admin/product-editor.js';
 
 import { mount as mountHeroBloom } from './effects/hero-bloom.js';
 import { setupReveal } from './effects/reveal.js';
@@ -34,16 +44,29 @@ const headerEl = $('.site-header');
 const footerEl = $('#footer');
 const dialog = $('#credits-dialog');
 
-const PAGES = { home, dropout, quote, products, family, product, notfound: notFound };
-const TITLES = { home: 'Accueil', dropout: 'Dropout', quote: 'Votre besoin', products: 'Produits' };
-// Les pages d'une famille ou d'une fiche restent rattachees a « Produits » dans la navigation.
-const NAV_KEY = { family: 'products', product: 'products' };
+const PAGES = {
+  home, dropout, quote, products, family, product, notfound: notFound, about, faq, suppliers,
+  admin: adminDashboard,
+  'admin-catalog': adminCatalogList,
+  'admin-product': adminProductEditor,
+  'admin-notfound': () => adminNotFound(state.slug),
+};
+const TITLES = {
+  home: 'Accueil', dropout: 'Dropout', quote: 'Votre besoin', products: 'Produits',
+  about: 'Maturat Mesure', faq: 'Questions fréquentes', suppliers: 'Fournisseurs',
+  admin: 'Administration', 'admin-catalog': 'Administration — Catalogue',
+  'admin-notfound': 'Administration — page introuvable',
+};
+// Les pages d'une famille, d'une fiche ou des fournisseurs restent rattachees
+// a « Produits » dans la navigation.
+const NAV_KEY = { family: 'products', product: 'products', suppliers: 'products' };
 
 let stopHeroBloom = () => {};
 
 function pageTitle() {
   if (state.page === 'family') return familyTitle();
   if (state.page === 'product') return productTitle();
+  if (state.page === 'admin-product') return `Administration — ${adminProductTitle()}`;
   if (state.page === 'notfound') return 'Page introuvable';
   return TITLES[state.page];
 }
@@ -62,6 +85,26 @@ function refreshSummary() {
   if (live) live.innerHTML = summary(true);
 }
 
+/* Lors d'un retour arriere sans bfcache, le navigateur reinjecte de lui-meme les
+ * valeurs saisies dans les champs, alors que le brouillon est reparti a zero :
+ * le champ affichait un texte que le recapitulatif ne connaissait plus.
+ * On realigne les controles sur le brouillon, seule source de verite. */
+function syncFormFields() {
+  const fields = $$('form [name]');
+  if (!fields.length) return;
+  fields.forEach((el) => {
+    const value = draft[el.name];
+    if (el.type === 'checkbox') el.checked = Boolean(value);
+    else el.value = value ?? '';
+  });
+  const unknown = $('form [name="unknown"]');
+  if (unknown) {
+    if ($('#pressure')) $('#pressure').disabled = unknown.checked;
+    if ($('#flow')) $('#flow').disabled = unknown.checked;
+  }
+  refreshSummary();
+}
+
 /* La fiche retenue s'affiche dans sa propre zone : on la rafraichit sans
  * reconstruire le formulaire, pour ne pas deplacer le focus du visiteur. */
 function refreshProductSlot() {
@@ -76,6 +119,58 @@ function focusForm() {
   h.tabIndex = -1;
   h.focus({ preventScroll: true });
   h.scrollIntoView({ block: 'nearest', behavior: 'instant' });
+}
+
+/* Meme cause que pour le formulaire de demande : lors d'un rechargement ou d'un
+ * retour arriere, Chromium reinjecte les valeurs saisies dans les champs alors
+ * que le catalogue est reparti de ses donnees d'origine. Le catalogue vivant est
+ * la seule source de verite : on realigne les controles de l'editeur sur lui. */
+function syncAdminFields() {
+  const form = $('form[data-admin-product]');
+  if (!form) return;
+  const values = productFormValues(catalog, form.dataset.adminProduct);
+  if (!values) return;
+  Object.entries(values).forEach(([name, value]) => {
+    const field = form.elements.namedItem(name);
+    if (!field) return;
+    if (field.type === 'checkbox') field.checked = Boolean(value);
+    else field.value = value;
+  });
+}
+
+/* Recherche de l'administration : seule la zone de resultats est reconstruite,
+ * pour ne pas perdre le curseur dans le champ. */
+function refreshAdminCatalog() {
+  const zone = $('#adm-catalog-results');
+  if (!zone) return;
+  const tmp = document.createElement('div');
+  tmp.innerHTML = adminCatalogResultsHTML();
+  zone.replaceWith(tmp.firstElementChild);
+}
+
+/* Enregistrement d'une fiche. Le formulaire ne fait que fournir des valeurs :
+ * la validation et l'ecriture appartiennent a simulation/catalog-actions.js. */
+function saveAdminProduct(form) {
+  const key = form.dataset.adminProduct;
+  const data = new FormData(form);
+  const values = {
+    name: data.get('name'),
+    reference: data.get('reference'),
+    summary: data.get('summary'),
+    familyId: data.get('familyId'),
+    supplierId: data.get('supplierId'),
+    published: data.has('published'),
+  };
+
+  const result = applyProductEdit(catalog, key, values);
+  state.adminFeedback = result.ok
+    ? { key, status: 'saved' }
+    : { key, status: 'error', errors: result.errors, values };
+
+  render();
+  const zone = $('#adm-feedback');
+  zone?.focus({ preventScroll: true });
+  zone?.scrollIntoView({ block: 'nearest', behavior: 'instant' });
 }
 
 /* Recherche et filtres : seule la zone de resultats est reconstruite, pour ne pas
@@ -118,13 +213,23 @@ function render() {
   document.body.dataset.page = state.page;
   document.body.classList.toggle('reduced', state.reduced);
 
-  headerEl.innerHTML = siteHeader();
-  const navKey = NAV_KEY[state.page] || state.page;
-  $$('.site-header [data-page], .site-header [data-route]').forEach((b) =>
-    b.setAttribute('aria-current', (b.dataset.page || b.dataset.route) === navKey ? 'page' : 'false'));
+  // L'administration porte sa propre coque : l'en-tete et le pied du site sont
+  // vides, et non seulement masques, pour rester hors du parcours clavier.
+  const inAdmin = isAdminPage(state.page);
+  document.body.classList.toggle('admin-mode', inAdmin);
+
+  if (inAdmin) {
+    headerEl.innerHTML = '';
+    footerEl.innerHTML = '';
+  } else {
+    headerEl.innerHTML = siteHeader();
+    const navKey = NAV_KEY[state.page] || state.page;
+    $$('.site-header [data-page], .site-header [data-route]').forEach((b) =>
+      b.setAttribute('aria-current', (b.dataset.page || b.dataset.route) === navKey ? 'page' : 'false'));
+    footerEl.innerHTML = siteFooter();
+  }
 
   main.innerHTML = PAGES[state.page]();
-  footerEl.innerHTML = siteFooter();
   document.title = `${SITE.name} — ${pageTitle()}`;
 
   if (dialog.open) $('#credits-content').innerHTML = creditsContent();
@@ -149,6 +254,17 @@ function openCredits() {
 }
 
 document.addEventListener('click', (e) => {
+  // « Aller au contenu » vise un element de la coque, pas une route : sans cette
+  // interception, l'ancre #main serait lue comme une adresse et afficherait
+  // l'etat introuvable. On deplace le focus sans toucher a l'historique.
+  const skip = e.target.closest('a.skip');
+  if (skip) {
+    e.preventDefault();
+    main.focus({ preventScroll: true });
+    main.scrollIntoView({ block: 'start', behavior: 'instant' });
+    return;
+  }
+
   const b = e.target.closest('button');
   if (!b) return;
   if (b.dataset.page) navigate(b.dataset.page);
@@ -194,12 +310,46 @@ document.addEventListener('click', (e) => {
     render();
     focusForm();
   }
+  if (b.hasAttribute('data-admin-search-clear')) {
+    state.adminSearch = '';
+    const input = $('#adm-search');
+    if (input) input.value = '';
+    refreshAdminCatalog();
+    input?.focus();
+    return;
+  }
+  // La remise a zero depuis l'administration demande confirmation, puis reutilise
+  // le bouton « data-reset » commun : le mecanisme de reset n'est pas duplique.
+  if (b.hasAttribute('data-admin-reset')) {
+    const zone = $('#adm-reset-confirm');
+    if (!zone) return;
+    zone.hidden = !zone.hidden;
+    b.setAttribute('aria-expanded', String(!zone.hidden));
+    if (!zone.hidden) zone.querySelector('[data-reset]')?.focus();
+    return;
+  }
+  if (b.hasAttribute('data-admin-reset-cancel')) {
+    const zone = $('#adm-reset-confirm');
+    if (zone) zone.hidden = true;
+    const opener = $('[data-admin-reset]');
+    opener?.setAttribute('aria-expanded', 'false');
+    opener?.focus();
+    return;
+  }
   if (b.hasAttribute('data-reset')) {
-    resetDraft();
-    state.step = 0;
-    state.done = false;
+    // Meme remise a zero que le rechargement et le retour bfcache : brouillon,
+    // fiche retenue, etapes, selections et filtres du catalogue.
+    // La reduction du mouvement est une preference d'accessibilite, pas un etat
+    // de simulation : elle survit au bouton, et la route courante est conservee.
+    const motion = state.reduced;
+    resetSimulation();
+    state.reduced = motion;
+    document.body.style.removeProperty('--selected-halo');
+    readRoute();
     render();
-    focusForm();
+    // L'administration n'a pas de formulaire de demande : on rend la main au contenu.
+    if (isAdminPage(state.page)) main.focus({ preventScroll: true });
+    else focusForm();
   }
 });
 
@@ -207,6 +357,11 @@ document.addEventListener('input', (e) => {
   if (e.target.id === 'catalog-search') {
     state.catalogFilters.q = e.target.value;
     refreshCatalog();
+    return;
+  }
+  if (e.target.id === 'adm-search') {
+    state.adminSearch = e.target.value;
+    refreshAdminCatalog();
     return;
   }
   if (!e.target.closest('form') || !e.target.name) return;
@@ -231,11 +386,31 @@ document.addEventListener('change', (e) => {
 });
 
 document.addEventListener('submit', (e) => {
+  if (e.target.matches('[data-admin-product]')) {
+    e.preventDefault();
+    saveAdminProduct(e.target);
+    return;
+  }
   if (!e.target.matches('.form-card')) return;
   e.preventDefault();
   saveDraft();
-  if (state.step < 2) state.step += 1;
-  else state.done = true;
+  if (state.step < 2) {
+    state.step += 1;
+  } else {
+    state.done = true;
+    // La demande simulee rejoint l'administration : aucun envoi reel.
+    state.requests.push({
+      id: `req-${Date.now()}`,
+      date: new Date().toLocaleString('fr-FR', { dateStyle: 'short', timeStyle: 'short' }),
+      status: 'new',
+      name: draft.name,
+      company: draft.company,
+      email: draft.email,
+      family: draft.family,
+      productId: draft.product,
+      application: draft.application,
+    });
+  }
   render();
   focusForm();
 });
@@ -249,6 +424,8 @@ dialog.addEventListener('click', (e) => {
 
 window.addEventListener('hashchange', () => {
   saveDraft();
+  // Le retour d'enregistrement ne concerne que l'ecran qui vient de l'afficher.
+  state.adminFeedback = null;
   readRoute();
   render();
   window.scrollTo({ top: 0, behavior: 'instant' });
@@ -260,7 +437,11 @@ window.addEventListener('scroll', onScroll, { passive: true });
 // Une restauration bfcache reprend aussi le brouillon en mémoire : repartir à zéro.
 // Un simple changement d'onglet ne déclenche pas cette remise à zéro.
 window.addEventListener('pageshow', (event) => {
-  if (!event.persisted) return;
+  if (!event.persisted) {
+    syncFormFields();
+    syncAdminFields();
+    return;
+  }
   resetSimulation();
   document.body.style.removeProperty('--selected-halo');
   if (dialog.open) dialog.close();

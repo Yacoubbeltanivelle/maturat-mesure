@@ -9,7 +9,7 @@ Innovation type 810 et Fuji Electric S-Flow, avec attribution fabricant (voir AS
 Les coordonnées de la signature client ne sont pas reprises.
 
 Le catalogue local enrichi a été conservé : sept familles et quinze fiches fictives,
-recherche, filtres et contexte produit dans la demande. Build et 12 tests automatisés
+recherche, filtres et contexte produit dans la demande. Build et 17 tests automatisés
 réussis ; les 22 pages famille/fiche, le chargement des images, la recherche et son état
 vide, le formulaire jusqu'à confirmation et le reset bfcache simulé ont été vérifiés
 dans Chromium. Aucun débordement horizontal sur ces pages à 390 px.
@@ -91,12 +91,53 @@ certification, performance garantie, disponibilité, tarif ni document télécha
 Les fiches n'affichent pas de photographie : un repère au trait, propre à chaque famille,
 évite d'attribuer un visuel réel à une référence fictive.
 
+### Corrections après la vérification de Codex
+
+Trois écarts de fonctionnement relevés par Codex ont été reproduits, corrigés et couverts
+par des contrôles automatisés.
+
+1. **« Aller au contenu » au clavier.** L'ancre `#main` de la coque était lue comme une
+   adresse : Tab puis Entrée affichait « Page introuvable ». `main.js` intercepte
+   désormais ce lien, déplace le focus vers le contenu et ne touche ni à l'ancre ni à
+   l'historique. Un test fixe la cause : une ancre interne n'est pas une route.
+2. **« Recommencer » remet toute la simulation à zéro.** Le bouton n'effaçait que le
+   formulaire ; la recherche et les filtres du catalogue survivaient. Il applique
+   maintenant la même remise à zéro que le rechargement et le retour bfcache — brouillon,
+   fiche retenue, étapes, sélections, halo et filtres — en conservant la route courante.
+   La réduction du mouvement, qui est une préférence d'accessibilité et non un état de
+   simulation, survit volontairement au bouton.
+3. **Retour navigateur : champ et récapitulatif réalignés.** Lors d'un retour arrière qui
+   recharge le document, Chromium réinjecte les valeurs saisies dans les champs alors que
+   le brouillon est reparti à zéro : le champ affichait un texte que le récapitulatif ne
+   connaissait plus. `pageshow` sans `persisted` réaligne les contrôles sur le brouillon,
+   seule source de vérité. Le comportement « aucun reset au changement d'onglet » est
+   inchangé et toujours vérifié.
+
+### Décision à prendre : licence des visuels de famille
+
+Codex a relevé que les crédits des visuels fabricants indiquent « droits réservés », alors
+qu'AGENTS.md affirme que les photographies sont sous licence Creative Commons, et que
+l'attribution seule ne vaut pas autorisation de réutilisation. **Cette décision n'a pas
+été tranchée ici** : elle est éditoriale et le README documente le choix inverse
+(« les visuels Houdec/Fuji restent propres aux pages du catalogue »).
+
+État constaté : l'accueil affiche quatre photographies Creative Commons ; le catalogue et
+les pages `#/families/niveau` et `#/families/debit` affichent les visuels fabricants
+Houdec type 810 et Fuji Electric S-Flow, crédités « droits réservés ». Les autres familles
+(pression, température) sont sous Creative Commons partout.
+
+Si l'alignement sur Creative Commons est souhaité pour tout le site, une seule ligne de
+`src/data/catalog.js` est concernée : la famille reprend `f.img` de `families.js` ; il
+suffit d'y substituer la sélection CC déjà utilisée par l'accueil (`HOME_FAMILIES`).
+Un test vérifie en attendant que chaque visuel affiché porte auteur, crédit, licence et
+source, quelle que soit la licence retenue.
+
 ### Vérifications du 12 septembre 2026
 
-`npm run build` réussi. `npm test` : 12 tests Node sur le routage, les relations entre
-données, la recherche et la remise à zéro — tous au vert.
+`npm run build` réussi. `npm test` : 17 tests Node sur le routage, les relations entre
+données, la recherche, l'étendue de la remise à zéro et l'attribution des visuels — tous au vert.
 
-Dans Chromium piloté, sur le résultat compilé : 118 contrôles au vert, aucune erreur
+Dans Chromium piloté, sur le résultat compilé : 129 contrôles au vert, aucune erreur
 JavaScript, aucune requête en échec, aucune image cassée. Couvrent notamment l'accueil et
 Dropout, l'accès au catalogue depuis la navigation, la recherche et les filtres seuls puis
 combinés, l'effacement et l'état sans résultat, l'ouverture des sept familles et des quinze
@@ -112,17 +153,101 @@ Limites de ces vérifications :
   étapes remis à zéro, route conservée. Une **restauration réelle du bfcache n'a pas pu
   être reproduite** : le navigateur piloté recharge le document au lieu de le restaurer,
   même avec le bfcache forcé. Ce point reste à vérifier à la main.
-- Lors d'un retour arrière qui recharge le document, Chromium réinjecte lui-même le texte
-  précédemment saisi dans le champ « application ». L'état en mémoire est bien remis à
-  zéro — le contexte produit disparaît — mais le texte reste affiché. Comportement propre
-  au navigateur, antérieur à ce lot ; à trancher si la remise à zéro doit aussi être
-  visible dans ce cas.
+- Le retour arrière sans bfcache est désormais réaligné sur le brouillon, y compris le
+  champ « application ». La correction repose sur l'ordre observé dans Chromium — la
+  restauration des champs précède `pageshow` ; à reconfirmer si un autre navigateur est
+  ciblé un jour.
+- Sur les quatre photographies de famille, trois portent un crédit au ras du visuel ;
+  celle des sondes de température n'est créditée que dans la fiche « Crédits visuels ».
+  L'attribution reste présente dans la maquette ; l'affichage au ras du visuel dépend de
+  la liste de `imageCredit()` et reste un choix éditorial.
 - Le déploiement GitHub Actions reste à vérifier après publication.
 
-## Ensuite, par lots validés
+## Lot « Administration V0 — Produit du moment »
 
-1. Bloc « produit du moment » sur l'accueil, modifiable depuis l'administration.
-2. Administration simulée, qui écrira dans le catalogue de `src/state.js`.
+Première tranche verticale complète : Administration → State → Accueil.
+
+### Ce qui a été réalisé
+
+- Bloc **Produit du moment** sur l'accueil (`src/components/featured-product.js`),
+  entre les solutions de famille et la section Dropout. Toutes les données viennent
+  de `catalog` et `state.featuredProductId` : rien n'est en dur dans le composant.
+- Route **`#/admin`** : page d'administration simulée (`src/pages/admin.js`).
+  En-tête avec bannière « Maquette de démonstration », liste déroulante des produits
+  publiés, aperçu mis à jour à la sélection, bouton d'application, confirmation inline,
+  liens retour vers l'accueil et le catalogue.
+- Lien discret **« Admin ↗ »** dans `.footer-meta` du pied de page.
+- **`state.featuredProductId`** ajouté dans `initialState()` (valeur : `'prd-001'`).
+  Couvert par `resetSimulation()` : le rechargement, le bfcache et le bouton
+  « Recommencer » restaurent tous `prd-001`.
+- **`'admin'`** ajouté dans `ROUTES` (`src/lib/route.js`).
+- Styles dans `src/styles/home.css` (featured-product) et `src/styles/admin.css` (admin).
+
+### Flux Admin → State → Accueil
+
+Sélection d'un produit dans `<select id="admin-product-select">` → aperçu mis à jour
+sans re-render → clic « Appliquer » → `state.featuredProductId = valeur` → confirmation
+inline → retour `#/home` → `render()` → `featuredProduct()` lit le nouvel identifiant.
+La modification est active dans l'onglet ; elle disparaît au rechargement.
+
+### Vérifications — lot Administration V0
+
+`npm test` : 23 tests, 23 réussis. 6 nouveaux tests couvrent : existence et validité
+du produit initial, changement de `featuredProductId`, restauration par `resetSimulation()`,
+exclusion des produits non publiés, et fonctionnement des requêtes après remise à zéro.
+
+`npm run build` réussi : 48 modules, 65,5 Ko JS, 101 Ko CSS.
+
+Limites de ces vérifications :
+
+- Les parcours navigateur (`#/home`, `#/admin`, changement de produit, retour accueil,
+  rechargement, mobile 390 px, navigation clavier) n'ont **pas été vérifiés dans Chromium**
+  lors de ce lot — à effectuer avant le push.
+- Le lien « Admin ↗ » dans `.footer-meta` est à vérifier sur fond clair et sombre.
+
+## Lot « Administration V1+V2 — Gestion des fiches »
+
+Deuxième tranche verticale : gestion des fiches depuis `#/admin`.
+
+### Ce qui a été réalisé
+
+- **Section « Gestion des fiches »** ajoutée à la page `#/admin`
+  (`src/pages/admin.js`). Elle liste toutes les fiches — publiées et dépubliées.
+- **V1 — Bascule publiée/dépubliée** : bouton « Dépublier » / « Republier » par
+  ligne. Un produit dépublié disparaît de `publishedProducts()` → plus visible dans
+  le catalogue, plus proposé dans la liste « Mise en avant ». Si c'était le produit du
+  moment, le bloc « Produit du moment » sur l'accueil disparaît silencieusement
+  (`featuredProduct()` retourne `''`). Avertissement inline dans la zone de confirmation.
+- **V2 — Édition inline** : bouton « Modifier » par ligne ouvre un mini-formulaire
+  (nom + résumé). « Enregistrer » écrit dans `catalog.products[i]` en mémoire et
+  rafraîchit la liste par `replaceWith` sans re-rendre la page. « Annuler » ferme
+  le formulaire sans modifier le catalogue.
+- Rafraîchissement ciblé `refreshAdminProductList()` dans `main.js` : remplace
+  `#admin-product-list` via `replaceWith`, préserve le focus ailleurs dans la page.
+- Styles dans `src/styles/admin.css` : `.admin-product-list`, `.admin-product-row`,
+  `.admin-product-row--unpublished`, `.admin-product-status`, `.admin-product-actions`,
+  `.admin-edit-form`, `.admin-edit-input`, `.admin-edit-textarea`, `.button.secondary`,
+  `.button.small`.
+
+### Vérifications — lot Administration V1+V2
+
+`npm test` : 27 tests, 27 réussis. 4 nouveaux tests couvrent : dépublication
+(retire de publishedProducts), republication (réintègre), édition nom+résumé (reflète
+dans le catalogue), remise à zéro (restaure nom, résumé et statut originaux).
+
+`npm run build` réussi : 48 modules, 68,9 Ko JS, 102,9 Ko CSS.
+
+Limites de ces vérifications :
+
+- Les parcours navigateur (`#/admin`, toggle, édition, retour accueil, vérification
+  du bloc « Produit du moment » masqué, mobile 390 px, navigation clavier) n'ont
+  **pas été vérifiés dans Chromium** lors de ce lot — à effectuer avant le push.
+
+## Roadmap — lots réalisés
+
+1. ~~Bloc « produit du moment » sur l'accueil, modifiable depuis l'administration.~~ ✓ fait
+2. ~~Administration simulée, qui écrira dans le catalogue de `src/state.js`.~~ ✓ fait
+3. ~~Administration V1+V2 : dépublication/republication et édition inline des fiches.~~ ✓ fait
 
 ## Points encore ouverts
 

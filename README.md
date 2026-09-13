@@ -35,6 +35,8 @@ URL : https://yacoubbeltanivelle.github.io/maturat-mesure/
 | `src/components/` | Sections : en-tête, familles, Dropout, formulaire, filtres, fiches, fil d'Ariane. |
 | `src/pages/` | Assemblage des pages : accueil, Dropout, votre besoin, catalogue, famille, fiche, introuvable. |
 | `src/effects/` | Mouvement du fond, apparition au scroll, curseur, progression Dropout. |
+| `src/admin/` | Administration simulée : coque, tableau de bord, liste des fiches, éditeur. |
+| `src/simulation/` | Écritures de l'administration sur le catalogue vivant. Testables hors navigateur. |
 | `src/state.js` | État de la démonstration et catalogue vivant, uniquement en mémoire. |
 | `src/router.js` | Application de l'adresse à l'état, anciennes adresses `#E/...` comprises. |
 | `tests/` | Tests Node sur le routage, les relations entre données et la remise à zéro. |
@@ -57,6 +59,9 @@ Ne pas remplacer la direction artistique.
 | `#/products` | Catalogue : sept familles, recherche et fiches |
 | `#/families/<slug>` | Une famille : introduction, usages, fiches rattachées |
 | `#/products/<slug>` | Une fiche : identité, usages, caractéristiques de démonstration |
+| `#/admin` | Administration simulée : tableau de bord du catalogue |
+| `#/admin/catalog` | Administration : liste de gestion des fiches, publiées et masquées |
+| `#/admin/catalog/<id ou slug>` | Administration : édition d'une fiche existante |
 
 Les anciennes adresses `#E/home`, `#E/dropout` et `#E/quote` restent valides.
 Une famille, une fiche ou une adresse inconnue affiche un état introuvable
@@ -88,8 +93,23 @@ filtre par famille, un filtre par fournisseur, un compteur, un état sans résul
 effacement des filtres — sans rechargement, sans appel réseau et sans dépendance ajoutée.
 Depuis une fiche, la demande s'ouvre en conservant le produit et sa famille ; le produit
 apparaît dans le contexte et dans le récapitulatif final. Une demande générale sans produit
-reste possible. Aucun envoi de mail réel, aucun back-office. L'administration simulée et le
-bloc « produit du moment » restent à produire. Les coordonnées affichées sont fictives.
+reste possible. Aucun envoi de mail réel, aucun back-office. Les coordonnées affichées sont fictives.
+
+L'accueil affiche un bloc « Produit du moment » entre les solutions de famille et la section
+Dropout. Le produit affiché est piloté par `state.featuredProductId` (valeur initiale : `prd-001`) ;
+aucune donnée produit n'est dupliquée dans le composant.
+
+La route `#/admin` donne accès à une administration simulée, avec sa propre coque :
+tableau de bord des repères du catalogue, liste de gestion des fiches (`#/admin/catalog`)
+et édition d'une fiche existante (`#/admin/catalog/<id ou slug>` : nom, référence, résumé,
+famille, fournisseur, publication). L'identifiant et le slug d'une fiche ne sont pas
+modifiables, afin que les adresses déjà ouvertes restent valides.
+
+Une fiche masquée disparaît des listes publiques et son adresse directe mène à l'état
+introuvable ; elle reste listée et modifiable dans l'administration. La modification
+s'applique immédiatement dans l'onglet et est effacée au rechargement, au retour bfcache,
+par « Recommencer » ou par « Réinitialiser la démo ». Aucune donnée n'est réellement
+enregistrée — le bandeau de l'administration le dit explicitement.
 Visuels provisoires, crédits dans `ASSETS.md` et dans la fiche « Crédits visuels »
 du pied de page. `noindex` est une consigne d'indexation, pas une protection d'accès.
 
@@ -102,3 +122,18 @@ Le fond bleu animé est conservé, ainsi que la section Dropout après l'instrum
 Les familles niveau et débit utilisent désormais les visuels fabricant Houdec type 810
 et Fuji Electric S-Flow ; les anciens visuels concurrents ont été retirés de `public/`.
 Les sources et attributions sont documentées dans `ASSETS.md` et dans les crédits visuels.
+
+### Correction de composition — 12 septembre 2026
+
+L’accueil retrouve le layout de référence : visuels au centre, titre en bas à gauche,
+introduction et lien en bas à droite. Les quatre photographies sous licence libre
+remplacent le produit phare dans la Hero et illustrent les cartes de l’accueil.
+Le fond bleu animé et l’ordre des sections sont conservés. Les visuels Houdec/Fuji
+restent propres aux pages du catalogue ; voir ASSETS.md pour les nouvelles sources.
+
+### Visuels de l’accueil — 13 septembre 2026
+
+Les quatre photos sont désormais remplacées par des détourages officiels Houdec
+(type 810) et Fuji Electric (PT100, FKC, M1000), sans fond. Le layout est conservé.
+Cette sélection remplace celle sous licence libre du 12 septembre : les droits
+restent aux fabricants. Voir ASSETS.md pour les sources et le périmètre local.

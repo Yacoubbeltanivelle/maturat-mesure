@@ -12,6 +12,11 @@ export const DRAFT_DEFAULTS = Object.freeze({
 
 export const draft = { ...DRAFT_DEFAULTS };
 
+/* Le garde permet d'importer ce module hors navigateur, pour les tests de la
+ * remise a zero. Dans le navigateur, la preference est lue comme avant. */
+const prefersReducedMotion = () =>
+  typeof matchMedia === 'function' && matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 const initialState = () => ({
   page: 'home',
   slug: '',
@@ -22,7 +27,13 @@ const initialState = () => ({
   cut: false,
   scrollSync: true,
   catalogFilters: { q: '', family: '', supplier: '' },
-  reduced: matchMedia('(prefers-reduced-motion: reduce)').matches,
+  reduced: prefersReducedMotion(),
+  featuredProductId: 'prd-001',
+  requests: [],
+  /* Administration simulee : recherche de la liste et retour du dernier
+   * enregistrement. Les deux repartent a zero comme le reste de la simulation. */
+  adminSearch: '',
+  adminFeedback: null,
 });
 
 export const state = initialState();

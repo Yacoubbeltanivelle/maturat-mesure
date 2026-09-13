@@ -5,6 +5,10 @@ import { FAMILIES } from './families.js';
  * Les quatre familles de mesure reprennent families.js : un seul endroit décrit
  * leur code, leur photo et leur halo. Les trois autres familles sont décrites ici.
  *
+ * Les visuels des quatre grandeurs sont ceux de families.js, choisis hors de ce lot.
+ * Leur licence est une décision éditoriale ouverte (voir START_HERE.md) ; un test
+ * vérifie seulement que chaque visuel affiché porte bien une attribution.
+ *
  * Les fournisseurs et les références de ce fichier sont INVENTÉS pour la maquette.
  * Ce n'est pas le catalogue réel de Maturat : aucune certification, performance
  * garantie, disponibilité ni tarif n'y est affirmé. Dropout garde sa page dédiée
@@ -114,7 +118,7 @@ const EXTRA_FAMILIES = [
 ];
 
 /* Familles : identifiant stable `fam-<code>`, slug d'adresse, et rattachement
- * aux photos existantes pour les quatre grandeurs de mesure. */
+ * aux photographies pour les quatre grandeurs de mesure. */
 const FAMILY_LIST = [
   ...FAMILIES.map((f) => ({
     id: `fam-${f.code}`,

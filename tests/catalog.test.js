@@ -93,6 +93,15 @@ test('les adresses connues et les anciennes adresses du laboratoire restent vali
   assert.equal(parseRoute('#A/home', catalog).page, 'home');
 });
 
+test('les pages editoriales ont leur propre adresse', () => {
+  for (const page of ['about', 'faq', 'suppliers']) {
+    assert.deepEqual(parseRoute(`#/${page}`, catalog), { page, slug: '' });
+  }
+  // Ajouter ces routes ne doit pas masquer le catalogue ni les fiches.
+  assert.equal(parseRoute('#/products', catalog).page, 'products');
+  assert.equal(parseRoute(`#/products/${catalog.products[0].slug}`, catalog).page, 'product');
+});
+
 test('familles et fiches ont leur propre adresse', () => {
   for (const family of catalog.families) {
     assert.deepEqual(parseRoute(`#/families/${family.slug}`, catalog), { page: 'family', slug: family.slug });
@@ -155,5 +164,23 @@ test('aucune coordonnee reelle ni promesse commerciale dans les fiches', () => {
   assert.doesNotMatch(text, /maturat\.fr|@maturat|\bprix\b|€|garanti/i);
   for (const supplier of catalog.suppliers) {
     assert.match(supplier.note, /fictif/i);
+  }
+});
+
+/* Regle d'AGENTS.md qui n'est pas en discussion : tout visuel affiche porte une
+ * attribution. Le choix de la licence des visuels de famille reste une decision
+ * editoriale ouverte (visuels fabricants ou Creative Commons) : ce test ne la tranche
+ * pas, il garantit seulement qu'aucun visuel ne s'affiche sans auteur ni licence. */
+test('chaque visuel de famille affiche porte une attribution', async () => {
+  const { IMAGE_ASSETS } = await import('../src/data/images.js');
+  const illustrated = catalog.families.filter((f) => f.img != null);
+  assert.ok(illustrated.length >= 4, 'les quatre grandeurs doivent rester illustrees');
+  for (const family of illustrated) {
+    const asset = IMAGE_ASSETS[family.img];
+    assert.ok(asset, `visuel inconnu pour ${family.slug} : ${family.img}`);
+    assert.ok(asset.author, `auteur manquant pour ${family.slug}`);
+    assert.ok(asset.credit, `credit manquant pour ${family.slug}`);
+    assert.ok(asset.license, `licence manquante pour ${family.slug}`);
+    assert.ok(asset.source, `source manquante pour ${family.slug}`);
   }
 });
