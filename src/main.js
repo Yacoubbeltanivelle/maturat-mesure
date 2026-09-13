@@ -5,6 +5,7 @@ import './styles/home.css';
 import './styles/home-tableaux.css';
 import './styles/editorial.css';
 import './styles/admin.css';
+import './styles/footer.css';
 
 import { $, $$ } from './lib/dom.js';
 import { state, draft, catalog, resetDraft, resetSimulation } from './state.js';
@@ -15,6 +16,8 @@ import { readRoute, hashFor, isAdminPage } from './router.js';
 
 import { siteHeader } from './components/site-header.js';
 import { siteFooter } from './components/site-footer.js';
+import { mountFooterMotion } from './components/footer-motion.js';
+let stopFooterMotion = () => {};
 import { creditsContent } from './components/credits-dialog.js';
 import { updateFamily } from './components/family-controls.js';
 import { updateDrop } from './components/dropout-controls.js';
@@ -208,6 +211,7 @@ function startRequestFor(productId) {
 }
 
 function render() {
+  stopFooterMotion();
   stopHeroBloom();
   // La direction artistique « Atmospheric Precision » pilote toute la feuille de style.
   document.body.dataset.pack = 'E';
@@ -236,6 +240,7 @@ function render() {
   if (dialog.open) $('#credits-content').innerHTML = creditsContent();
   setupReveal();
   stopHeroBloom = mountHeroBloom($('.hero-focus-atmosphere'), state.reduced);
+  stopFooterMotion = mountFooterMotion(footerEl, state.reduced);
 }
 
 function navigate(page) {
