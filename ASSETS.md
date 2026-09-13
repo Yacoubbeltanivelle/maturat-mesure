@@ -148,3 +148,15 @@ Droits réservés aux fabricants. Usage accepté pour la maquette locale par Yac
 aucune licence libre ni permission de publication n’est affirmée. Crédits fabricant
 visibles sous les instruments et sources présentes dans la fiche des crédits.
 Les paragraphes précédents décrivent les sélections historiques.
+
+## Composition photographique de la Home — 13 septembre 2026
+
+Photographies illustratives, sans lien revendiqué avec Maturat ou ses clients.
+Licence Pexels vérifiée : https://www.pexels.com/license/ (usage gratuit, adaptation autorisée, aucune approbation implicite).
+Crédits visibles près des photos et dans la fiche Crédits visuels. Aucun logo fabricant téléchargé.
+Optimisation WebP, sans retouche de pixels hors redimensionnement/compression ; cadrage CSS.
+
+- `assets/photos/expertise-pipes.webp` — Peter Jochim. [Source](https://www.pexels.com/photo/industrial-complex-with-stainless-steel-pipes-36824351/), licence Pexels. 1400 × 2100, 168148 octets.
+- `assets/photos/sector-refinery.webp` — Tom Fisk. [Source](https://www.pexels.com/photo/illuminated-oil-rafinery-10386893/), licence Pexels. 1400 × 1329, 366762 octets.
+- `assets/photos/sector-laboratory.webp` — Mikhail Nilov. [Source](https://www.pexels.com/photo/laboratory-glassware-in-close-up-shot-8851176/), licence Pexels. 800 × 1199, 18546 octets.
+- `assets/photos/sector-marine.webp` — paul. [Source](https://www.pexels.com/photo/ships-during-construction-on-shipyard-5833637/), licence Pexels. 1400 × 1050, 116048 octets.

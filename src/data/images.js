@@ -1,6 +1,51 @@
 /* Photographies d'illustration. Les licences CC imposent de citer les auteurs :
  * les credits sont affiches dans la fiche « Credits visuels » du pied de page. */
 export const IMAGE_ASSETS = {
+  "601": {
+  "src": "assets/photos/expertise-pipes.webp",
+  "title": "Réseau de tuyauteries industrielles",
+  "author": "Peter Jochim",
+  "credit": "Peter Jochim / Pexels",
+  "source": "https://www.pexels.com/photo/industrial-complex-with-stainless-steel-pipes-36824351/",
+  "license": "Licence Pexels",
+  "licenseUrl": "https://www.pexels.com/license/",
+  "width": 1400,
+  "height": 2100
+},
+  "602": {
+  "src": "assets/photos/sector-refinery.webp",
+  "title": "Raffinerie éclairée à la tombée de la nuit",
+  "author": "Tom Fisk",
+  "credit": "Tom Fisk / Pexels",
+  "source": "https://www.pexels.com/photo/illuminated-oil-rafinery-10386893/",
+  "license": "Licence Pexels",
+  "licenseUrl": "https://www.pexels.com/license/",
+  "width": 1400,
+  "height": 1329
+},
+  "603": {
+  "src": "assets/photos/sector-laboratory.webp",
+  "title": "Verrerie de laboratoire",
+  "author": "Mikhail Nilov",
+  "credit": "Mikhail Nilov / Pexels",
+  "source": "https://www.pexels.com/photo/laboratory-glassware-in-close-up-shot-8851176/",
+  "license": "Licence Pexels",
+  "licenseUrl": "https://www.pexels.com/license/",
+  "width": 800,
+  "height": 1199
+},
+  "604": {
+  "src": "assets/photos/sector-marine.webp",
+  "title": "Navires et grues dans un chantier naval",
+  "author": "paul",
+  "credit": "paul / Pexels",
+  "source": "https://www.pexels.com/photo/ships-during-construction-on-shipyard-5833637/",
+  "license": "Licence Pexels",
+  "licenseUrl": "https://www.pexels.com/license/",
+  "width": 1400,
+  "height": 1050
+},
+
   "501": {
     "src": "assets/photos/home-level-houdec.png",
     "title": "Indicateur magnétique de niveau type 810 — Houdec Innovation",
