@@ -222,3 +222,175 @@
   .family-row-03 .family-row-object, .family-row-03 .family-row-image { height: 142px; }
   .family-row-04 .family-row-image { height: 132px; }
 }
+
+/* Expertise / Méthode : bande de transition entre les familles et le produit mis
+ * en avant. Trois colonnes tant que la place le permet, empilées ensuite.
+ * L'en-tête est une simple rangée : il ne partage plus de grille avec les
+ * étapes, ce qui supprime le décalage constaté en largeur intermédiaire.
+ * Aucune couleur en dur : tout vient des jetons du pack courant. */
+.expertise-method { background: var(--surface); }
+.expertise-header {
+  display: flex; flex-wrap: wrap; align-items: flex-end; justify-content: space-between;
+  gap: 16px 40px; margin-bottom: 34px;
+}
+.expertise-method h2 { font-size: clamp(27px, 2.9vw, 40px); line-height: 1.13; margin-top: 14px; }
+.expertise-steps {
+  display: grid; grid-template-columns: repeat(3, 1fr); gap: 30px;
+  list-style: none; margin: 0; padding: 0;
+}
+.expertise-step { border-top: 1px solid var(--line); padding-top: 17px; min-width: 0; }
+.expertise-index { margin-bottom: 11px; }
+.expertise-index span { color: var(--accent); }
+.expertise-step h3 { font-size: clamp(18px, 1.45vw, 21px); line-height: 1.25; letter-spacing: -.02em; margin-bottom: 9px; }
+.expertise-text { font-size: 14px; line-height: 1.7; }
+.expertise-criteria { display: flex; flex-wrap: wrap; gap: 6px; list-style: none; margin: 13px 0 0; padding: 0; }
+.expertise-criteria li { font: 12px var(--mono); padding: 5px 8px; border: 1px solid var(--line); border-radius: 4px; }
+
+@media (max-width: 1024px) { .expertise-steps { gap: 22px; } }
+@media (max-width: 760px) {
+  /* Empilée, la bande reste une transition : on resserre les espaces, jamais le
+   * corps de texte ni les intitulés, qui doivent rester lisibles au doigt. */
+  .expertise-method { padding-block: 44px; }
+  .expertise-header { margin-bottom: 22px; }
+  .expertise-steps { grid-template-columns: 1fr; gap: 0; }
+  .expertise-step { padding: 14px 0; }
+  .expertise-step:last-child { border-bottom: 1px solid var(--line); }
+  .expertise-criteria { margin-top: 11px; }
+}
+
+/* Composition Home — photographie, objet et environnements industriels. */
+body > a.skip { top: 12px; left: 12px; transform: translateY(calc(-100% - 24px)); opacity: 0; pointer-events: none; border-radius: 3px; box-shadow: 0 2px 12px #182f4020; }
+body > a.skip:focus { transform: none; opacity: 1; pointer-events: auto; }
+.expertise-method .expertise-header { grid-template-columns: 42fr 58fr; gap: 7%; align-items: center; margin-bottom: 48px; }
+.expertise-method .expertise-introduction { grid-column: auto; padding-block: 24px; }
+.expertise-introduction p { margin-top: 28px; max-width: 350px; font-size: 17px; line-height: 1.8; }
+.expertise-photo { position: relative; margin: 0; min-width: 0; }
+.expertise-photo img { width: 100%; height: 400px; object-fit: cover; object-position: 50% 38%; border-radius: 6px; }
+.expertise-photo figcaption, .sector-photo figcaption { margin-top: 9px; font-size: 10px; color: #526574; line-height: 1.5; }
+.expertise-method .expertise-diagram { width: 108px; height: 48px; stroke-width: 1.8; opacity: .9; flex-shrink: 0; }
+.expertise-method .expertise-step { padding-block: 25px; }
+.featured-section > .eyebrow { margin-bottom: 30px; font-size: 10px; }
+.featured-section .featured-wrap { grid-template-columns: 53fr 47fr; gap: 7%; align-items: center; }
+.featured-stage { margin: 0; position: relative; min-width: 0; background: radial-gradient(ellipse at 50% 50%, #dcebf5, #f5f9fb 65%); border-radius: 6px; padding: 22px; }
+.featured-reference { display: block; font-size: 10px; color: #506575; }
+.featured-instrument { height: 345px; display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.featured-instrument img { height: 320px; width: 85%; object-fit: contain; }
+.featured-stage-01 .featured-instrument img { width: auto; max-width: none; flex-shrink: 0; translate: -3% 0; }
+.featured-instrument .featured-mark { width: 160px; height: 160px; }
+.featured-stage figcaption { text-align: center; color: #526574; font-size: 10px; line-height: 1.6; }
+[data-pack=E] .featured-section h2 { font-size: clamp(28px,3vw,43px); line-height: 1.1; }
+.featured-section .featured-summary { margin-bottom: 22px; }
+.featured-specs { margin: 0 0 16px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; border-top: 1px solid var(--line); padding-top: 18px; }
+.featured-specs dt { font: 10px/1.5 var(--mono); text-transform: uppercase; color: #526574; margin-bottom: 7px; }
+.featured-specs dd { margin: 0; font-size: 14px; }
+.featured-demo { font-size: 10px; margin-bottom: 20px; }
+.featured-section .featured-footer { gap: 14px; }
+.featured-section .featured-supplier { font-size: 10px; }
+/* La rupture sombre est propre au bloc Dropout de la Home. */
+[data-page=home][data-pack=E] .drop-feature { background: #182731; color: #f6f9fb; }
+[data-page=home][data-pack=E] .drop-feature .feature-wash { background: radial-gradient(ellipse at 80% 50%, #315873, transparent 65%); opacity: .6; }
+[data-page=home][data-pack=E] .drop-feature .feature-copy p, [data-page=home][data-pack=E] .drop-feature .feature-benefits, [data-page=home][data-pack=E] .drop-feature .feature-object > .mono { color: #cfdee8; }
+[data-page=home][data-pack=E] .drop-feature .primary { color: #182731; background: #edf5fa; }
+.home-sectors { background: #fff; }
+.sectors-header { display: grid; grid-template-columns: 1.5fr 1fr; gap: 8%; align-items: end; margin-bottom: 44px; }
+.sectors-header .mono, .sectors-index > .mono, .sectors-note > .mono, .home-ecosystem > .mono { font-size: 10px; letter-spacing: .08em; color: #506575; }
+[data-pack=E] .home-sectors h2 { font-size: clamp(28px,3vw,43px); line-height: 1.13; margin-top: 20px; }
+.sectors-header p { font-size: 15px; line-height: 1.8; padding-bottom: 5px; }
+.sectors-composition { display: grid; grid-template-columns: repeat(12,minmax(0,1fr)); gap: 28px; align-items: start; }
+.sector-photo { margin: 0; min-width: 0; }
+.sector-photo-frame { position: relative; border-radius: 5px; overflow: hidden; background: #1d3548; }
+.sector-photo-frame::after { content: ''; position: absolute; inset: 45% 0 0; background: linear-gradient(transparent, #0e2029bb); pointer-events: none; }
+.sector-photo img { width: 100%; height: 100%; object-fit: cover; }
+.sector-photo-major { grid-column: 1 / span 8; }
+.sector-photo-major .sector-photo-frame { height: 440px; }
+.sector-photo-major img { object-position: 50% 52%; }
+.sector-photo-label { position: absolute; z-index: 1; bottom: 28px; left: 30px; right: 24px; color: white; display: grid; gap: 10px; }
+.sector-photo-label .mono { font-size: 9px; }
+.sector-photo-label strong { font: 500 clamp(24px,2.8vw,38px)/1.1 var(--display); letter-spacing: -.03em; }
+.sectors-index { grid-column: 9 / -1; padding: 5px 0 0 18px; }
+.sectors-index ul { padding: 0; margin: 20px 0; list-style: none; }
+.sectors-index li { display: flex; align-items: center; gap: 20px; border-bottom: 1px solid var(--line); padding: 10px 0; font-size: 16px; }
+.sectors-index li .mono { font-size: 9px; color: #506575; }
+.sectors-index p { font-size: 10px; line-height: 1.7; }
+.sector-photo-marine { grid-column: 2 / span 4; margin-top: 28px; }
+.sector-photo-marine .sector-photo-frame { height: 240px; }
+.sector-photo-lab { grid-column: 6 / span 3; }
+.sector-photo-lab .sector-photo-frame { height: 310px; }
+.sector-photo-lab .sector-photo-label { left: 20px; bottom: 24px; }
+.sectors-note { grid-column: 9 / -1; padding: 45px 0 0 18px; }
+.sectors-note p { font: 25px/1.3 var(--display); color: var(--ink); margin: 22px 0; letter-spacing: -.025em; }
+.sectors-note .text-button { font-size: 12px; gap: 14px; }
+.home-ecosystem { margin-top: 72px; padding-top: 32px; border-top: 1px solid var(--line); display: grid; grid-template-columns: 1fr 1.4fr 1fr; gap: 30px; align-items: center; }
+.home-ecosystem p { font: 25px/1.3 var(--display); letter-spacing: -.02em; color: var(--ink); }
+.home-ecosystem .text-button { font-size: 12px; justify-self: end; }
+@media (max-width: 1024px) {
+  .expertise-method .expertise-header { gap: 6%; }
+  .expertise-photo img { height: 330px; }
+  .featured-section .featured-wrap { gap: 5%; }
+  .featured-instrument { height: 290px; }
+  .featured-instrument img { height: 270px; }
+  .sectors-composition { gap: 22px; }
+  .sector-photo-major { grid-column: 1 / span 7; }
+  .sectors-index { grid-column: 8 / -1; padding-left: 0; }
+  .sector-photo-major .sector-photo-frame { height: 460px; }
+  .sector-photo-marine { grid-column: 1 / span 5; }
+  .sector-photo-lab { grid-column: 6 / span 3; }
+  .sectors-note { padding-left: 0; }
+  .sectors-note p { font-size: 22px; }
+  .home-ecosystem { grid-template-columns: 1fr 1fr; }
+  .home-ecosystem > .mono { grid-column: 1 / -1; }
+}
+@media (max-width: 650px) {
+  .expertise-method .expertise-header { grid-template-columns: 1fr; gap: 24px; }
+  .expertise-method .expertise-introduction { padding: 0; }
+  .expertise-introduction p { margin-top: 20px; font-size: 15px; }
+  .expertise-photo img { height: 250px; }
+  .expertise-method .expertise-diagram { width: 100px; height: 40px; }
+  .featured-section .featured-wrap { grid-template-columns: 1fr; gap: 28px; }
+  .featured-stage { padding: 18px; }
+  .featured-instrument { height: 230px; }
+  .featured-instrument img { height: 218px; }
+  .featured-specs { gap: 16px; }
+  .sectors-header { grid-template-columns: 1fr; gap: 22px; margin-bottom: 30px; }
+  .sectors-composition { grid-template-columns: repeat(2,minmax(0,1fr)); gap: 24px 16px; }
+  .sector-photo-major, .sectors-index, .sectors-note { grid-column: 1 / -1; }
+  .sector-photo-major .sector-photo-frame { height: 290px; }
+  .sector-photo-label { left: 20px; bottom: 22px; }
+  .sectors-index { padding: 0; }
+  .sectors-index ul { display: grid; grid-template-columns: 1fr 1fr; gap: 0 16px; margin: 14px 0; }
+  .sectors-index li { font-size: 13px; gap: 8px; }
+  .sector-photo-marine { grid-column: 1; margin-top: 24px; }
+  .sector-photo-lab { grid-column: 2; }
+  .sector-photo-marine .sector-photo-frame, .sector-photo-lab .sector-photo-frame { height: 220px; }
+  .sector-photo-marine .sector-photo-label, .sector-photo-lab .sector-photo-label { left: 12px; right: 8px; bottom: 18px; }
+  .sector-photo-marine .sector-photo-label strong, .sector-photo-lab .sector-photo-label strong { font-size: 21px; }
+  .sector-photo-marine .sector-photo-label .mono, .sector-photo-lab .sector-photo-label .mono { display: none; }
+  .sectors-note { padding: 0; }
+  .sectors-note p { margin: 12px 0; }
+  .home-ecosystem { grid-template-columns: 1fr; gap: 18px; margin-top: 42px; }
+  .home-ecosystem .text-button { justify-self: start; }
+}
+/* Lignes de méthode : le texte centralisé reste indépendant de la composition. */
+.expertise-method .expertise-header { display: grid; }
+[data-pack=E] .expertise-method h2 { font-size: clamp(28px,3vw,43px); line-height: 1.13; margin-top: 24px; }
+.expertise-method .expertise-steps { display: block; list-style: none; padding: 0; margin: 0; }
+.expertise-method .expertise-step { display: grid; grid-template-columns: 22fr 33fr 45fr; gap: 32px; align-items: start; border: 0; border-top: 1px solid var(--line); padding: 25px 0; }
+.expertise-method .expertise-step:last-child { border-bottom: 1px solid var(--line); }
+.expertise-method .expertise-step h3 { font-size: clamp(22px,2.15vw,29px); line-height: 1.2; margin: 0; }
+.expertise-method .expertise-index { font-size: 10px; padding-top: 5px; }
+.expertise-detail > p { font-size: 14px; line-height: 1.75; }
+.expertise-method .expertise-criteria { display: flex; flex-wrap: wrap; gap: 6px 14px; list-style: none; padding: 0; margin: 12px 0 0; font-size: 10px; color: #526574; }
+.expertise-method .expertise-criteria li { font-size: 10px; padding: 0; border: 0; border-radius: 0; }
+.expertise-action { display: flex; align-items: center; justify-content: space-between; gap: 18px; margin-top: 12px; }
+.expertise-diagram { display: block; color: #236ea5; }
+.expertise-action .text-button { font-size: 12px; gap: 16px; }
+@media (min-width: 651px) and (max-width: 1024px) {
+  .expertise-method .expertise-step { grid-template-columns: 1fr 1.5fr; grid-template-rows: auto 1fr; gap: 12px 30px; }
+  .expertise-step .expertise-index { grid-column: 1; }
+  .expertise-step h3 { grid-column: 1; grid-row: 2; }
+  .expertise-detail { grid-column: 2; grid-row: 1 / span 2; }
+}
+@media (max-width: 650px) {
+  .expertise-method .expertise-step { grid-template-columns: 1fr; gap: 12px; }
+  .expertise-action { flex-wrap: wrap; }
+}

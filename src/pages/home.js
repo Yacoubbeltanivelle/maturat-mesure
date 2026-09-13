@@ -10,6 +10,9 @@ import { textButton } from '../ui/button.js';
 import { solutions } from '../components/families.js';
 import { feature } from '../components/dropout-feature.js';
 import { featuredProduct } from '../components/featured-product.js';
+import { METHOD } from '../data/company.js';
+import { homeSectors } from '../components/home-sectors.js';
+import { expertiseMethod } from '../components/expertise-method.js';
 
 // Garder toute la carte visible lors du parcours clavier de la liste mobile.
 document.addEventListener('focusin', (event) => {
@@ -35,5 +38,5 @@ export function home() {
     </div></div>
 
   </section>`;
-  return hero + solutions(HOME_FAMILIES) + featuredProduct() + feature();
+  return hero + solutions(HOME_FAMILIES) + expertiseMethod(METHOD) + featuredProduct() + feature() + homeSectors();
 }

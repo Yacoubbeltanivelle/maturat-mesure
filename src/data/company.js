@@ -37,6 +37,40 @@ export const COMPANY = {
   ],
 };
 
+/* Méthode de sélection présentée sur l'accueil.
+ *
+ * Description d'une démarche de travail, rien de plus : aucun délai, aucun
+ * engagement commercial, aucune certification ni expertise non démontrée.
+ * Les principes de mesure cités en étape 02 sont ceux du catalogue.
+ *
+ * `title` contient du balisage, comme SITE.heading : il est injecté tel quel. */
+export const METHOD = {
+  eyebrow: 'EXPERTISE / MÉTHODE',
+  title: 'De votre besoin<br><em>à la bonne mesure.</em>',
+  steps: [
+    {
+      index: '01',
+      kicker: 'APPLICATION',
+      title: 'Comprendre l’application',
+      text: 'Les paramètres du point de mesure, relevés avec vous avant toute recommandation.',
+      criteria: ['Fluide', 'Température', 'Pression', 'Plage de mesure', 'Environnement', 'Raccordement'],
+    },
+    {
+      index: '02',
+      kicker: 'PRINCIPE',
+      title: 'Sélectionner le principe adapté',
+      text: 'Radar ou hydrostatique, électromagnétique ou ultrasons : chaque principe a ses conditions d’emploi. Nous les comparons au regard de votre installation.',
+    },
+    {
+      index: '03',
+      kicker: 'SOLUTION',
+      title: 'Définir la solution',
+      text: 'Une gamme et sa configuration, la documentation associée, puis une demande de chiffrage prête à être transmise.',
+    },
+  ],
+  cta: { label: 'Définir mon besoin', href: '#/quote' },
+};
+
 export const FAQ = [
   {
     q: 'Comment choisir le bon instrument pour mon application ?',

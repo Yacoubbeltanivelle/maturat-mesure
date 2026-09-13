@@ -2,6 +2,7 @@ import './styles/fonts.css';
 import './styles/style.css';
 import './styles/products.css';
 import './styles/home.css';
+import './styles/home-tableaux.css';
 import './styles/editorial.css';
 import './styles/admin.css';
 
