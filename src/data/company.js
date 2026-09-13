@@ -71,6 +71,17 @@ export const METHOD = {
   cta: { label: 'Définir mon besoin', href: '#/quote' },
 };
 
+export const HOME_SUPPLIERS = {
+  title: 'Le bon fabricant.',
+  emphasis: 'Pour votre application.',
+  intro: 'Maturat vous accompagne dans le choix de la technologie, de la gamme et de sa configuration. Le point de départ reste votre installation.',
+  steps: [
+    { title: 'Une technologie adaptée', text: 'Le fluide, la plage de mesure et les conditions du procédé orientent le choix du principe de mesure.' },
+    { title: 'Une gamme ciblée', text: 'Les solutions des fabricants sont comparées selon les caractéristiques utiles à votre application.' },
+    { title: 'Une configuration précise', text: 'Raccordement, matériaux et signal de sortie sont précisés pour préparer le chiffrage.' },
+  ],
+};
+
 export const FAQ = [
   {
     q: 'Comment choisir le bon instrument pour mon application ?',

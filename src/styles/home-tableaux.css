@@ -1,4 +1,5 @@
 /* Tableaux éditoriaux : bande photographique, parcours continu, objet exposé. */
+:root { --home-frame-radius: 24px; --home-section-gap: 64px; }
 .expertise-tableau.section, .featured-tableau.section, .sectors-tableau.section {
   width: calc(100% - 8%); max-width: 1320px; margin: 64px auto; padding: 0;
 }

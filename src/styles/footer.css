@@ -11,14 +11,14 @@ body.reduced .footer-magnetic { transition: none; translate: none !important; }
 .footer-identity p { color: #526574; font-size: 13px; line-height: 1.8; margin: 18px 0 28px; }
 .footer-identity > .mono { font-size: 9px; color: #657c8c; letter-spacing: .08em; }
 .footer-column { display: flex; align-items: flex-start; flex-direction: column; gap: 5px; }
-.footer-column h3 { font-size: 13px; font-weight: 500; margin: 4px 0 12px; color: #172b39; }
-.footer-column a, .footer-column > span, .footer-column p { font-size: 12px; color: #526574; line-height: 1.7; }
+.footer-column h3 { font-size: 15px; font-weight: 500; margin: 4px 0 12px; color: #172b39; }
+.footer-column a, .footer-column > span, .footer-column p { font-size: 14px; color: #465d6d; line-height: 1.7; }
 .footer-column a { display: flex; align-items: center; min-height: 34px; }
 .footer-column a:hover { color: #16669d; text-decoration: underline; text-underline-offset: 5px; }
 .footer-contact p { margin-top: 8px; }
 #footer .footer-meta { margin-top: 35px; padding-top: 16px; gap: 20px; align-items: center; font-size: 10px; }
 .footer-settings { display: flex; align-items: center; gap: 24px; }
-#footer .footer-settings button, #footer .footer-settings a { font-size: 10px; color: #526574; min-height: 40px; }
+#footer .footer-settings button, #footer .footer-settings a { font-size: 12px; color: #465d6d; min-height: 40px; }
 .footer-landscape { position: relative; height: clamp(220px,29vw,420px); margin-top: -20px; background: radial-gradient(ellipse at 30% 10%,#fff9,transparent 52%); }
 .footer-wordmark { position: absolute; left: 50%; top: 20px; transform: translateX(-50%); font: 700 clamp(74px,17.3vw,260px)/1 var(--display); letter-spacing: -.06em; color: #fff; white-space: nowrap; }
 .footer-relief { position: absolute; top: 23%; left: -5%; width: 110%; height: 90%; animation: footer-wave 12s ease-in-out infinite alternate; animation-play-state: paused; }

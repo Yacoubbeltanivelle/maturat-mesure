@@ -151,6 +151,8 @@ Les paragraphes précédents décrivent les sélections historiques.
 
 ## Composition photographique de la Home — 13 septembre 2026
 
+Les cartes Fournisseurs réutilisent les photos locales de tuyauteries (Peter Jochim), de verrerie (Mikhail Nilov) et de chantier naval (paul) ci-dessous. Elles illustrent les environnements techniques, sans représenter les fournisseurs de Maturat. Crédits visibles sous chaque image ; licence Pexels revérifiée lors de leur intégration.
+
 Photographies illustratives, sans lien revendiqué avec Maturat ou ses clients.
 Licence Pexels vérifiée : https://www.pexels.com/license/ (usage gratuit, adaptation autorisée, aucune approbation implicite).
 Crédits visibles près des photos et dans la fiche Crédits visuels. Aucun logo fabricant téléchargé.
