@@ -11,14 +11,14 @@ export function productCard(catalog, product, editorial = false) {
   const supplier = supplierById(catalog, product.supplierId);
   if (editorial) {
     const visual = HOME_FAMILIES.find((f) => f.code === family?.code)?.img;
+    const usefulSpec = product.specs?.find((spec) => /étendue|plage|gamme/i.test(spec.label)) ?? product.specs?.[0];
     return `<li><a class="product-card product-card-editorial" href="${hashForProduct(product.slug)}">
-      <span class="mono product-card-meta">${escapeHTML(family?.code ?? '')} / ${escapeHTML(family?.name ?? '')}</span>
-      <figure class="product-card-visual">${visual ? img(visual, family.name, '', true) : familyMark(family?.code)}
-      <figcaption>${visual ? `${imageCredit(visual)}<br>` : ''}Illustration de famille · Fiche fictive</figcaption></figure>
+      <figure class="product-card-visual">${visual ? img(visual, family.name, '', true) : familyMark(family?.code)}</figure>
       <div class="product-card-body"><h3>${escapeHTML(product.name)}</h3>
-      <span class="product-card-supplier">${escapeHTML(supplier?.name ?? '')}</span>
-      <p>${escapeHTML(product.summary)}</p>
-      <span class="product-card-foot">Voir la fiche<span class="product-card-arrow" aria-hidden="true">↗</span></span></div>
+      <span class="product-card-supplier">${escapeHTML(family?.name ?? '')} / ${escapeHTML(supplier?.name ?? '')}</span>
+      <p class="product-card-spec">${escapeHTML(usefulSpec ? `${usefulSpec.label} : ${usefulSpec.value}` : product.uses?.[0] ?? product.summary)}</p>
+      <span class="product-card-foot">Voir la fiche<span class="product-card-arrow" aria-hidden="true">↗</span></span>
+      <span class="product-card-credit">${visual ? `${imageCredit(visual)} · ` : ''}Illustration de famille</span></div>
     </a></li>`;
   }
   return `<li><a class="product-card" href="${hashForProduct(product.slug)}">
