@@ -38,7 +38,7 @@ export function catalogFilters(catalog, filters) {
 }
 
 /* Compteur, grille et état vide : un seul bloc, remplacé à chaque frappe. */
-export function catalogResults(catalog, filters, products) {
+export function catalogResults(catalog, filters, products, editorial = false) {
   const count = products.length;
   const label = count === 0 ? 'Aucune fiche' : count === 1 ? '1 fiche' : `${count} fiches`;
   const scope = hasActiveFilters(filters) ? 'correspondent à votre sélection' : 'dans le catalogue de démonstration';
@@ -48,9 +48,15 @@ export function catalogResults(catalog, filters, products) {
       Dropout reste accessible depuis sa page dédiée.</p>
       <div class="catalog-empty-actions">
         <button type="button" class="text-button" data-catalog-clear>Effacer les filtres <span aria-hidden="true">↗</span></button>
-        <a class="text-button" href="#/dropout">Découvrir Dropout <span aria-hidden="true">↗</span></a>
+        <a class="text-button" href="#/quote">Définir mon besoin <span aria-hidden="true">↗</span></a>
       </div>
     </div>`;
+  const tokens = editorial ? [
+    filters.q.trim(),
+    catalog.families.find((f) => f.id === filters.family)?.name,
+    catalog.suppliers.find((s) => s.id === filters.supplier)?.name,
+  ].filter(Boolean) : [];
   return `<p class="catalog-count" role="status">${label} <span>${scope}</span></p>
-    ${count ? productGrid(catalog, products) : empty}`;
+    ${tokens.length ? `<div class="catalog-tokens" aria-label="Filtres actifs">${tokens.map((t) => `<span>${escapeHTML(t)}</span>`).join('')}<button type="button" data-catalog-clear>Tout effacer <span aria-hidden="true">×</span></button></div>` : ''}
+    ${count ? productGrid(catalog, products, editorial) : empty}`;
 }
