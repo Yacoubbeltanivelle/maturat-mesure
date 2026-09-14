@@ -13,7 +13,8 @@ test('la remise a zero couvre le brouillon, la fiche retenue et les filtres', ()
   const radar = productBySlug(catalog, 'sonde-radar-nvx-r40');
 
   // Une simulation en cours : recherche, filtres, brouillon, fiche et etapes.
-  Object.assign(state.catalogFilters, { q: 'radar', family: radar.familyId, supplier: radar.supplierId });
+  Object.assign(state.catalogFilters, { q: 'radar', family: radar.familyId, supplier: radar.supplierId,
+    technology: 'Radar sans contact', application: 'Cuves & stockage', signal: '4–20 mA' });
   Object.assign(draft, { application: 'Demande en cours', product: radar.id, family: 'Niveau', name: 'Camille' });
   state.step = 2;
   state.done = true;
@@ -24,7 +25,7 @@ test('la remise a zero couvre le brouillon, la fiche retenue et les filtres', ()
 
   resetSimulation();
 
-  assert.deepEqual(state.catalogFilters, { q: '', family: '', supplier: '' }, 'les filtres doivent repartir a zero');
+  assert.deepEqual(state.catalogFilters, { q: '', family: '', supplier: '', technology: '', application: '', signal: '' }, 'les six filtres doivent repartir a zero');
   assert.equal(draft.product, '', 'la fiche retenue doit etre oubliee');
   assert.equal(draft.application, '');
   assert.equal(draft.name, '');

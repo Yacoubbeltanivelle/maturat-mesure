@@ -137,3 +137,26 @@ Les quatre photos sont désormais remplacées par des détourages officiels Houd
 (type 810) et Fuji Electric (PT100, FKC, M1000), sans fond. Le layout est conservé.
 Cette sélection remplace celle sous licence libre du 12 septembre : les droits
 restent aux fabricants. Voir ASSETS.md pour les sources et le périmètre local.
+
+## Finder du catalogue
+
+Le catalogue place la recherche immédiatement après une introduction compacte,
+avant l’exploration des sept familles. Six critères se combinent : recherche libre,
+famille, technologie, application, fournisseur et signal/sortie. Les filtres actifs
+sont retirables séparément ; « Tout effacer », le reset et le rechargement les remettent
+à zéro. Les champs de recherche de l’introduction et du Finder partagent le même état.
+
+`src/data/catalog-facets.js` dérive les technologies des caractéristiques présentes
+(Principe, Type, Fonction/Fonctions ou Mesure). Les signaux normalisent uniquement
+les sorties explicitement renseignées ; lecture locale et absence d’alimentation
+sont retenues lorsqu’elles sont décrites dans les usages. Une entrée de calibrateur
+n’est pas assimilée à une sortie. Une information absente ne crée pas de valeur.
+
+Les applications sont une taxonomie de démonstration, calculée depuis les usages
+écrits des fiches fictives : cuves/stockage, tuyauterie, pompes/réseaux, maintenance,
+procédés thermiques, air/gaz, environnement et automatismes/signaux. Ces regroupements
+ne constituent pas des garanties de compatibilité commerciale. Les options suivent
+les fiches publiées du catalogue vivant, y compris après une modification simulée.
+
+Le CTA final est celui du footer commun à la Home ; aucune variante propre au
+catalogue n’est ajoutée.

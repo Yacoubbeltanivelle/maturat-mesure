@@ -2,6 +2,7 @@
  * Aucun localStorage, sessionStorage ni IndexedDB : tout repart a zero au rechargement. */
 
 import { createCatalog } from './data/catalog.js';
+import { CATALOG_FILTER_DEFAULTS } from './data/catalog-facets.js';
 
 export const DRAFT_DEFAULTS = Object.freeze({
   family: 'Dropout — air comprimé',
@@ -26,7 +27,7 @@ const initialState = () => ({
   dropStep: 0,
   cut: false,
   scrollSync: true,
-  catalogFilters: { q: '', family: '', supplier: '' },
+  catalogFilters: { ...CATALOG_FILTER_DEFAULTS },
   reduced: prefersReducedMotion(),
   featuredProductId: 'prd-001',
   requests: [],

@@ -482,3 +482,71 @@
 /* Ajustement après la première capture : contenir les marges transparentes du Houdec. */
 .catalog-editorial .catalog-image { overflow: hidden; }
 .catalog-editorial .catalog-card-03 .catalog-unit { right: 0; top: 0; font-size: 38px; }
+
+/* Finder en premier : entrée compacte, lumière diffuse et hiérarchie de recherche. */
+.catalog-finder-first .catalog-intro { position: relative; isolation: isolate; overflow: hidden; min-height: 440px; padding: 22px 40px 24px; border-radius: 18px; background: #eff4f7; display: flex; flex-direction: column; }
+.catalog-finder-first .catalog-intro::before { content: ''; position: absolute; z-index: -2; inset: 0; background: radial-gradient(ellipse at 92% 12%,#5891b478,transparent 58%),radial-gradient(ellipse at 62% 110%,#b6cddd,transparent 62%),linear-gradient(115deg,#fbfcfd 5%,#eef3f6 75%); }
+.catalog-finder-first .catalog-intro::after { content: ''; position: absolute; z-index: -1; inset: 0; background: var(--surface-grain); opacity: .38; pointer-events: none; }
+.catalog-finder-first .catalog-back { font-size: 10px; }
+.catalog-finder-first .catalog-intro-grid { grid-template-columns: 1.35fr 1fr; align-items: center; gap: 40px; margin: 22px 0 30px; }
+.catalog-finder-first .catalog-intro h1 { font-size: clamp(42px,4.6vw,66px); margin-top: 22px; }
+.catalog-finder-first .catalog-hero-lead { margin-top: 20px; font-size: 15px; }
+.catalog-finder-first .catalog-intro-copy { border: 0; padding: 0; max-width: none; }
+.catalog-finder-first .catalog-hero-search label { display: block; color: #455e70; font-size: 9px; letter-spacing: .08em; margin-bottom: 12px; }
+.catalog-finder-first .catalog-hero-search > div { display: flex; background: #ffffffd9; border: 1px solid #b4c9d7; border-radius: 5px; overflow: hidden; }
+.catalog-finder-first .catalog-hero-search input { min-width: 0; width: 100%; height: 56px; border: 0; background: transparent; padding: 0 16px; font-size: 14px; color: var(--ink); }
+.catalog-finder-first .catalog-hero-search button { min-width: 56px; background: #285f83; color: white; font-size: 23px; }
+.catalog-finder-first .catalog-hero-search :focus-visible { outline-offset: -4px; }
+.catalog-finder-first .catalog-hero-families { display: flex; flex-wrap: wrap; gap: 0 16px; margin-top: 10px; }
+.catalog-finder-first .catalog-hero-families button { min-height: 44px; font-size: 12px; border-bottom: 1px solid transparent; }
+.catalog-finder-first .catalog-hero-families button:hover { color: var(--catalog-blue); border-color: currentColor; }
+.catalog-finder-first .catalog-hero-all { display: flex; gap: 25px; align-items: center; min-height: 44px; font-size: 12px; color: var(--catalog-blue); }
+.catalog-finder-first .catalog-hero-note { margin-top: auto; font-size: 10px; color: #536879; }
+.catalog-finder-first .catalog-search-section { padding-top: 64px; }
+.catalog-finder-first .catalog-section-heading { margin-bottom: 30px; }
+.catalog-finder-first .catalog-filters { gap: 19px; padding-right: 18px; padding-bottom: 8px; }
+.catalog-finder-first .catalog-secondary-filters { border-block: 1px solid var(--line); padding-bottom: 4px; min-width: 0; }
+.catalog-finder-first .catalog-secondary-filters summary { display: flex; align-items: center; justify-content: space-between; min-height: 48px; cursor: pointer; font-size: 12px; list-style: none; }
+.catalog-finder-first .catalog-secondary-filters summary::-webkit-details-marker { display: none; }
+.catalog-finder-first .catalog-secondary-filters[open] summary > span { transform: rotate(45deg); }
+.catalog-finder-first .catalog-secondary-filters .catalog-field { margin-bottom: 18px; }
+.catalog-finder-first .catalog-facet-note { font-size: 10px; line-height: 1.6; color: var(--muted); padding-bottom: 12px; }
+.catalog-finder-first .catalog-tokens .catalog-token { display: inline-flex; align-items: center; justify-content: space-between; gap: 12px; max-width: 100%; text-align: left; overflow-wrap: anywhere; padding: 9px 12px; background: #e9f1f6; border: 1px solid #c5d9e7; border-radius: 4px; text-decoration: none; color: #245b82; }
+.catalog-finder-first .catalog-tokens .catalog-token:hover { background: #dcebf5; }
+.catalog-finder-first summary:focus-visible { outline: 2px solid var(--catalog-blue); outline-offset: 3px; }
+.catalog-finder-first .catalog-measurements { padding-top: 90px; }
+.catalog-finder-first .catalog-card { min-height: 330px; padding-block: 30px; }
+.catalog-finder-first .catalog-card h3 { font-size: clamp(28px,2.7vw,38px); }
+.catalog-finder-first .catalog-image img { height: 260px; }
+.catalog-finder-first .catalog-card-copy { gap: 13px; padding-top: 14px; }
+.catalog-finder-first .catalog-card-copy p { font-size: 14px; }
+.catalog-finder-first .catalog-card-03 h3 { font-size: clamp(27px,2.5vw,36px); }
+.catalog-finder-first .catalog-complements { padding-top: 65px; }
+.catalog-finder-first .catalog-dropout { margin-top: 70px; }
+@media (max-width:1100px) {
+  .catalog-finder-first .catalog-intro { padding-inline: 28px; }
+  .catalog-finder-first .catalog-intro-grid { gap: 25px; }
+  .catalog-finder-first .catalog-intro h1 { font-size: 48px; }
+}
+@media (max-width:800px) {
+  .catalog-finder-first .catalog-intro-grid { grid-template-columns: 1fr; gap: 24px; }
+  .catalog-finder-first .catalog-intro { min-height: 0; }
+  .catalog-finder-first .catalog-intro-copy { max-width: 520px; }
+  .catalog-finder-first .catalog-filters { grid-template-columns: 1fr 1fr; padding-right: 0; }
+  .catalog-finder-first .catalog-secondary-filters { grid-column: 1 / -1; }
+}
+@media (max-width:650px) {
+  .catalog-finder-first .catalog-intro { padding: 16px 20px 20px; border-radius: 12px; }
+  .catalog-finder-first .catalog-intro-grid { margin: 15px 0 20px; }
+  .catalog-finder-first .catalog-intro h1 { font-size: clamp(30px,8.3vw,44px); }
+  .catalog-finder-first .catalog-hero-search input { padding-inline: 12px; font-size: 12px; }
+  .catalog-finder-first .catalog-hero-search button { min-width: 44px; }
+  .catalog-finder-first .catalog-hero-search label { font-size: 8px; }
+  .catalog-finder-first .catalog-hero-families { gap: 0 14px; }
+  .catalog-finder-first .catalog-hero-families button { font-size: 11px; }
+  .catalog-finder-first .catalog-hero-note { font-size: 9px; }
+  .catalog-finder-first .catalog-search-section { padding-top: 40px; }
+  .catalog-finder-first .catalog-filters { grid-template-columns: 1fr; gap: 16px; }
+  .catalog-finder-first .catalog-measurements { padding-top: 60px; }
+  .catalog-finder-first .catalog-card h3 { font-size: 28px; }
+}

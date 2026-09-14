@@ -13,6 +13,7 @@ import './styles/home-labels.css';
 import { $, $$ } from './lib/dom.js';
 import { state, draft, catalog, resetDraft, resetSimulation } from './state.js';
 import { SITE } from './data/site.js';
+import { CATALOG_FILTER_DEFAULTS } from './data/catalog-facets.js';
 import { productContext, productMatchesFamilyName, hasActiveFilters } from './data/queries.js';
 import { applyProductEdit, productFormValues } from './simulation/catalog-actions.js';
 import { readRoute, hashFor, isAdminPage } from './router.js';
@@ -190,16 +191,20 @@ function refreshCatalog() {
   if (clear) clear.disabled = !hasActiveFilters(state.catalogFilters);
 }
 
-function clearCatalogFilters() {
-  Object.assign(state.catalogFilters, { q: '', family: '', supplier: '' });
-  const search = $('#catalog-search');
-  if (search) search.value = '';
-  const fam = $('#catalog-family');
-  if (fam) fam.value = '';
-  const sup = $('#catalog-supplier');
-  if (sup) sup.value = '';
+function clearCatalogFilters(key) {
+  if (key && Object.hasOwn(CATALOG_FILTER_DEFAULTS, key)) state.catalogFilters[key] = '';
+  else Object.assign(state.catalogFilters, CATALOG_FILTER_DEFAULTS);
+  for (const filter of Object.keys(CATALOG_FILTER_DEFAULTS)) {
+    const control = $('#catalog-' + (filter === 'q' ? 'search' : filter));
+    if (control) control.value = state.catalogFilters[filter];
+  }
+  const heroSearch = $('#catalog-hero-search');
+  if (heroSearch) heroSearch.value = state.catalogFilters.q;
   refreshCatalog();
-  search?.focus();
+  const focus = $('#catalog-' + (key && key !== 'q' ? key : 'search'));
+  const group = focus?.closest('details');
+  if (group) group.open = true;
+  focus?.focus({ preventScroll: true });
 }
 
 /* Depuis une fiche : on garde le produit et sa famille, on ne touche pas au texte libre. */
@@ -299,6 +304,14 @@ document.addEventListener('click', (e) => {
     $('#family')?.focus();
   }
   if (b.hasAttribute('data-catalog-clear')) clearCatalogFilters();
+  if (b.dataset.catalogRemove) clearCatalogFilters(b.dataset.catalogRemove);
+  if (b.dataset.catalogPick) {
+    state.catalogFilters.family = b.dataset.catalogPick;
+    $('#catalog-family').value = b.dataset.catalogPick;
+    refreshCatalog();
+    $('#catalog-search-section').scrollIntoView({ behavior: state.reduced ? 'instant' : 'smooth' });
+    $('#catalog-family').focus({ preventScroll: true });
+  }
   if (b.dataset.stage !== undefined) updateDrop(Number(b.dataset.stage));
   if (b.dataset.cut !== undefined) {
     state.cut = b.dataset.cut === 'true';
@@ -363,8 +376,10 @@ document.addEventListener('click', (e) => {
 });
 
 document.addEventListener('input', (e) => {
-  if (e.target.id === 'catalog-search') {
+  if (e.target.id === 'catalog-search' || e.target.id === 'catalog-hero-search') {
     state.catalogFilters.q = e.target.value;
+    const other = $(e.target.id === 'catalog-search' ? '#catalog-hero-search' : '#catalog-search');
+    if (other) other.value = e.target.value;
     refreshCatalog();
     return;
   }
@@ -379,8 +394,8 @@ document.addEventListener('input', (e) => {
 });
 
 document.addEventListener('change', (e) => {
-  if (e.target.id === 'catalog-family' || e.target.id === 'catalog-supplier') {
-    const key = e.target.id === 'catalog-family' ? 'family' : 'supplier';
+  if (e.target.dataset.catalogFilter && Object.hasOwn(CATALOG_FILTER_DEFAULTS, e.target.dataset.catalogFilter)) {
+    const key = e.target.dataset.catalogFilter;
     state.catalogFilters[key] = e.target.value;
     refreshCatalog();
     return;
@@ -395,6 +410,12 @@ document.addEventListener('change', (e) => {
 });
 
 document.addEventListener('submit', (e) => {
+  if (e.target.matches('.catalog-hero-search')) {
+    e.preventDefault();
+    $('#catalog-search-section').scrollIntoView({ behavior: state.reduced ? 'instant' : 'smooth' });
+    $('#catalog-search').focus({ preventScroll: true });
+    return;
+  }
   if (e.target.matches('[data-admin-product]')) {
     e.preventDefault();
     saveAdminProduct(e.target);

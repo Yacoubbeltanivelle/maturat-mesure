@@ -5,7 +5,6 @@ import { hashForFamily } from '../lib/route.js';
 import { img, imageCredit, dropoutImage } from '../ui/media.js';
 import { eyebrow } from '../ui/eyebrow.js';
 import { familyMark } from '../ui/family-mark.js';
-import { textButton } from '../ui/button.js';
 import { catalogFilters, catalogResults } from '../components/catalog-filters.js';
 import { HOME_FAMILIES } from '../data/families.js';
 
@@ -50,26 +49,16 @@ export function products() {
   const measured = families.filter((f) => f.img);
   const others = families.filter((f) => !f.img);
 
-  return `<div class="catalog-page catalog-editorial">
+  return `<div class="catalog-page catalog-editorial catalog-finder-first">
     <section class="catalog-intro" aria-labelledby="catalog-title">
       <a class="catalog-back mono" href="#/home">← ACCUEIL</a>
-      <div class="catalog-intro-grid"><div>${eyebrow('PRODUITS & SOLUTIONS')}<h1 id="catalog-title">À chaque procédé,<br><em>sa juste mesure.</em></h1></div>
-      <div class="catalog-intro-copy"><p>Du capteur au contrôle des fluides, explorez nos domaines d’intervention. Votre application guide le choix de la solution.</p><span class="catalog-note">Familles réelles · Fiches, références et fournisseurs fictifs, pour la démonstration</span></div></div>
-      <div class="catalog-index-label mono">QUE SOUHAITEZ-VOUS MESURER ?</div>
-      <nav class="catalog-index" aria-label="Choisir une famille de mesure">
-        ${families.map((f) => `<a href="${hashForFamily(f.slug)}"><span class="mono">${escapeHTML(f.code)}</span><span>${escapeHTML(f.name)}</span><span aria-hidden="true">↗</span></a>`).join('')}
-        <button type="button" data-scroll="catalog-search-section"><span class="mono">INDEX</span><span>Toutes les fiches</span><span aria-hidden="true">↓</span></button>
-      </nav>
-    </section>
-
-    <section id="catalog-measurements" class="catalog-measurements" aria-labelledby="measurements-title">
-      <div class="catalog-section-heading"><div>${eyebrow('LE CŒUR DE VOTRE INSTALLATION')}<h2 id="measurements-title">Quatre grandeurs.<br><em>Un point de départ.</em></h2></div><p>Mesurer, détecter, surveiller.<br>Ouvrez la famille qui vous concerne.</p></div>
-      <ul class="catalog-grid">${measured.map(measurementCard).join('')}</ul>
-    </section>
-
-    <section id="catalog-complements" class="catalog-complements" aria-labelledby="complements-title">
-      <div class="catalog-section-heading"><div>${eyebrow('UNE VISION D’ENSEMBLE')}<h2 id="complements-title">Tout ce qui accompagne<br><em>la mesure.</em></h2></div><p>Connecter les équipements, exploiter le signal et comprendre votre environnement.</p></div>
-      <ul class="catalog-rows">${others.map(complementaryRow).join('')}</ul>
+      <div class="catalog-intro-grid"><div>${eyebrow('PRODUITS & SOLUTIONS')}<h1 id="catalog-title">À chaque procédé,<br><em>sa juste mesure.</em></h1><p class="catalog-hero-lead">Votre application guide le choix.</p></div>
+      <div class="catalog-intro-copy"><form class="catalog-hero-search" role="search" aria-label="Rechercher dans le catalogue">
+        <label for="catalog-hero-search" class="mono">UN PRODUIT, UNE RÉFÉRENCE, UN BESOIN</label>
+        <div><input id="catalog-hero-search" type="search" value="${escapeHTML(state.catalogFilters.q)}" placeholder="Que recherchez-vous ?" autocomplete="off"><button type="submit" aria-label="Voir les résultats de recherche">↗</button></div>
+      </form><nav class="catalog-hero-families" aria-label="Filtrer par grandeur">${measured.map((f) => `<button type="button" data-catalog-pick="${escapeHTML(f.id)}">${escapeHTML(f.name)}</button>`).join('')}</nav>
+      <button type="button" class="catalog-hero-all" data-scroll="catalog-search-section" data-catalog-clear>Voir toutes les fiches <span aria-hidden="true">↓</span></button></div></div>
+      <p class="catalog-hero-note">Familles réelles · Fiches et fournisseurs fictifs pour la démonstration</p>
     </section>
 
     <section id="catalog-search-section" class="catalog-search-section" aria-labelledby="catalog-search-title">
@@ -79,10 +68,19 @@ export function products() {
       <p class="catalog-disclaimer">Ces fiches sont des exemples créés pour la maquette. Les références, les fournisseurs et les caractéristiques sont fictifs et ne décrivent aucun produit commercialisé.</p>
     </section>
 
+    <section id="catalog-measurements" class="catalog-measurements" aria-labelledby="measurements-title">
+      <div class="catalog-section-heading"><div>${eyebrow('LE CŒUR DE VOTRE INSTALLATION')}<h2 id="measurements-title">Explorer<br><em>par famille.</em></h2></div><p>Mesurer, détecter, surveiller.<br>Ouvrez la famille qui vous concerne.</p></div>
+      <ul class="catalog-grid">${measured.map(measurementCard).join('')}</ul>
+    </section>
+
+    <section id="catalog-complements" class="catalog-complements" aria-labelledby="complements-title">
+      <div class="catalog-section-heading"><div>${eyebrow('UNE VISION D’ENSEMBLE')}<h2 id="complements-title">Tout ce qui accompagne<br><em>la mesure.</em></h2></div><p>Connecter les équipements, exploiter le signal et comprendre votre environnement.</p></div>
+      <ul class="catalog-rows">${others.map(complementaryRow).join('')}</ul>
+    </section>
+
     <section id="catalog-dropout" class="catalog-dropout" aria-labelledby="catalog-dropout-title">
       <div class="catalog-dropout-copy">${eyebrow('TRAITEMENT DE L’AIR COMPRIMÉ')}<h2 id="catalog-dropout-title">En amont de la mesure,<br><em>protéger vos équipements.</em></h2><p>Dropout garde sa page dédiée : son principe de séparation des liquides et particules y est expliqué en détail, sans donnée inventée.</p><a class="text-button" href="#/dropout">Découvrir Dropout <span aria-hidden="true">↗</span></a></div>
       <div class="catalog-dropout-visual">${dropoutImage('', true)}<span class="mono">DROP’OUT / SÉPARATION</span></div>
     </section>
-    <div class="catalog-page-cta"><h2>Vous ne savez pas<br><em>quelle technologie choisir ?</em></h2>${textButton('Définir mon besoin', 'data-page="quote"')}</div>
   </div>`;
 }

@@ -1,6 +1,8 @@
 /* Lectures du catalogue. Fonctions pures : elles reçoivent le catalogue en
  * paramètre, ne touchent ni au DOM ni à l'état, et restent donc testables. */
 
+import { productFacets } from './catalog-facets.js';
+
 const published = (entry) => entry.published !== false;
 
 export const familyById = (catalog, id) => catalog.families.find((f) => f.id === id) || null;
@@ -56,10 +58,16 @@ export function matchesQuery(catalog, product, q = '') {
 }
 
 /** Recherche et filtres combinés. Aucun rechargement, aucun appel réseau. */
-export function filterProducts(catalog, { q = '', family = '', supplier = '' } = {}) {
+export function filterProducts(catalog, { q = '', family = '', supplier = '', technology = '', application = '', signal = '' } = {}) {
   return publishedProducts(catalog).filter((product) => {
     if (family && product.familyId !== family) return false;
     if (supplier && product.supplierId !== supplier) return false;
+    if (technology || application || signal) {
+      const facets = productFacets(product);
+      if (technology && facets.technology !== technology) return false;
+      if (application && !facets.application.includes(application)) return false;
+      if (signal && !facets.signal.includes(signal)) return false;
+    }
     return matchesQuery(catalog, product, q);
   });
 }
@@ -68,8 +76,8 @@ export function filterProducts(catalog, { q = '', family = '', supplier = '' } =
 export const searchAllProducts = (catalog, q = '') =>
   catalog.products.filter((product) => matchesQuery(catalog, product, q));
 
-export const hasActiveFilters = ({ q = '', family = '', supplier = '' } = {}) =>
-  Boolean(q.trim() || family || supplier);
+export const hasActiveFilters = ({ q = '', family = '', supplier = '', technology = '', application = '', signal = '' } = {}) =>
+  Boolean(q.trim() || family || supplier || technology || application || signal);
 
 /** Fiche complète : produit, famille et fournisseur résolus. */
 export function productContext(catalog, productId) {
