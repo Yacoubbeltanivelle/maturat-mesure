@@ -51,12 +51,13 @@ export function products() {
 
   return `<div class="catalog-page catalog-editorial catalog-finder-first">
     <section class="catalog-intro" aria-labelledby="catalog-title">
-      <a class="catalog-back mono" href="#/home">← ACCUEIL</a>
+      <div class="catalog-hero-photo" aria-hidden="true">${img(601, '', '', false)}</div>
+      <div class="catalog-hero-top"><a class="catalog-back mono" href="#/home">← ACCUEIL</a><span class="mono">MATURAT MESURE / CATALOGUE</span></div>
       <div class="catalog-intro-grid"><div>${eyebrow('PRODUITS & SOLUTIONS')}<h1 id="catalog-title">À chaque procédé,<br><em>sa juste mesure.</em></h1><p class="catalog-hero-lead">Votre application guide le choix.</p></div>
       <div class="catalog-intro-copy"><form class="catalog-hero-search" role="search" aria-label="Rechercher dans le catalogue">
         <label for="catalog-hero-search" class="mono">UN PRODUIT, UNE RÉFÉRENCE, UN BESOIN</label>
         <div><input id="catalog-hero-search" type="search" value="${escapeHTML(state.catalogFilters.q)}" placeholder="Que recherchez-vous ?" autocomplete="off"><button type="submit" aria-label="Voir les résultats de recherche">↗</button></div>
-      </form><nav class="catalog-hero-families" aria-label="Filtrer par grandeur">${measured.map((f) => `<button type="button" data-catalog-pick="${escapeHTML(f.id)}">${escapeHTML(f.name)}</button>`).join('')}</nav>
+      </form><nav class="catalog-hero-families" aria-label="Filtrer par grandeur">${measured.map((f) => `<button type="button" data-catalog-pick="${escapeHTML(f.id)}"><span class="mono" aria-hidden="true">${escapeHTML(f.code)}</span>${escapeHTML(f.name)}<span aria-hidden="true">↗</span></button>`).join('')}</nav>
       <button type="button" class="catalog-hero-all" data-scroll="catalog-search-section" data-catalog-clear>Voir toutes les fiches <span aria-hidden="true">↓</span></button></div></div>
       <p class="catalog-hero-note">Familles réelles · Fiches et fournisseurs fictifs pour la démonstration</p>
     </section>
