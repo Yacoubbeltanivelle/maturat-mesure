@@ -8,6 +8,7 @@ import './styles/admin.css';
 import './styles/footer.css';
 import './styles/home-polish.css';
 import './styles/suppliers-scene.css';
+import './styles/home-labels.css';
 
 import { $, $$ } from './lib/dom.js';
 import { state, draft, catalog, resetDraft, resetSimulation } from './state.js';

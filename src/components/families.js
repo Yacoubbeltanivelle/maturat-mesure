@@ -5,6 +5,7 @@ import { hashForFamily } from '../lib/route.js';
 import { escapeHTML } from '../lib/dom.js';
 import { img, imageCredit } from '../ui/media.js';
 import { textButton } from '../ui/button.js';
+import { sectionLabel } from '../ui/section-label.js';
 
 /* Les quatre familles de mesure : onglets, specimen et lignes éditoriales. */
 export function familyTabs(){
@@ -30,7 +31,7 @@ function familyPageLink(code){
 export function solutions(families = FAMILIES){
   return `<section class="solutions section family-editorial" id="solutions" aria-labelledby="solutions-title">
     <header class="family-editorial-header">
-      <div><span class="mono">INSTRUMENTATION</span><h2 id="solutions-title">Tout commence<br><em>par la bonne mesure.</em></h2></div>
+      <div>${sectionLabel('Instrumentation', 'instrumentation')}<h2 id="solutions-title">Tout commence<br><em>par la bonne mesure.</em></h2></div>
       <span class="mono family-editorial-total">${String(families.length).padStart(2,'0')} GRANDEURS</span>
       <div class="family-editorial-intro"><p>Quatre grandeurs fondamentales.<br>Une sélection guidée par vos contraintes.</p><a class="text-button" href="#/products">Voir tout le catalogue <span aria-hidden="true">↗</span></a></div>
     </header>

@@ -72,9 +72,9 @@ export const METHOD = {
 };
 
 export const HOME_SUPPLIERS = {
-  title: 'Le bon fabricant.',
-  emphasis: 'Pour votre application.',
-  intro: 'Maturat vous accompagne dans le choix de la technologie, de la gamme et de sa configuration. Le point de départ reste votre installation.',
+  title: 'Des fabricants,',
+  emphasis: 'des solutions à explorer.',
+  intro: 'Retrouvez les fournisseurs du catalogue et les produits associés à chacun. Maturat vous accompagne ensuite pour choisir la technologie adaptée à votre installation.',
   steps: [
     { title: 'Une technologie adaptée', text: 'Le fluide, la plage de mesure et les conditions du procédé orientent le choix du principe de mesure.' },
     { title: 'Une gamme ciblée', text: 'Les solutions des fabricants sont comparées selon les caractéristiques utiles à votre application.' },

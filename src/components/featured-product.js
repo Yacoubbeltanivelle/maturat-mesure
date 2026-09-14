@@ -3,7 +3,7 @@ import { catalog, state } from '../state.js';
 import { productContext } from '../data/queries.js';
 import { hashForProduct } from '../lib/route.js';
 import { familyMark } from '../ui/family-mark.js';
-import { eyebrow } from '../ui/eyebrow.js';
+import { sectionLabel } from '../ui/section-label.js';
 import { HOME_FAMILIES } from '../data/families.js';
 import { IMAGE_ASSETS } from '../data/images.js';
 import { img } from '../ui/media.js';
@@ -16,7 +16,7 @@ export function featuredProduct() {
   const { product, family, supplier } = ctx;
   const visual = HOME_FAMILIES.find(f => f.code === family?.code)?.img ?? family?.img;
   return `<section class="featured-section section featured-tableau" aria-labelledby="featured-title">
-    ${eyebrow('PRODUIT DU MOMENT')}
+    ${sectionLabel('Produit du moment', 'product')}
     <div class="featured-wrap">
       <figure class="featured-stage featured-stage-${escapeHTML(family?.code ?? '')}">
         <span class="mono featured-reference">${escapeHTML(product.reference)}</span>
@@ -24,7 +24,6 @@ export function featuredProduct() {
         <figcaption>${visual ? `Visuel de famille, distinct de la fiche fictive.<br>${escapeHTML(IMAGE_ASSETS[visual].credit)}` : 'Repère de famille — illustration'}</figcaption>
       </figure>
       <div class="featured-content">
-        <p class="mono featured-family-meta">${escapeHTML(family?.code ?? '')} · ${escapeHTML(family?.name ?? '')}</p>
         <h2 id="featured-title" class="featured-name">${escapeHTML(product.name)}</h2>
         <p class="featured-summary">${escapeHTML(product.summary)}</p>
         <dl class="featured-specs">${product.specs.slice(0, 2).map(({label, value}) => `<div><dt>${escapeHTML(label)}</dt><dd>${escapeHTML(value)}</dd></div>`).join('')}</dl>

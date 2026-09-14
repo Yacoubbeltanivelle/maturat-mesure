@@ -4,6 +4,13 @@
 export const SITE = {
   name: 'Maturat Mesure',
   tagline: 'Instrumentation industrielle',
+  contactCta: {
+    title: 'La précision commence',
+    emphasis: 'par un échange.',
+    text: 'Décrivez ce que vous souhaitez mesurer et les contraintes de votre installation. Le formulaire vous aide à préparer une demande de chiffrage, même si vous n’avez pas encore choisi de produit.',
+    action: 'Préparer ma demande',
+    note: 'Formulaire de démonstration · aucun envoi réel',
+  },
   heading: 'Mesurer. Contrôler.<br><em>Maîtriser vos procédés.</em>',
   contact: {
     phone: '00 00 00 00 00',

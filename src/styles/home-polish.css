@@ -7,7 +7,7 @@
 .expertise-tableau .expertise-index { font-size: 12px; }
 .expertise-tableau .expertise-action .text-button, .sectors-tableau .sectors-note .text-button { font-size: 14px; }
 .expertise-tableau .expertise-photo figcaption, .sectors-tableau .sector-photo figcaption { font-size: 11px; }
-.sectors-tableau .sectors-index li { font-size: 16px; }
+.sectors-tableau .sectors-index li { font-size: 17px; font-weight: 500; color: #243d50; }
 .sectors-tableau .sectors-index p { font-size: 12px; }
 .sectors-tableau .sectors-index ul { margin-top: 0; }
 .home-suppliers.section { padding: 44px; background: #f2f5f7; border: 1px solid #e1e8ed; overflow: hidden; }
@@ -34,7 +34,7 @@
 }
 @media(max-width:650px) {
  [data-page=home] :is(.expertise-tableau.section,.featured-tableau.section,.sectors-tableau.section,.home-suppliers.section,.drop-feature) { width: calc(100% - 32px); margin-block: 40px; border-radius: 20px; }
- .sectors-tableau .sectors-index li { font-size: 14px; }
+ .sectors-tableau .sectors-index li { font-size: 15px; }
  .expertise-tableau .expertise-photo figcaption { font-size: 10px; }
  .home-suppliers.section { padding: 28px 22px; }
  .suppliers-intro { grid-template-columns: 1fr; gap: 24px; }

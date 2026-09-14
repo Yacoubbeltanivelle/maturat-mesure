@@ -1,7 +1,7 @@
 import { img } from '../ui/media.js';
 import { IMAGE_ASSETS } from '../data/images.js';
 import { escapeHTML } from '../lib/dom.js';
-import { eyebrow } from '../ui/eyebrow.js';
+import { sectionLabel } from '../ui/section-label.js';
 import { METHOD } from '../data/company.js';
 
 const diagrams = [
@@ -14,7 +14,7 @@ const diagrams = [
 export function expertiseMethod(method = METHOD) {
   return `<section class="expertise-method section expertise-tableau" aria-labelledby="expertise-title">
     <header class="expertise-header">
-      <div class="expertise-introduction">${eyebrow(method.eyebrow)}<h2 id="expertise-title">${method.title}</h2><p>Comprendre votre application avant de sélectionner la technologie.</p></div>
+      <div class="expertise-introduction">${sectionLabel("Notre méthode", "method")}<h2 id="expertise-title">${method.title}</h2><p>Comprendre votre application avant de sélectionner la technologie.</p></div>
       <figure class="expertise-photo">${img(601, 'Tuyauteries industrielles', '', true)}<figcaption>Illustration / ${escapeHTML(IMAGE_ASSETS[601].credit)}</figcaption></figure>
     </header>
     <ol class="expertise-steps" role="list">${method.steps.map((step, i) => `<li class="expertise-step">

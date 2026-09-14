@@ -2,6 +2,7 @@ import { SECTORS } from '../data/company.js';
 import { IMAGE_ASSETS } from '../data/images.js';
 import { escapeHTML } from '../lib/dom.js';
 import { img } from '../ui/media.js';
+import { sectionLabel } from '../ui/section-label.js';
 
 function sectorPhoto(id, sector, className) {
   return `<figure class="sector-photo ${className}">
@@ -12,7 +13,7 @@ function sectorPhoto(id, sector, className) {
 
 export function homeSectors() {
   return `<section class="home-sectors section sectors-tableau" aria-labelledby="sectors-title">
-    <header class="sectors-header"><div><span class="mono">SECTEURS / APPLICATIONS</span><h2 id="sectors-title">Là où la mesure<br><em>ne peut pas être approximative.</em></h2></div><p>Des procédés différents.<br>Une même attention aux conditions de mesure.</p></header>
+    <header class="sectors-header"><div>${sectionLabel("Secteurs industriels", "sectors")}<h2 id="sectors-title">Là où la mesure<br><em>ne peut pas être approximative.</em></h2></div><p>Des procédés différents.<br>Une même attention aux conditions de mesure.</p></header>
     <div class="sectors-composition">
       ${sectorPhoto(602, SECTORS[0], 'sector-photo-major')}
       <div class="sectors-index"><ul>${SECTORS.map(s => `<li>${escapeHTML(s.name)}</li>`).join('')}</ul><p>Photographies d’illustration.</p></div>

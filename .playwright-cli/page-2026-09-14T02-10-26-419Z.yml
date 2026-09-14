@@ -1,0 +1,429 @@
+- generic [active] [ref=e1]:
+  - link "Aller au contenu":
+    - /url: "#main"
+  - generic [ref=e2]:
+    - banner [ref=e3]:
+      - link "Maturat Mesure, accueil" [ref=e4] [cursor=pointer]:
+        - /url: "#/home"
+        - img "Maturat Mesure" [ref=e5]
+      - navigation "Parcours" [ref=e6]:
+        - link "Produits" [ref=e7] [cursor=pointer]:
+          - /url: "#/products"
+        - button "Dropout" [ref=e8] [cursor=pointer]
+        - link "À propos" [ref=e9] [cursor=pointer]:
+          - /url: "#/about"
+        - button "Définir mon besoin ↗" [ref=e10] [cursor=pointer]
+    - main [ref=e11]:
+      - generic [ref=e12]:
+        - region [ref=e13]:
+          - link "← ACCUEIL" [ref=e14] [cursor=pointer]:
+            - /url: "#/home"
+          - generic [ref=e15]:
+            - generic [ref=e16]:
+              - generic [ref=e17]: PRODUITS & SOLUTIONS
+              - heading [level=1] [ref=e19]:
+                - text: À chaque procédé,
+                - emphasis [ref=e20]: sa juste mesure.
+            - generic [ref=e21]:
+              - paragraph [ref=e22]: Du capteur au contrôle des fluides, explorez nos domaines d’intervention. Votre application guide le choix de la solution.
+              - generic [ref=e23]: Familles réelles · Fiches, références et fournisseurs fictifs, pour la démonstration
+          - navigation "Dans cette page" [ref=e24]:
+            - button "01 — 04 Instrumentation" [ref=e25] [cursor=pointer]:
+              - generic [ref=e26]: 01 — 04
+              - text: Instrumentation
+              - generic [aria-hidden] [ref=e27]: ↓
+            - button "05 — 07 Autour de la mesure" [ref=e28] [cursor=pointer]:
+              - generic [ref=e29]: 05 — 07
+              - text: Autour de la mesure
+              - generic [aria-hidden] [ref=e30]: ↓
+            - button "RECHERCHE Toutes les fiches" [ref=e31] [cursor=pointer]:
+              - generic [ref=e32]: RECHERCHE
+              - text: Toutes les fiches
+              - generic [aria-hidden] [ref=e33]: ↓
+        - region [ref=e34]:
+          - generic [ref=e35]:
+            - generic [ref=e36]:
+              - generic [ref=e37]: LE CŒUR DE VOTRE INSTALLATION
+              - heading [level=2] [ref=e39]:
+                - text: Quatre grandeurs.
+                - emphasis [ref=e40]: Un point de départ.
+            - paragraph [ref=e41]: Mesurer, détecter, surveiller.Ouvrez la famille qui vous concerne.
+          - list [ref=e42]:
+            - listitem [ref=e43]:
+              - link [ref=e44] [cursor=pointer]:
+                - /url: "#/families/niveau"
+                - generic [ref=e45]:
+                  - text: 01 / MESURE & DÉTECTION
+                  - heading "Niveau" [level=3] [ref=e46]
+                - figure "Visuel fabricant — Houdec Innovation, type 810" [ref=e47]:
+                  - img "Indicateur magnétique de niveau type 810 — Houdec Innovation — visuel d’illustration" [ref=e48]
+                - generic [ref=e50]:
+                  - paragraph [ref=e51]: Mesurer et détecter le niveau de vos liquides ou solides, selon les contraintes du procédé.
+                  - list [ref=e52]:
+                    - listitem [ref=e53]: Radar
+                    - listitem [ref=e54]: Hydrostatique
+                    - listitem [ref=e55]: Flotteur
+                  - generic [ref=e56]:
+                    - text: Voir la famille · 3 fiches
+                    - generic [aria-hidden] [ref=e57]: ↗
+            - listitem [ref=e58]:
+              - link [ref=e59] [cursor=pointer]:
+                - /url: "#/families/temperature"
+                - generic [ref=e60]:
+                  - text: 02 / MESURE & DÉTECTION
+                  - heading "Température" [level=3] [ref=e61]
+                - figure [ref=e62]:
+                  - img "Sondes de température à résistance de platine — visuel d’illustration" [ref=e63]
+                - generic [ref=e64]:
+                  - paragraph [ref=e65]: Suivre la température de votre installation et choisir le principe de mesure adapté.
+                  - list [ref=e66]:
+                    - listitem [ref=e67]: PT100
+                    - listitem [ref=e68]: Thermocouple
+                    - listitem [ref=e69]: Bimétallique
+                  - generic [ref=e70]:
+                    - text: Voir la famille · 3 fiches
+                    - generic [aria-hidden] [ref=e71]: ↗
+            - listitem [ref=e72]:
+              - link [ref=e73] [cursor=pointer]:
+                - /url: "#/families/pression"
+                - generic [ref=e74]:
+                  - text: 03 / MESURE & DÉTECTION
+                  - heading "Pression" [level=3] [ref=e75]
+                - figure "Photo by CEphoto, Uwe Aranas — CC BY-SA 3.0" [ref=e76]:
+                  - img "Manomètre haute pression MAXIMATOR — visuel d’illustration" [ref=e77]
+                - generic [ref=e79]:
+                  - paragraph [ref=e80]: Mesurer et détecter la pression de vos fluides, au plus près de votre application.
+                  - list [ref=e81]:
+                    - listitem [ref=e82]: Piézorésistif
+                    - listitem [ref=e83]: Capacitif
+                    - listitem [ref=e84]: Mécanique
+                  - generic [ref=e85]:
+                    - text: Voir la famille · 2 fiches
+                    - generic [aria-hidden] [ref=e86]: ↗
+            - listitem [ref=e87]:
+              - link [ref=e88] [cursor=pointer]:
+                - /url: "#/families/debit"
+                - generic [ref=e89]:
+                  - text: 04 / MESURE & DÉTECTION
+                  - heading "Débit" [level=3] [ref=e90]
+                - figure "Visuel fabricant — Fuji Electric, S-Flow" [ref=e91]:
+                  - img "Débitmètre à ultrasons S-Flow — Fuji Electric — visuel d’illustration" [ref=e92]
+                - generic [ref=e94]:
+                  - paragraph [ref=e95]: Mesurer le débit de votre fluide avec une technologie cohérente avec le procédé.
+                  - list [ref=e96]:
+                    - listitem [ref=e97]: Ultrasons
+                    - listitem [ref=e98]: Électromagnétique
+                    - listitem [ref=e99]: Coriolis
+                  - generic [ref=e100]:
+                    - text: Voir la famille · 2 fiches
+                    - generic [aria-hidden] [ref=e101]: ↗
+        - region [ref=e102]:
+          - generic [ref=e103]:
+            - generic [ref=e104]:
+              - generic [ref=e105]: UNE VISION D’ENSEMBLE
+              - heading [level=2] [ref=e107]:
+                - text: Tout ce qui accompagne
+                - emphasis [ref=e108]: la mesure.
+            - paragraph [ref=e109]: Connecter les équipements, exploiter le signal et comprendre votre environnement.
+          - list [ref=e110]:
+            - listitem [ref=e111]:
+              - link "05 Contrôle mécanique des fluides Raccorder, isoler et réguler les fluides de votre installation. — Raccords — Vannes — Accessoires de tuyauterie Voir la famille · 2 fiches" [ref=e112] [cursor=pointer]:
+                - /url: "#/families/controle-fluides"
+                - generic [ref=e113]: "05"
+                - generic [ref=e114]:
+                  - heading "Contrôle mécanique des fluides" [level=3] [ref=e115]
+                  - paragraph [ref=e116]: Raccorder, isoler et réguler les fluides de votre installation.
+                - generic [ref=e117]:
+                  - list [ref=e118]:
+                    - listitem [ref=e119]: — Raccords
+                    - listitem [ref=e120]: — Vannes
+                    - listitem [ref=e121]: — Accessoires de tuyauterie
+                  - generic [ref=e122]:
+                    - text: Voir la famille · 2 fiches
+                    - generic [aria-hidden] [ref=e123]: ↗
+            - listitem [ref=e128]:
+              - link "06 Produits complémentaires Compléter la chaîne de mesure, du traitement du signal au contrôle sur le terrain. — Contrôle du signal — Mesure électrique / énergie — Multimètres et calibrateurs Voir la famille · 2 fiches" [ref=e129] [cursor=pointer]:
+                - /url: "#/families/produits-complementaires"
+                - generic [ref=e130]: "06"
+                - generic [ref=e131]:
+                  - heading "Produits complémentaires" [level=3] [ref=e132]
+                  - paragraph [ref=e133]: Compléter la chaîne de mesure, du traitement du signal au contrôle sur le terrain.
+                - generic [ref=e134]:
+                  - list [ref=e135]:
+                    - listitem [ref=e136]: — Contrôle du signal
+                    - listitem [ref=e137]: — Mesure électrique / énergie
+                    - listitem [ref=e138]: — Multimètres et calibrateurs
+                  - generic [ref=e139]:
+                    - text: Voir la famille · 2 fiches
+                    - generic [aria-hidden] [ref=e140]: ↗
+            - listitem [ref=e144]:
+              - link "07 Analyse et environnement Préparer une mesure adaptée à la composition et aux conditions de votre procédé. — Analyse de gaz — Prélèvement — Conditionnement Voir la famille · 1 fiche" [ref=e145] [cursor=pointer]:
+                - /url: "#/families/analyse-environnement"
+                - generic [ref=e146]: "07"
+                - generic [ref=e147]:
+                  - heading "Analyse et environnement" [level=3] [ref=e148]
+                  - paragraph [ref=e149]: Préparer une mesure adaptée à la composition et aux conditions de votre procédé.
+                - generic [ref=e150]:
+                  - list [ref=e151]:
+                    - listitem [ref=e152]: — Analyse de gaz
+                    - listitem [ref=e153]: — Prélèvement
+                    - listitem [ref=e154]: — Conditionnement
+                  - generic [ref=e155]:
+                    - text: Voir la famille · 1 fiche
+                    - generic [aria-hidden] [ref=e156]: ↗
+        - region [ref=e163]:
+          - generic [ref=e164]:
+            - generic [ref=e165]:
+              - generic [ref=e166]: TOUTES LES FICHES
+              - heading [level=2] [ref=e168]:
+                - text: Chercher directement
+                - emphasis [ref=e169]: dans le catalogue.
+            - paragraph [ref=e170]: Par nom, référence ou usage. Affinez ensuite par famille ou par fournisseur.
+          - search [ref=e171]:
+            - generic [ref=e172]:
+              - generic [ref=e173]: Rechercher une fiche
+              - searchbox "Rechercher une fiche" [ref=e174]
+            - generic [ref=e175]:
+              - generic [ref=e176]: Famille
+              - combobox "Famille" [ref=e177]:
+                - option "Toutes les familles" [selected]
+                - option "01 — Niveau"
+                - option "02 — Température"
+                - option "03 — Pression"
+                - option "04 — Débit"
+                - option "05 — Contrôle mécanique des fluides"
+                - option "06 — Produits complémentaires"
+                - option "07 — Analyse et environnement"
+            - generic [ref=e178]:
+              - generic [ref=e179]: Fournisseur
+              - combobox "Fournisseur" [ref=e180]:
+                - option "Tous les fournisseurs" [selected]
+                - option "Nordvex Instruments"
+                - option "Calyra Process"
+                - option "Ombrelin Sensors"
+                - option "Vantek Metrology"
+                - option "Ferralis Fluid"
+            - button "Effacer les filtres" [disabled] [ref=e181]
+          - generic [ref=e182]:
+            - status [ref=e183]:
+              - text: 15 fiches
+              - generic [ref=e184]: dans le catalogue de démonstration
+            - list [ref=e185]:
+              - listitem [ref=e186]:
+                - link "01 / Niveau Sonde radar NVX-R40 Mesure continue du niveau sans contact avec le produit, pour cuves fermées et silos. Nordvex Instruments" [ref=e187] [cursor=pointer]:
+                  - /url: "#/products/sonde-radar-nvx-r40"
+                  - generic [ref=e192]:
+                    - generic [ref=e193]: 01 / Niveau
+                    - heading "Sonde radar NVX-R40" [level=3] [ref=e194]
+                    - paragraph [ref=e195]: Mesure continue du niveau sans contact avec le produit, pour cuves fermées et silos.
+                    - generic [ref=e196]:
+                      - generic [ref=e197]: Nordvex Instruments
+                      - generic [aria-hidden] [ref=e198]: ↗
+              - listitem [ref=e199]:
+                - link "01 / Niveau Transmetteur hydrostatique CLY-H12 Niveau déduit de la pression de la colonne de liquide, en sonde immergée ou en piquage. Calyra Process" [ref=e200] [cursor=pointer]:
+                  - /url: "#/products/transmetteur-hydrostatique-cly-h12"
+                  - generic [ref=e205]:
+                    - generic [ref=e206]: 01 / Niveau
+                    - heading "Transmetteur hydrostatique CLY-H12" [level=3] [ref=e207]
+                    - paragraph [ref=e208]: Niveau déduit de la pression de la colonne de liquide, en sonde immergée ou en piquage.
+                    - generic [ref=e209]:
+                      - generic [ref=e210]: Calyra Process
+                      - generic [aria-hidden] [ref=e211]: ↗
+              - listitem [ref=e212]:
+                - link "01 / Niveau Détecteur à lame vibrante OMB-VF2 Détection d’un seuil haut ou bas, peu sensible à la densité et au dépôt. Ombrelin Sensors" [ref=e213] [cursor=pointer]:
+                  - /url: "#/products/detecteur-lame-vibrante-omb-vf2"
+                  - generic [ref=e218]:
+                    - generic [ref=e219]: 01 / Niveau
+                    - heading "Détecteur à lame vibrante OMB-VF2" [level=3] [ref=e220]
+                    - paragraph [ref=e221]: Détection d’un seuil haut ou bas, peu sensible à la densité et au dépôt.
+                    - generic [ref=e222]:
+                      - generic [ref=e223]: Ombrelin Sensors
+                      - generic [aria-hidden] [ref=e224]: ↗
+              - listitem [ref=e225]:
+                - link "02 / Température Sonde PT100 CLY-T100 Sonde à résistance de platine avec doigt de gant, pour une mesure stable en ligne. Calyra Process" [ref=e226] [cursor=pointer]:
+                  - /url: "#/products/sonde-pt100-cly-t100"
+                  - generic [ref=e232]:
+                    - generic [ref=e233]: 02 / Température
+                    - heading "Sonde PT100 CLY-T100" [level=3] [ref=e234]
+                    - paragraph [ref=e235]: Sonde à résistance de platine avec doigt de gant, pour une mesure stable en ligne.
+                    - generic [ref=e236]:
+                      - generic [ref=e237]: Calyra Process
+                      - generic [aria-hidden] [ref=e238]: ↗
+              - listitem [ref=e239]:
+                - link "02 / Température Thermocouple NVX-TC8 Mesure de température haute avec un temps de réponse court. Nordvex Instruments" [ref=e240] [cursor=pointer]:
+                  - /url: "#/products/thermocouple-nvx-tc8"
+                  - generic [ref=e246]:
+                    - generic [ref=e247]: 02 / Température
+                    - heading "Thermocouple NVX-TC8" [level=3] [ref=e248]
+                    - paragraph [ref=e249]: Mesure de température haute avec un temps de réponse court.
+                    - generic [ref=e250]:
+                      - generic [ref=e251]: Nordvex Instruments
+                      - generic [aria-hidden] [ref=e252]: ↗
+              - listitem [ref=e253]:
+                - link "02 / Température Thermomètre bimétallique VTK-BM60 Lecture locale de la température, sans alimentation ni câblage. Vantek Metrology" [ref=e254] [cursor=pointer]:
+                  - /url: "#/products/thermometre-bimetallique-vtk-bm60"
+                  - generic [ref=e260]:
+                    - generic [ref=e261]: 02 / Température
+                    - heading "Thermomètre bimétallique VTK-BM60" [level=3] [ref=e262]
+                    - paragraph [ref=e263]: Lecture locale de la température, sans alimentation ni câblage.
+                    - generic [ref=e264]:
+                      - generic [ref=e265]: Vantek Metrology
+                      - generic [aria-hidden] [ref=e266]: ↗
+              - listitem [ref=e267]:
+                - link "03 / Pression Transmetteur de pression NVX-P22 Transmission d’une pression relative vers l’automate, cellule piézorésistive. Nordvex Instruments" [ref=e268] [cursor=pointer]:
+                  - /url: "#/products/transmetteur-pression-nvx-p22"
+                  - generic [ref=e274]:
+                    - generic [ref=e275]: 03 / Pression
+                    - heading "Transmetteur de pression NVX-P22" [level=3] [ref=e276]
+                    - paragraph [ref=e277]: Transmission d’une pression relative vers l’automate, cellule piézorésistive.
+                    - generic [ref=e278]:
+                      - generic [ref=e279]: Nordvex Instruments
+                      - generic [aria-hidden] [ref=e280]: ↗
+              - listitem [ref=e281]:
+                - link "03 / Pression Manomètre à membrane VTK-MP4 Lecture locale de pression sur fluides chargés ou visqueux, membrane affleurante. Vantek Metrology" [ref=e282] [cursor=pointer]:
+                  - /url: "#/products/manometre-membrane-vtk-mp4"
+                  - generic [ref=e288]:
+                    - generic [ref=e289]: 03 / Pression
+                    - heading "Manomètre à membrane VTK-MP4" [level=3] [ref=e290]
+                    - paragraph [ref=e291]: Lecture locale de pression sur fluides chargés ou visqueux, membrane affleurante.
+                    - generic [ref=e292]:
+                      - generic [ref=e293]: Vantek Metrology
+                      - generic [aria-hidden] [ref=e294]: ↗
+              - listitem [ref=e295]:
+                - link "04 / Débit Débitmètre électromagnétique CLY-EM30 Mesure de débit sur liquides conducteurs, sans pièce mobile dans la veine. Calyra Process" [ref=e296] [cursor=pointer]:
+                  - /url: "#/products/debitmetre-electromagnetique-cly-em30"
+                  - generic [ref=e301]:
+                    - generic [ref=e302]: 04 / Débit
+                    - heading "Débitmètre électromagnétique CLY-EM30" [level=3] [ref=e303]
+                    - paragraph [ref=e304]: Mesure de débit sur liquides conducteurs, sans pièce mobile dans la veine.
+                    - generic [ref=e305]:
+                      - generic [ref=e306]: Calyra Process
+                      - generic [aria-hidden] [ref=e307]: ↗
+              - listitem [ref=e308]:
+                - link "04 / Débit Débitmètre à ultrasons OMB-US7 Mesure par capteurs serrés sur la tuyauterie, sans coupure de la ligne. Ombrelin Sensors" [ref=e309] [cursor=pointer]:
+                  - /url: "#/products/debitmetre-ultrasons-omb-us7"
+                  - generic [ref=e314]:
+                    - generic [ref=e315]: 04 / Débit
+                    - heading "Débitmètre à ultrasons OMB-US7" [level=3] [ref=e316]
+                    - paragraph [ref=e317]: Mesure par capteurs serrés sur la tuyauterie, sans coupure de la ligne.
+                    - generic [ref=e318]:
+                      - generic [ref=e319]: Ombrelin Sensors
+                      - generic [aria-hidden] [ref=e320]: ↗
+              - listitem [ref=e321]:
+                - link "05 / Contrôle mécanique des fluides Vanne à boisseau sphérique FRL-BV2 Isolement quart de tour d’un instrument ou d’une antenne de tuyauterie. Ferralis Fluid" [ref=e322] [cursor=pointer]:
+                  - /url: "#/products/vanne-boisseau-frl-bv2"
+                  - generic [ref=e327]:
+                    - generic [ref=e328]: 05 / Contrôle mécanique des fluides
+                    - heading "Vanne à boisseau sphérique FRL-BV2" [level=3] [ref=e329]
+                    - paragraph [ref=e330]: Isolement quart de tour d’un instrument ou d’une antenne de tuyauterie.
+                    - generic [ref=e331]:
+                      - generic [ref=e332]: Ferralis Fluid
+                      - generic [aria-hidden] [ref=e333]: ↗
+              - listitem [ref=e334]:
+                - link "05 / Contrôle mécanique des fluides Raccord d’instrumentation FRL-RC1 Raccord démontable pour piquer un capteur sur une ligne existante. Ferralis Fluid" [ref=e335] [cursor=pointer]:
+                  - /url: "#/products/raccord-instrumentation-frl-rc1"
+                  - generic [ref=e340]:
+                    - generic [ref=e341]: 05 / Contrôle mécanique des fluides
+                    - heading "Raccord d’instrumentation FRL-RC1" [level=3] [ref=e342]
+                    - paragraph [ref=e343]: Raccord démontable pour piquer un capteur sur une ligne existante.
+                    - generic [ref=e344]:
+                      - generic [ref=e345]: Ferralis Fluid
+                      - generic [aria-hidden] [ref=e346]: ↗
+              - listitem [ref=e347]:
+                - link "06 / Produits complémentaires Isolateur-convertisseur de signal VTK-SI2 Sépare électriquement capteur et automate, et convertit le signal si besoin. Vantek Metrology" [ref=e348] [cursor=pointer]:
+                  - /url: "#/products/isolateur-signal-vtk-si2"
+                  - generic [ref=e352]:
+                    - generic [ref=e353]: 06 / Produits complémentaires
+                    - heading "Isolateur-convertisseur de signal VTK-SI2" [level=3] [ref=e354]
+                    - paragraph [ref=e355]: Sépare électriquement capteur et automate, et convertit le signal si besoin.
+                    - generic [ref=e356]:
+                      - generic [ref=e357]: Vantek Metrology
+                      - generic [aria-hidden] [ref=e358]: ↗
+              - listitem [ref=e359]:
+                - link "06 / Produits complémentaires Calibrateur portable de boucle VTK-CAL9 Appareil de terrain pour générer et lire un signal pendant une intervention. Vantek Metrology" [ref=e360] [cursor=pointer]:
+                  - /url: "#/products/calibrateur-boucle-vtk-cal9"
+                  - generic [ref=e364]:
+                    - generic [ref=e365]: 06 / Produits complémentaires
+                    - heading "Calibrateur portable de boucle VTK-CAL9" [level=3] [ref=e366]
+                    - paragraph [ref=e367]: Appareil de terrain pour générer et lire un signal pendant une intervention.
+                    - generic [ref=e368]:
+                      - generic [ref=e369]: Vantek Metrology
+                      - generic [aria-hidden] [ref=e370]: ↗
+              - listitem [ref=e371]:
+                - link "07 / Analyse et environnement Sonde de point de rosée NVX-DP3 Suivi de l’humidité résiduelle d’un réseau d’air ou de gaz. Nordvex Instruments" [ref=e372] [cursor=pointer]:
+                  - /url: "#/products/sonde-point-de-rosee-nvx-dp3"
+                  - generic [ref=e379]:
+                    - generic [ref=e380]: 07 / Analyse et environnement
+                    - heading "Sonde de point de rosée NVX-DP3" [level=3] [ref=e381]
+                    - paragraph [ref=e382]: Suivi de l’humidité résiduelle d’un réseau d’air ou de gaz.
+                    - generic [ref=e383]:
+                      - generic [ref=e384]: Nordvex Instruments
+                      - generic [aria-hidden] [ref=e385]: ↗
+          - paragraph [ref=e386]: Ces fiches sont des exemples créés pour la maquette. Les références, les fournisseurs et les caractéristiques sont fictifs et ne décrivent aucun produit commercialisé.
+        - region [ref=e387]:
+          - generic [ref=e388]:
+            - generic [ref=e389]: TRAITEMENT DE L’AIR COMPRIMÉ
+            - heading [level=2] [ref=e391]:
+              - text: En amont de la mesure,
+              - emphasis [ref=e392]: protéger vos équipements.
+            - paragraph [ref=e393]: "Dropout garde sa page dédiée : son principe de séparation des liquides et particules y est expliqué en détail, sans donnée inventée."
+            - link "Découvrir Dropout" [ref=e394] [cursor=pointer]:
+              - /url: "#/dropout"
+              - text: Découvrir Dropout
+              - generic [aria-hidden] [ref=e395]: ↗
+          - generic [ref=e396]:
+            - img "Séparateur Dropout, corps en aluminium et raccords bleus — visuel fourni amélioré" [ref=e397]
+            - generic [ref=e398]: DROP’OUT / SÉPARATION
+        - button "Définir mon besoin" [ref=e400] [cursor=pointer]:
+          - text: Définir mon besoin
+          - generic [aria-hidden] [ref=e401]: ↗
+    - contentinfo [ref=e402]:
+      - generic [ref=e403]:
+        - heading [level=2] [ref=e404]:
+          - text: La précision commence
+          - emphasis [ref=e405]: par un échange.
+        - generic [ref=e406]:
+          - paragraph [ref=e407]: Décrivez ce que vous souhaitez mesurer et les contraintes de votre installation. Le formulaire vous aide à préparer une demande de chiffrage, même si vous n’avez pas encore choisi de produit.
+          - button "Préparer ma demande" [ref=e408] [cursor=pointer]:
+            - text: Préparer ma demande
+            - generic [aria-hidden] [ref=e409]: ↗
+          - generic [ref=e410]: Formulaire de démonstration · aucun envoi réel
+      - generic [ref=e412]:
+        - generic [ref=e413]:
+          - generic [ref=e414]:
+            - generic [ref=e415]:
+              - link [ref=e416] [cursor=pointer]:
+                - /url: "#/home"
+                - img "Maturat Mesure" [ref=e417]
+              - paragraph [ref=e418]: Instrumentation industrielle.Niveau, température, pression, débit.
+            - navigation "Solutions" [ref=e419]:
+              - heading "Solutions" [level=3] [ref=e420]
+              - link "Catalogue" [ref=e421] [cursor=pointer]:
+                - /url: "#/products"
+              - link "Dropout" [ref=e422] [cursor=pointer]:
+                - /url: "#/dropout"
+              - link "Fournisseurs" [ref=e423] [cursor=pointer]:
+                - /url: "#/suppliers"
+            - navigation "Maturat" [ref=e424]:
+              - heading "Maturat" [level=3] [ref=e425]
+              - link "Notre expertise" [ref=e426] [cursor=pointer]:
+                - /url: "#/about"
+              - link "Questions fréquentes" [ref=e427] [cursor=pointer]:
+                - /url: "#/faq"
+              - link "Définir mon besoin ↗" [ref=e428] [cursor=pointer]:
+                - /url: "#/quote"
+            - generic [ref=e429]:
+              - heading "Échangeons" [level=3] [ref=e430]
+              - generic [ref=e431]: 00 00 00 00 00
+              - link "contact@example.com" [ref=e432] [cursor=pointer]:
+                - /url: mailto:contact@example.com
+              - paragraph [ref=e433]: 1 rue de la DémonstrationVille exemple
+          - generic [ref=e434]:
+            - generic [ref=e435]: Maquette de démonstration · données fictives
+            - generic [ref=e436]:
+              - button "Mouvement activé" [ref=e437] [cursor=pointer]
+              - button "Crédits visuels ↗" [ref=e438] [cursor=pointer]
+              - link "Admin ↗" [ref=e439] [cursor=pointer]:
+                - /url: "#/admin"
+              - button "Retour en haut de la page" [ref=e440] [cursor=pointer]: ↑
+        - generic [ref=e446]: MATURAT

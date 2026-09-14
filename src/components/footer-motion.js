@@ -5,7 +5,17 @@ export function mountFooterMotion(root, reduced) {
   const controller = new AbortController();
   const { signal } = controller;
   const curtain = scene.querySelector('.footer-landscape');
-  const word = scene.querySelector('.footer-wordmark');
+  const layers = [
+    [root.querySelector('.footer-contact-cta h2'), 46],
+    [root.querySelector('.footer-cta-content'), 28],
+    [scene.querySelector('.footer-identity'), 22],
+    ...Array.from(scene.querySelectorAll('.footer-column'), (el, i) => [el, 28 + i * 9]),
+    [scene.querySelector('.footer-meta'), 16],
+    [scene.querySelector('.footer-wordmark'), 80],
+    [scene.querySelector('.footer-relief-distant'), 60],
+    [scene.querySelector('.footer-relief:not(.footer-relief-distant)'), 24],
+  ].filter(([el]) => el);
+  const heading = root.querySelector('.footer-contact-cta');
   const systemReduced = matchMedia('(prefers-reduced-motion: reduce)');
   const fine = matchMedia('(hover: hover) and (pointer: fine)');
   let frame = 0;
@@ -16,8 +26,14 @@ export function mountFooterMotion(root, reduced) {
     scene.classList.toggle('footer-waves-active', !disabled() && rect.top < innerHeight && rect.bottom > 0);
     const safeCurtain = !disabled() && innerWidth > 650;
     curtain.style.transform = safeCurtain ? `translateY(${Math.max(-45, Math.min(0, innerHeight - rect.bottom))}px)` : '';
-    const progress = Math.max(0, Math.min(1, (innerHeight - rect.top) / Math.min(rect.height, innerHeight)));
-    word.style.translate = disabled() ? '' : `0 ${(1 - progress) * 35}px`;
+    const headingRect = heading?.getBoundingClientRect();
+    const mobileScale = innerWidth <= 650 ? .4 : 1;
+    for (const [el, depth] of layers) {
+      const anchor = heading?.contains(el) ? headingRect : rect;
+      const progress = Math.max(0, Math.min(1, (innerHeight - anchor.top) / (innerHeight + anchor.height * .25)));
+      // Reset each layer when it has keyboard focus, keeping controls stable.
+      el.style.translate = disabled() || el.matches(':focus-within') ? '' : `0 ${((1 - progress) * depth * mobileScale).toFixed(2)}px`;
+    }
   };
   const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
   for (const name of ['scroll', 'resize']) window.addEventListener(name, schedule, { passive: true, signal });
