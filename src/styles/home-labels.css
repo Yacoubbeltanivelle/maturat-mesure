@@ -8,6 +8,7 @@
 #footer .footer-contact-cta { display: grid; grid-template-columns: 1.1fr 1fr; align-items: center; gap: 60px; padding-block: 22px; }
 .footer-cta-content { max-width: 510px; }
 .footer-cta-content p { font-size: 16px; line-height: 1.8; color: #3e5565; margin-bottom: 26px; }
+:is([data-page=home], [data-page=products]) #footer .footer-cta-content p { max-width: 430px; }
 .footer-cta-content .text-button { background: #244e6c; color: #fff; border: 0; border-radius: 8px; padding: 16px 22px; font-size: 15px; }
 .footer-cta-content .text-button:hover { background: #173c58; }
 .footer-cta-content small { display: block; font-size: 12px; line-height: 1.6; color: #526574; margin-top: 14px; }
@@ -35,7 +36,7 @@ body[data-pack=E][data-page=home] {
 }
 :is([data-page=home], [data-page=products])[data-pack=E] #footer { background: transparent; }
 :is([data-page=home], [data-page=products]) #footer .footer-contact-cta {
-  width: 92%; max-width: 1320px; box-sizing: border-box;
+  width: 88.8%; max-width: 1320px; box-sizing: border-box;
   align-items: start; padding: 80px 0 88px; border-radius: 0;
   background: transparent;
   border-block: 1px solid #315a7626;
