@@ -5,13 +5,13 @@ import { createCatalog } from './data/catalog.js';
 import { CATALOG_FILTER_DEFAULTS } from './data/catalog-facets.js';
 
 export const DRAFT_DEFAULTS = Object.freeze({
-  family: 'Dropout — air comprimé',
+  family: '',
   product: '',
-  application: '', pressure: '', flow: '', unknown: false,
+  application: '',
   name: '', company: '', email: '',
 });
 
-export const draft = { ...DRAFT_DEFAULTS };
+export const draft = { ...DRAFT_DEFAULTS, answers: {} };
 
 /* Le garde permet d'importer ce module hors navigateur, pour les tests de la
  * remise a zero. Dans le navigateur, la preference est lue comme avant. */
@@ -49,6 +49,7 @@ export function resetCatalog() {
 
 export function resetDraft() {
   Object.assign(draft, DRAFT_DEFAULTS);
+  draft.answers = {};
 }
 
 export function resetSimulation() {

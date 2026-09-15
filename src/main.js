@@ -9,6 +9,7 @@ import './styles/footer.css';
 import './styles/home-polish.css';
 import './styles/suppliers-scene.css';
 import './styles/home-labels.css';
+import './styles/quote.css';
 
 import { $, $$ } from './lib/dom.js';
 import { state, draft, catalog, resetDraft, resetSimulation } from './state.js';
@@ -82,7 +83,13 @@ function pageTitle() {
 function saveDraft() {
   if (state.page !== 'quote') return;
   $$('form [name]').forEach((el) => {
-    draft[el.name] = el.type === 'checkbox' ? el.checked : el.value;
+    // Les radio non cochés ne doivent pas écraser la valeur courante.
+    if (el.type === 'radio' && !el.checked) return;
+    if (el.dataset.answer !== undefined) {
+      draft.answers[el.name] = el.type === 'checkbox' ? el.checked : el.value;
+    } else {
+      draft[el.name] = el.type === 'checkbox' ? el.checked : el.value;
+    }
   });
   // Changer de besoin ne doit pas conserver une fiche rattachee a une autre famille.
   if (draft.product && !productMatchesFamilyName(catalog, draft.product, draft.family)) draft.product = '';
@@ -101,15 +108,24 @@ function syncFormFields() {
   const fields = $$('form [name]');
   if (!fields.length) return;
   fields.forEach((el) => {
-    const value = draft[el.name];
-    if (el.type === 'checkbox') el.checked = Boolean(value);
-    else el.value = value ?? '';
+    if (el.dataset.answer !== undefined) {
+      const value = draft.answers[el.name];
+      if (el.type === 'radio') el.checked = el.value === String(value ?? '');
+      else if (el.type === 'checkbox') el.checked = Boolean(value);
+      else el.value = value ?? '';
+    } else {
+      const value = draft[el.name];
+      if (el.type === 'radio') el.checked = el.value === String(value ?? '');
+      else if (el.type === 'checkbox') el.checked = Boolean(value);
+      else el.value = value ?? '';
+    }
   });
-  const unknown = $('form [name="unknown"]');
-  if (unknown) {
-    if ($('#pressure')) $('#pressure').disabled = unknown.checked;
-    if ($('#flow')) $('#flow').disabled = unknown.checked;
-  }
+  // Une case « je ne sais pas » peut couvrir plusieurs champs numériques (data-skip-key) :
+  // rétablir leur état désactivé une fois toutes les cases repositionnées.
+  $$('[data-answer][data-skip-key]').forEach((input) => {
+    const skipBox = $(`[name="${input.dataset.skipKey}"]`);
+    input.disabled = Boolean(skipBox?.checked);
+  });
   refreshSummary();
 }
 
@@ -400,13 +416,30 @@ document.addEventListener('change', (e) => {
     refreshCatalog();
     return;
   }
-  // Changer de besoin peut rendre la fiche retenue incoherente : saveDraft la retire.
-  if (e.target.id === 'family') { saveDraft(); refreshProductSlot(); return; }
-  if (e.target.name !== 'unknown') return;
-  $('#pressure').disabled = e.target.checked;
-  $('#flow').disabled = e.target.checked;
-  saveDraft();
-  refreshSummary();
+  // Changer de besoin peut rendre la fiche retenue incohérente et efface les réponses d'application.
+  if (e.target.name === 'family') {
+    const oldFamily = draft.family;
+    saveDraft();
+    if (draft.family !== oldFamily) draft.answers = {};
+    refreshProductSlot();
+    return;
+  }
+  // Cases à cocher « Je ne sais pas » pour les champs numériques adaptatifs.
+  // Une case peut couvrir plusieurs champs (ex. Dropout : pression + débit) :
+  // tous les champs portant ce data-skip-key sont désactivés et vidés ensemble,
+  // pour qu'aucune ancienne valeur ne survive dans le résumé ou la demande.
+  if (e.target.dataset.answer !== undefined && e.target.type === 'checkbox') {
+    saveDraft();
+    $$(`[data-answer][data-skip-key="${e.target.name}"]`).forEach((input) => {
+      input.disabled = e.target.checked;
+      if (e.target.checked) {
+        input.value = '';
+        draft.answers[input.name] = '';
+      }
+    });
+    refreshSummary();
+    return;
+  }
 });
 
 document.addEventListener('submit', (e) => {
@@ -424,7 +457,7 @@ document.addEventListener('submit', (e) => {
   if (!e.target.matches('.form-card')) return;
   e.preventDefault();
   saveDraft();
-  if (state.step < 2) {
+  if (state.step < 3) {
     state.step += 1;
   } else {
     state.done = true;
@@ -439,6 +472,7 @@ document.addEventListener('submit', (e) => {
       family: draft.family,
       productId: draft.product,
       application: draft.application,
+      answers: { ...draft.answers },
     });
   }
   render();
