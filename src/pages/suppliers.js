@@ -1,54 +1,48 @@
+import '../styles/suppliers.css';
 import { escapeHTML } from '../lib/dom.js';
 import { catalog } from '../state.js';
-import { publishedProducts, familyById } from '../data/queries.js';
+import { publishedProducts, suppliersInUse, familyById } from '../data/queries.js';
 import { hashForProduct } from '../lib/route.js';
 import { eyebrow } from '../ui/eyebrow.js';
-import { textButton } from '../ui/button.js';
 
-/* Page Fournisseurs : les marques du catalogue et les familles qu'elles couvrent.
- * Tous les fournisseurs de cette maquette sont fictifs. */
-
-function supplierCard(supplier) {
-  const products = publishedProducts(catalog).filter((p) => p.supplierId === supplier.id);
-  const families = [...new Set(products.map((p) => familyById(catalog, p.familyId)?.name).filter(Boolean))];
-  const count = products.length === 1 ? '1 fiche' : `${products.length} fiches`;
-
-  return `<li class="supplier-card">
-    <div class="supplier-head">
-      <h3 class="supplier-name">${escapeHTML(supplier.name)}</h3>
-      <span class="mono supplier-count">${escapeHTML(count)}</span>
-    </div>
-    ${families.length ? `<ul class="supplier-families">${families.map((f) => `<li>${escapeHTML(f)}</li>`).join('')}</ul>` : ''}
-    ${products.length ? `<ul class="supplier-products">${products.slice(0, 4).map((p) =>
-      `<li><a href="${hashForProduct(p.slug)}">${escapeHTML(p.name)} <span aria-hidden="true">↗</span></a></li>`
-    ).join('')}</ul>` : '<p class="supplier-empty">Aucune fiche publiée pour ce fournisseur.</p>'}
-  </li>`;
-}
+const number = (index) => String(index + 1).padStart(2, '0');
+const count = (products) => `${products.length} fiche${products.length === 1 ? '' : 's'}`;
 
 export function suppliers() {
-  const used = new Set(publishedProducts(catalog).map((p) => p.supplierId));
-  const list = catalog.suppliers.filter((s) => used.has(s.id));
-
-  return `<div class="editorial-page">
-    <section class="editorial-intro" aria-labelledby="suppliers-title">
-      <a class="editorial-back mono" href="#/products">← CATALOGUE</a>
-      <div class="editorial-intro-grid">
-        <div>${eyebrow('NOS FOURNISSEURS')}<h1 id="suppliers-title">Peu de marques,<br><em>bien maîtrisées.</em></h1></div>
-        <div class="editorial-intro-copy">
-          <p>Nous privilégions un fournisseur par famille de mesure. Ce choix nous permet de connaître réellement ce que nous vendons, plutôt que de référencer largement.</p>
-          <span class="editorial-note-inline">Fournisseurs fictifs, créés pour la démonstration</span>
+  const published = publishedProducts(catalog);
+  const entries = suppliersInUse(catalog).map((supplier) => {
+    const products = published.filter((product) => product.supplierId === supplier.id);
+    const families = [...new Set(products.map((product) => familyById(catalog, product.familyId)?.name).filter(Boolean))];
+    return { supplier, products, families };
+  });
+  return `<div class="suppliers-page">
+    <section class="suppliers-hero" aria-labelledby="suppliers-title">
+      <a class="suppliers-back" href="#/products">← CATALOGUE</a>
+      ${eyebrow('NOS FOURNISSEURS')}
+      <div class="suppliers-intro">
+        <h1 id="suppliers-title">Des fabricants ciblés,<br><em>des technologies<br>à comparer.</em></h1>
+        <div class="suppliers-intro-copy">
+          <p>Le catalogue rassemble une sélection de fabricants et de technologies associés aux différentes familles de mesure. Maturat aide ensuite à confronter ces solutions aux contraintes de votre application.</p>
+          <p class="suppliers-demo">Fournisseurs et références fictifs · maquette de démonstration</p>
         </div>
       </div>
     </section>
-
-    <section class="editorial-section" aria-labelledby="suppliers-list-title">
-      <h2 id="suppliers-list-title" class="visually-hidden">Liste des fournisseurs</h2>
-      <ul class="supplier-grid">${list.map(supplierCard).join('')}</ul>
+    <section class="suppliers-index" aria-labelledby="suppliers-index-title">
+      <div class="suppliers-section-label"><h2 id="suppliers-index-title">Repères du catalogue</h2><span>${entries.length} fournisseurs / ${count(published)}</span></div>
+      <ol>${entries.map(({ supplier, products, families }, index) => `<li>
+        <span class="suppliers-ordinal">${number(index)}</span><span class="suppliers-index-name">${escapeHTML(supplier.name)}</span><span class="suppliers-index-families">${families.map(escapeHTML).join(' / ')}</span><span class="suppliers-count">${count(products)}</span>
+      </li>`).join('')}</ol>
     </section>
-
-    <div class="editorial-cta">
-      ${textButton('Définir mon besoin', 'data-page="quote"')}
-      <a class="text-button" href="#/products">Voir toutes les fiches <span aria-hidden="true">↗</span></a>
-    </div>
+    <section class="suppliers-details" aria-labelledby="suppliers-details-title">
+      <h2 id="suppliers-details-title" class="visually-hidden">Fournisseurs et fiches du catalogue</h2>
+      <ol class="suppliers-blocks">${entries.map(({ supplier, products, families }, index) => `<li class="suppliers-block">
+        <div class="suppliers-identity"><span class="suppliers-ordinal">${number(index)} / FOURNISSEUR</span><h3>${escapeHTML(supplier.name)}</h3><ul class="suppliers-family-list">${families.map((family) => `<li>${escapeHTML(family)}</li>`).join('')}</ul></div>
+        <div class="suppliers-records"><p class="suppliers-records-heading">FICHES PUBLIÉES <span>${count(products)}</span></p><ul>${products.map((product) => `<li><a href="${hashForProduct(product.slug)}"><span><span class="suppliers-product-name">${escapeHTML(product.name)}</span><span class="suppliers-reference">${escapeHTML(product.reference || '')} · ${escapeHTML(familyById(catalog, product.familyId)?.name || '')}</span></span><span class="suppliers-arrow" aria-hidden="true">↗</span></a></li>`).join('')}</ul></div>
+      </li>`).join('')}</ol>
+    </section>
+    <section class="suppliers-selection" aria-labelledby="suppliers-selection-title">
+      <div>${eyebrow('LOGIQUE DE SÉLECTION')}<h2 id="suppliers-selection-title">Le fabricant n’est pas<br><em>le point de départ.</em></h2><p>Le choix dépend des contraintes de votre installation. L’application donne le point de départ pour comparer les solutions.</p><a class="suppliers-catalog-link" href="#/products">Voir le catalogue <span aria-hidden="true">↗</span></a></div>
+      <ol class="suppliers-steps">${['Application', 'Principe', 'Technologie', 'Fournisseur / gamme'].map((step, index) => `<li><span class="suppliers-ordinal">${number(index)}</span><span>${step}</span>${index < 3 ? '<span class="suppliers-step-arrow" aria-hidden="true">↓</span>' : ''}</li>`).join('')}</ol>
+    </section>
   </div>`;
 }
