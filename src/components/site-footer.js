@@ -3,8 +3,10 @@ import { asset, escapeHTML } from '../lib/dom.js';
 import { SITE } from '../data/site.js';
 import { textButton } from '../ui/button.js';
 
+export function contactCta(){return `<div class="footer-heading footer-contact-cta"><h2>${escapeHTML(SITE.contactCta.title)}<br><em>${escapeHTML(SITE.contactCta.emphasis)}</em></h2><div class="footer-cta-content"><p>${escapeHTML(SITE.contactCta.text)}</p>${textButton(SITE.contactCta.action,'data-page="quote"')}<small>${escapeHTML(SITE.contactCta.note)}</small></div></div>`;}
+
 export function siteFooter(){return `
-<div class="footer-heading footer-contact-cta"><h2>${escapeHTML(SITE.contactCta.title)}<br><em>${escapeHTML(SITE.contactCta.emphasis)}</em></h2><div class="footer-cta-content"><p>${escapeHTML(SITE.contactCta.text)}</p>${textButton(SITE.contactCta.action,'data-page="quote"')}<small>${escapeHTML(SITE.contactCta.note)}</small></div></div>
+${contactCta()}
 <div class="footer-scene"><div class="footer-curtain"><div class="footer-panel">
   <div class="footer-directory">
     <div class="footer-identity"><a class="brand" href="#/home"><img src="${asset('assets/maturat-logo.png')}" alt="${SITE.name}"></a><p>${SITE.tagline}.<br>Niveau, température, pression, débit.</p></div>
