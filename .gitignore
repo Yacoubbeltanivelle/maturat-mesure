@@ -10,5 +10,6 @@ dist/
 # Sorties d'outillage local (Playwright, captures de verification) : jamais publiees.
 output/
 .playwright-cli/
+_captures/
 # Graphe et caches Graphify : generes localement avec graphify update .
 graphify-out/
