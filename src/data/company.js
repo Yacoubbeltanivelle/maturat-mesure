@@ -28,11 +28,11 @@ export const COMPANY = {
     },
     {
       title: 'Une sélection resserrée de fournisseurs',
-      text: 'Plutôt qu’un référencement large, nous privilégions un fournisseur par famille de mesure. Cela garantit une vraie maîtrise technique de ce que nous vendons.',
+      text: 'Plutôt qu’un référencement généraliste, nous privilégions des fabricants ciblés selon les familles et les technologies. L’objectif : mieux connaître les solutions proposées et les confronter aux contraintes de votre application.',
     },
     {
       title: 'Un interlocuteur unique',
-      text: 'Du premier échange à la mise en service, la même personne suit votre dossier. Pas de transfert de service, pas de reprise de contexte.',
+      text: 'Du premier échange au chiffrage et aux échanges techniques, vous gardez un même fil de discussion, sans avoir à reprendre votre contexte à chaque étape.',
     },
   ],
 };
