@@ -35,6 +35,24 @@ export function suppliersInUse(catalog) {
 export const normalize = (value) =>
   String(value ?? '').normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase().trim();
 
+/** Correspondances textuelles explicites, sans déduire une technologie des usages.
+ * Raccords et vannes désignent un type d'objet : leur nom peut faire foi.
+ * Les autres principes doivent figurer dans la caractéristique technique, au
+ * mot près : seuls les synonymes listés ici rapprochent deux termes, un
+ * principe et le nom que les fiches lui donnent. */
+export function productsOfPrinciple(catalog, familyId, principle) {
+  const words = (value) => ` ${normalize(value).replace(/[^a-z0-9]+/g, ' ').trim()} `;
+  const label = normalize(principle);
+  const objectName = { raccords: 'raccord', vannes: 'vanne' }[label];
+  const synonym = { bimetallique: 'bilame' }[label];
+  const terms = objectName ? [objectName, label] : synonym ? [principle, synonym] : [principle];
+  return productsOfFamily(catalog, familyId).filter((product) => {
+    const sources = [productFacets(product).technology];
+    if (objectName) sources.push(product.name);
+    return sources.some((source) => terms.some((term) => words(source).includes(words(term))));
+  });
+}
+
 /** Texte indexé d'une fiche : ce qui la décrit elle-même, plus sa famille et son
  *  fournisseur. Les principes de mesure de la famille sont volontairement exclus :
  *  chercher « radar » ne doit pas remonter toutes les fiches de niveau. */
