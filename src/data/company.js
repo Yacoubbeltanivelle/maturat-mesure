@@ -85,26 +85,26 @@ export const HOME_SUPPLIERS = {
 export const FAQ = [
   {
     q: 'Comment choisir le bon instrument pour mon application ?',
-    a: 'Le choix dépend de quatre éléments : la nature du fluide, la plage de mesure utile, le mode de raccordement disponible et les contraintes de l’environnement. Décrivez-nous votre application dans le formulaire de demande et nous vous orientons vers les solutions adaptées.',
+    a: 'Le choix dépend notamment du fluide, de la plage de mesure utile, du raccordement et de l’environnement. Pour commencer votre demande, décrivez simplement votre application et les contraintes que vous connaissez.',
   },
   {
-    q: 'Proposez-vous un accompagnement technique ?',
-    a: 'Oui. L’analyse du besoin, le choix de la technologie et la vérification de la compatibilité avec votre installation font partie de notre travail, avant même la commande.',
+    q: 'Dois-je connaître la référence exacte avant de demander un chiffrage ?',
+    a: 'Non. Vous pouvez partir de votre besoin, d’une famille de mesure ou d’une fiche produit déjà repérée. Une référence exacte n’est pas nécessaire pour commencer à définir votre besoin.',
   },
   {
-    q: 'Puis-je obtenir une documentation technique ?',
-    a: 'Les notices, fiches techniques et déclarations sont fournies avec chaque équipement. Pour une consultation préalable, précisez la référence concernée dans votre demande.',
+    q: 'Comment préparer une demande de chiffrage ?',
+    a: 'Décrivez votre application, la famille de mesure si vous la connaissez et vos principales contraintes. Ajoutez les informations techniques dont vous disposez : les caractéristiques encore inconnues peuvent rester à définir.',
   },
   {
-    q: 'Intervenez-vous sur site ?',
-    a: 'Selon la nature de l’équipement et de l’installation, un accompagnement à la mise en service peut être organisé. Ce point se discute au moment du chiffrage.',
+    q: 'Quelles informations préparer pour une application Dropout ?',
+    a: 'Indiquez, si vous les connaissez, le fluide, la pression, le débit et les contraintes d’installation. Ces informations aident à préciser votre besoin ; les valeurs inconnues peuvent rester à définir.',
   },
   {
-    q: 'Comment obtenir un chiffrage ?',
-    a: 'Le formulaire « Votre besoin » permet de décrire votre application en quelques étapes. Vous pouvez aussi partir directement d’une fiche du catalogue : le produit et sa famille sont alors repris automatiquement.',
+    q: 'Puis-je partir directement d’une fiche du catalogue ?',
+    a: 'Oui. Depuis une fiche du catalogue, vous pouvez rejoindre le parcours « Définir mon besoin ». Le produit et sa famille y sont repris pour vous permettre de poursuivre votre demande avec ce premier repère.',
   },
   {
-    q: 'Quels sont les délais ?',
-    a: 'Ils dépendent de la disponibilité chez le fabricant et de la configuration retenue. Le délai applicable est indiqué dans la réponse à votre demande.',
+    q: 'Que faire si je ne connais pas encore toutes les caractéristiques ?',
+    a: 'Commencez avec les informations disponibles. Le parcours permet de laisser certaines valeurs « À définir avec Maturat » : vous pouvez préparer votre demande sans connaître toutes les caractéristiques techniques.',
   },
 ];
