@@ -11,7 +11,9 @@ export function productCard(catalog, product, editorial = false) {
   const supplier = supplierById(catalog, product.supplierId);
   if (editorial) {
     const visual = HOME_FAMILIES.find((f) => f.code === family?.code)?.img;
-    const usefulSpec = product.specs?.find((spec) => /étendue|plage|gamme/i.test(spec.label)) ?? product.specs?.[0];
+    const usefulSpec = editorial === 'family'
+      ? product.specs?.find((spec) => /^(principe|type|fonction|fonctions|mesure)$/i.test(spec.label))
+      : product.specs?.find((spec) => /étendue|plage|gamme/i.test(spec.label)) ?? product.specs?.[0];
     return `<li><a class="product-card product-card-editorial" href="${hashForProduct(product.slug)}">
       <figure class="product-card-visual">${visual ? img(visual, family.name, '', true) : familyMark(family?.code)}</figure>
       <div class="product-card-body"><h3>${escapeHTML(product.name)}</h3>
