@@ -6,4 +6,4 @@ export const escapeHTML = (value) =>
     ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
 
 /** Chemin d'une ressource de public/, prefixe par la base du site. */
-export const asset = (path) => `${import.meta.env.BASE_URL}${path}`;
+export const asset = (path) => `${import.meta.env?.BASE_URL ?? '/'}${path}`;

@@ -1,5 +1,6 @@
 import './styles/fonts.css';
 import './styles/style.css';
+import './styles/site-header.css';
 import './styles/products.css';
 import './styles/home.css';
 import './styles/home-tableaux.css';
@@ -19,7 +20,7 @@ import { productContext, productMatchesFamilyName, hasActiveFilters } from './da
 import { applyProductEdit, productFormValues } from './simulation/catalog-actions.js';
 import { readRoute, hashFor, isAdminPage } from './router.js';
 
-import { siteHeader } from './components/site-header.js';
+import { siteHeader, mountHeader } from './components/site-header.js';
 import { siteFooter } from './components/site-footer.js';
 import { mountFooterMotion } from './components/footer-motion.js';
 let stopFooterMotion = () => {};
@@ -69,10 +70,7 @@ const TITLES = {
   'admin-requests': 'Administration — Demandes',
   'admin-notfound': 'Administration — page introuvable',
 };
-// Les pages d'une famille, d'une fiche ou des fournisseurs restent rattachees
-// a « Produits » dans la navigation.
-const NAV_KEY = { family: 'products', product: 'products', suppliers: 'products' };
-
+let cleanupHeader = () => {};
 let stopHeroBloom = () => {};
 
 function pageTitle() {
@@ -238,6 +236,7 @@ function startRequestFor(productId) {
 }
 
 function render() {
+  cleanupHeader();
   stopFooterMotion();
   stopHeroBloom();
   // La direction artistique « Atmospheric Precision » pilote toute la feuille de style.
@@ -254,10 +253,8 @@ function render() {
     headerEl.innerHTML = '';
     footerEl.innerHTML = '';
   } else {
-    headerEl.innerHTML = siteHeader();
-    const navKey = NAV_KEY[state.page] || state.page;
-    $$('.site-header [data-page], .site-header [data-route]').forEach((b) =>
-      b.setAttribute('aria-current', (b.dataset.page || b.dataset.route) === navKey ? 'page' : 'false'));
+    headerEl.innerHTML = siteHeader(state, catalog);
+    cleanupHeader = mountHeader(headerEl);
     footerEl.innerHTML = siteFooter();
   }
 
