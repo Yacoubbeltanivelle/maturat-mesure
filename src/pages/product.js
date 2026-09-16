@@ -102,6 +102,7 @@ export function product() {
         <div><dt>Principe</dt><dd>${escapeHTML(entry.specs[0]?.value ?? 'Non renseigné')}</dd></div>
         <div><dt>Référence</dt><dd class="mono">${escapeHTML(entry.reference)}</dd></div>
       </dl>
+      <a class="text-button" href="#/suppliers">Voir les fournisseurs du catalogue <span aria-hidden="true">↗</span></a>
     </section>
 
     ${related.length ? `<section class="product-related" aria-labelledby="product-related-title">

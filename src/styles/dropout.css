@@ -61,6 +61,7 @@
 [data-pack=E] .dropout-page .application-cta h2{font-size:clamp(32px,3.1vw,46px);margin:23px 0}
 .dropout-page .application-cta p{font-size:16px;color:#516577}
 .dropout-page .application-cta .small-note{font-size:13px;line-height:1.7}
+.dropout-page .application-cta .text-button{display:flex;width:fit-content;margin-top:12px}
 .dropout-page .drop-application-data{display:grid;grid-template-columns:1fr 1fr;list-style:none;padding:0;margin:0 0 25px;gap:0 24px}
 .dropout-page .drop-application-data li{border-bottom:1px solid var(--drop-rule);padding:17px 0;font:13px/1.6 var(--mono);text-transform:uppercase}
 .dropout-page :is(button,a):focus-visible{outline:3px solid #e69233;outline-offset:4px}

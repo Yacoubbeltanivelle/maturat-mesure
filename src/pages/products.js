@@ -63,7 +63,7 @@ export function products() {
     </section>
 
     <section id="catalog-search-section" class="catalog-search-section" aria-labelledby="catalog-search-title">
-      <div class="catalog-section-heading"><div>${eyebrow('TOUTES LES FICHES')}<h2 id="catalog-search-title">Trouvez rapidement<br><em>votre point de départ.</em></h2></div><p>Par nom, référence ou usage. Affinez ensuite par famille ou par fournisseur.</p></div>
+      <div class="catalog-section-heading"><div>${eyebrow('TOUTES LES FICHES')}<h2 id="catalog-search-title">Trouvez rapidement<br><em>votre point de départ.</em></h2></div><p>Par nom, référence ou usage. Affinez ensuite par famille ou par <a href="#/suppliers">fournisseur</a>.</p></div>
       <div class="catalog-finder">${catalogFilters(catalog, state.catalogFilters)}
       <div id="catalog-results">${catalogResultsHTML()}</div></div>
       <p class="catalog-disclaimer">Ces fiches sont des exemples créés pour la maquette. Les références, les fournisseurs et les caractéristiques sont fictifs et ne décrivent aucun produit commercialisé.</p>

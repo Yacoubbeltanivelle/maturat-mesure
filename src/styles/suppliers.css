@@ -27,6 +27,7 @@
 .suppliers-page .suppliers-block:nth-child(even) { background: #edf4f8; padding: 36px 28px; }
 .suppliers-page .suppliers-identity h3 { font-size: clamp(28px, 3vw, 42px); line-height: 1.08; max-width: 330px; margin: 18px 0; overflow-wrap: anywhere; }
 .suppliers-page .suppliers-family-list { display: flex; flex-wrap: wrap; gap: 6px 16px; font: 11px/1.7 'IBM Plex Mono', monospace; text-transform: uppercase; color: var(--sup-blue); }
+.suppliers-page .suppliers-family-list a { display: inline-flex; align-items: center; min-height: 44px; text-decoration: underline; text-underline-offset: 3px; }
 .suppliers-page .suppliers-records-heading { display: flex; justify-content: space-between; gap: 16px; color: #526575; margin: 0 0 12px; }
 .suppliers-page .suppliers-records a { display: flex; justify-content: space-between; gap: 20px; align-items: center; padding: 14px 0; min-height: 64px; border-top: 1px solid var(--sup-line); }
 .suppliers-page .suppliers-product-name { display: block; font-size: 16px; line-height: 1.45; overflow-wrap: anywhere; }

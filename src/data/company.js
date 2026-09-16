@@ -86,6 +86,7 @@ export const FAQ = [
   {
     q: 'Comment choisir le bon instrument pour mon application ?',
     a: 'Le choix dépend notamment du fluide, de la plage de mesure utile, du raccordement et de l’environnement. Pour commencer votre demande, décrivez simplement votre application et les contraintes que vous connaissez.',
+    links: [{ label: 'Parcourir le catalogue', href: '#/products' }],
   },
   {
     q: 'Dois-je connaître la référence exacte avant de demander un chiffrage ?',
@@ -94,17 +95,21 @@ export const FAQ = [
   {
     q: 'Comment préparer une demande de chiffrage ?',
     a: 'Décrivez votre application, la famille de mesure si vous la connaissez et vos principales contraintes. Ajoutez les informations techniques dont vous disposez : les caractéristiques encore inconnues peuvent rester à définir.',
+    links: [{ label: 'Définir mon besoin', href: '#/quote' }],
   },
   {
     q: 'Quelles informations préparer pour une application Dropout ?',
     a: 'Indiquez, si vous les connaissez, le fluide, la pression, le débit et les contraintes d’installation. Ces informations aident à préciser votre besoin ; les valeurs inconnues peuvent rester à définir.',
+    links: [{ label: 'Découvrir Dropout', href: '#/dropout' }],
   },
   {
     q: 'Puis-je partir directement d’une fiche du catalogue ?',
     a: 'Oui. Depuis une fiche du catalogue, vous pouvez rejoindre le parcours « Définir mon besoin ». Le produit et sa famille y sont repris pour vous permettre de poursuivre votre demande avec ce premier repère.',
+    links: [{ label: 'Parcourir le catalogue', href: '#/products' }],
   },
   {
     q: 'Que faire si je ne connais pas encore toutes les caractéristiques ?',
     a: 'Commencez avec les informations disponibles. Le parcours permet de laisser certaines valeurs « À définir avec Maturat » : vous pouvez préparer votre demande sans connaître toutes les caractéristiques techniques.',
+    links: [{ label: 'Définir mon besoin', href: '#/quote' }],
   },
 ];

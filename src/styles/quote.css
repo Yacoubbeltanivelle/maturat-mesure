@@ -200,6 +200,9 @@ body[data-page=quote] .form-progress li.done > span {
   margin-bottom: 20px;
 }
 
+.quote-product-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 20px; }
+.quote-aside-help a { display: inline-flex; align-items: center; gap: 4px; min-height: 44px; font-size: 13px; text-decoration: underline; text-underline-offset: 3px; }
+
 /* ── Questions adaptatives (étape Application) ─────────────────────── */
 
 .question-group {

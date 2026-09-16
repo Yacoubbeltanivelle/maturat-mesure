@@ -8,6 +8,9 @@ import '../styles/faq.css';
  * et le clavier fonctionne sans code supplémentaire. */
 
 function faqItem(entry, index) {
+  const linksHtml = entry.links?.length
+    ? `<div class="faq-links">${entry.links.map((l) => `<a class="text-button" href="${escapeHTML(l.href)}">${escapeHTML(l.label)} <span aria-hidden="true">↗</span></a>`).join('')}</div>`
+    : '';
   return `<li class="faq-item">
     <details class="faq-details">
       <summary class="faq-summary">
@@ -16,6 +19,7 @@ function faqItem(entry, index) {
         <span class="faq-marker" aria-hidden="true"></span>
       </summary>
       <p class="faq-answer">${escapeHTML(entry.a)}</p>
+      ${linksHtml}
     </details>
   </li>`;
 }

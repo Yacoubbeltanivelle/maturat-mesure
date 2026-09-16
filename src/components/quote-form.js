@@ -29,7 +29,7 @@ export function productContextBlock() {
   }
   const { product, family } = picked;
   const { technology: principle } = productFacets(product);
-  return `<div class="quote-product"><span class="mono">VOUS PARTEZ DE CETTE FICHE</span><p class="quote-product-name">${escapeHTML(product.name)}</p><dl class="product-mini"><div><dt>Famille</dt><dd>${escapeHTML(family?.name ?? '—')}</dd></div>${principle ? `<div><dt>Principe</dt><dd>${escapeHTML(principle)}</dd></div>` : ''}<div><dt>Référence</dt><dd class="mono-val">${escapeHTML(product.reference)}</dd></div></dl><button type="button" class="quote-product-clear" data-clear-product>Retirer cette fiche</button></div>`;
+  return `<div class="quote-product"><span class="mono">VOUS PARTEZ DE CETTE FICHE</span><p class="quote-product-name">${escapeHTML(product.name)}</p><dl class="product-mini"><div><dt>Famille</dt><dd>${escapeHTML(family?.name ?? '—')}</dd></div>${principle ? `<div><dt>Principe</dt><dd>${escapeHTML(principle)}</dd></div>` : ''}<div><dt>Référence</dt><dd class="mono-val">${escapeHTML(product.reference)}</dd></div></dl><div class="quote-product-actions">${product.published !== false ? `<a href="${hashForProduct(product.slug)}" class="text-button">Revoir la fiche <span aria-hidden="true">↗</span></a>` : ''}<button type="button" class="quote-product-clear" data-clear-product>Retirer cette fiche</button></div></div>`;
 }
 
 /* ── Rendu d'une question adaptative ─────────────────────────────── */

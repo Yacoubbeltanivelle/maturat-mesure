@@ -2,7 +2,7 @@ import '../styles/suppliers.css';
 import { escapeHTML } from '../lib/dom.js';
 import { catalog } from '../state.js';
 import { publishedProducts, suppliersInUse, familyById } from '../data/queries.js';
-import { hashForProduct } from '../lib/route.js';
+import { hashForProduct, hashForFamily } from '../lib/route.js';
 import { eyebrow } from '../ui/eyebrow.js';
 
 const number = (index) => String(index + 1).padStart(2, '0');
@@ -12,8 +12,8 @@ export function suppliers() {
   const published = publishedProducts(catalog);
   const entries = suppliersInUse(catalog).map((supplier) => {
     const products = published.filter((product) => product.supplierId === supplier.id);
-    const families = [...new Set(products.map((product) => familyById(catalog, product.familyId)?.name).filter(Boolean))];
-    return { supplier, products, families };
+    const familyData = [...new Set(products.map((product) => familyById(catalog, product.familyId)).filter(Boolean))];
+    return { supplier, products, familyData };
   });
   return `<div class="suppliers-page">
     <section class="suppliers-hero" aria-labelledby="suppliers-title">
@@ -29,14 +29,14 @@ export function suppliers() {
     </section>
     <section class="suppliers-index" aria-labelledby="suppliers-index-title">
       <div class="suppliers-section-label"><h2 id="suppliers-index-title">Repères du catalogue</h2><span>${entries.length} fournisseurs / ${count(published)}</span></div>
-      <ol>${entries.map(({ supplier, products, families }, index) => `<li>
-        <span class="suppliers-ordinal">${number(index)}</span><span class="suppliers-index-name">${escapeHTML(supplier.name)}</span><span class="suppliers-index-families">${families.map(escapeHTML).join(' / ')}</span><span class="suppliers-count">${count(products)}</span>
+      <ol>${entries.map(({ supplier, products, familyData }, index) => `<li>
+        <span class="suppliers-ordinal">${number(index)}</span><span class="suppliers-index-name">${escapeHTML(supplier.name)}</span><span class="suppliers-index-families">${familyData.map((f) => escapeHTML(f.name)).join(' / ')}</span><span class="suppliers-count">${count(products)}</span>
       </li>`).join('')}</ol>
     </section>
     <section class="suppliers-details" aria-labelledby="suppliers-details-title">
       <h2 id="suppliers-details-title" class="visually-hidden">Fournisseurs et fiches du catalogue</h2>
-      <ol class="suppliers-blocks">${entries.map(({ supplier, products, families }, index) => `<li class="suppliers-block">
-        <div class="suppliers-identity"><span class="suppliers-ordinal">${number(index)} / FOURNISSEUR</span><h3>${escapeHTML(supplier.name)}</h3><ul class="suppliers-family-list">${families.map((family) => `<li>${escapeHTML(family)}</li>`).join('')}</ul></div>
+      <ol class="suppliers-blocks">${entries.map(({ supplier, products, familyData }, index) => `<li class="suppliers-block">
+        <div class="suppliers-identity"><span class="suppliers-ordinal">${number(index)} / FOURNISSEUR</span><h3>${escapeHTML(supplier.name)}</h3><ul class="suppliers-family-list">${familyData.map((f) => `<li><a href="${hashForFamily(f.slug)}">${escapeHTML(f.name)}</a></li>`).join('')}</ul></div>
         <div class="suppliers-records"><p class="suppliers-records-heading">FICHES PUBLIÉES <span>${count(products)}</span></p><ul>${products.map((product) => `<li><a href="${hashForProduct(product.slug)}"><span><span class="suppliers-product-name">${escapeHTML(product.name)}</span><span class="suppliers-reference">${escapeHTML(product.reference || '')} · ${escapeHTML(familyById(catalog, product.familyId)?.name || '')}</span></span><span class="suppliers-arrow" aria-hidden="true">↗</span></a></li>`).join('')}</ul></div>
       </li>`).join('')}</ol>
     </section>

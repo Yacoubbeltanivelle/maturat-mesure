@@ -18,6 +18,7 @@
 .catalog-section-heading h2, .catalog-dropout h2 { font-size: var(--section-title-size); line-height: 1.16; }
 .catalog-section-heading h2 { margin-top: 18px; }
 .catalog-section-heading > p { max-width: 330px; font-size: 15px; }
+.catalog-search-section .catalog-section-heading a { text-decoration: underline; text-underline-offset: 3px; }
 .catalog-grid, .catalog-rows { list-style: none; margin: 0; padding: 0; }
 .catalog-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 24px; }
 .catalog-grid > li { display: flex; min-width: 0; }
@@ -294,6 +295,7 @@ body[data-page=product] #footer .footer-contact-cta { width: min(88.8%, 1360px);
 .product-context > dl > div:last-child { border-right: 0; }
 .product-context dd { margin: 7px 0 0; font-size: 15px; overflow-wrap: anywhere; }
 .product-context a { border-bottom: 1px solid currentColor; }
+.product-context > .text-button { margin-top: 16px; }
 .product-related { padding: 55px 0; border-top: 1px solid var(--line); }
 .product-related-heading { display: flex; justify-content: space-between; gap: 30px; align-items: end; margin-bottom: 28px; }
 .product-related-heading .text-button { font-size: 13px; }

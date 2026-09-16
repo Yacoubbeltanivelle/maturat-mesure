@@ -10,7 +10,7 @@ export function dropout(){
   const scrollSync = state.scrollSync;
   return `<div class="dropout-page">
     <section class="drop-intro">
-      <button class="back" data-page="home">← Nos solutions</button>
+      <button class="back" data-page="home">← Accueil</button>
       <div class="drop-intro-grid">
         <div class="drop-hero-copy">
           ${eyebrow('TRAITEMENT DE L’AIR COMPRIMÉ')}
@@ -44,7 +44,7 @@ export function dropout(){
     </section>
     <section class="application-cta drop-section">
       <div>${eyebrow('04 / PRÉPARER L’APPLICATION')}<h2>Votre procédé<br>a ses particularités.</h2><p>Ces informations permettent de préparer l’étude de l’application.</p></div>
-      <div><ul class="drop-application-data"><li>Fluide</li><li>Pression</li><li>Débit</li><li>Contraintes d’installation</li></ul><p class="small-note">Les performances doivent être confirmées pour l’application retenue. La maquette ne réalise aucun calcul de dimensionnement.</p>${primary('Définir mon besoin','data-need="Dropout — air comprimé"')}</div>
+      <div><ul class="drop-application-data"><li>Fluide</li><li>Pression</li><li>Débit</li><li>Contraintes d’installation</li></ul><p class="small-note">Les performances doivent être confirmées pour l’application retenue. La maquette ne réalise aucun calcul de dimensionnement.</p>${primary('Définir mon besoin','data-need="Dropout — air comprimé"')}<a class="text-button" href="#/faq">Questions fréquentes <span aria-hidden="true">↗</span></a></div>
     </section>
   </div>`;
 }
