@@ -1,7 +1,7 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
 
-import { state, draft, catalog, resetSimulation, DRAFT_DEFAULTS } from '../src/state.js';
+import { state, draft, catalog, resetSimulation, resetQuoteRequest, DRAFT_DEFAULTS } from '../src/state.js';
 import { productBySlug } from '../src/data/queries.js';
 import { parseRoute } from '../src/lib/route.js';
 
@@ -56,6 +56,34 @@ test('les filtres restent des objets independants entre deux remises a zero', ()
   resetSimulation();
   first.q = 'trace laissée sur l’ancien objet';
   assert.equal(state.catalogFilters.q, '', 'l’ancien objet de filtres ne doit plus etre partage');
+});
+
+/* Le bouton « Recommencer » de Quote doit permettre une nouvelle demande sans
+ * toucher au reste de la simulation (catalogue, demandes, produit vedette) :
+ * seul resetSimulation (reset Admin, rechargement, bfcache) a cette portee. */
+test('resetQuoteRequest prepare une nouvelle demande sans toucher au reste de la simulation', () => {
+  resetSimulation();
+  const radar = productBySlug(catalog, 'sonde-radar-nvx-r40');
+
+  Object.assign(draft, { application: 'Demande en cours', product: radar.id, family: 'Niveau', name: 'Camille', company: 'ACME', email: 'c@acme.fr' });
+  draft.answers = { goal: 'Mesure continue' };
+  state.step = 3;
+  state.done = true;
+  state.requests.push({ id: 'req-1', name: 'Camille', email: 'c@acme.fr', family: 'Niveau', productId: radar.id, application: 'Demande en cours', answers: {} });
+  state.featuredProductId = catalog.products.find((p) => p.id !== state.featuredProductId).id;
+  catalog.products[0].name = 'Modifie par admin';
+  const featuredBefore = state.featuredProductId;
+  const productNameBefore = catalog.products[0].name;
+
+  resetQuoteRequest();
+
+  assert.deepEqual(draft, { ...DRAFT_DEFAULTS, answers: {} }, 'le brouillon repart a zero, pret pour une nouvelle demande');
+  assert.equal(state.step, 0);
+  assert.equal(state.done, false);
+  assert.equal(state.requests.length, 1, 'la demande deja soumise reste enregistree');
+  assert.equal(state.requests[0].name, 'Camille');
+  assert.equal(state.featuredProductId, featuredBefore, 'le produit mis en avant n est pas touche');
+  assert.equal(catalog.products[0].name, productNameBefore, 'les mutations du catalogue restent en place');
 });
 
 /* Cause de l'ecart sur « Aller au contenu » : une ancre de la coque n'est pas une

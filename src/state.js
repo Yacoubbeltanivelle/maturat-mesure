@@ -52,6 +52,16 @@ export function resetDraft() {
   draft.answers = {};
 }
 
+/* Bouton « Recommencer » du parcours Quote : repart sur une nouvelle demande
+ * sans toucher au catalogue, aux demandes deja enregistrees ni au reste de la
+ * simulation (contrairement a resetSimulation, reserve au reset Admin, au
+ * rechargement et au retour bfcache). */
+export function resetQuoteRequest() {
+  resetDraft();
+  state.step = 0;
+  state.done = false;
+}
+
 export function resetSimulation() {
   resetDraft();
   resetCatalog();

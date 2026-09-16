@@ -389,6 +389,18 @@ body[data-page=quote] #footer .footer-contact-cta {
   .quote-product {
     padding: 13px 14px;
   }
+
+  /* Empeche le rail de progression (mots insecables comme « Application »)
+   * de forcer la piste de grille .quote-layout au-dela du viewport. */
+  .quote-aside,
+  [data-page=quote] .form-card {
+    min-width: 0;
+  }
+
+  .form-progress li {
+    min-width: 0;
+    overflow-wrap: anywhere;
+  }
 }
 
 @media (prefers-reduced-motion: reduce) {

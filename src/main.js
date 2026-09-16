@@ -13,7 +13,7 @@ import './styles/home-labels.css';
 import './styles/quote.css';
 
 import { $, $$ } from './lib/dom.js';
-import { state, draft, catalog, resetDraft, resetSimulation } from './state.js';
+import { state, draft, catalog, resetDraft, resetQuoteRequest, resetSimulation } from './state.js';
 import { SITE } from './data/site.js';
 import { CATALOG_FILTER_DEFAULTS } from './data/catalog-facets.js';
 import { productContext, productMatchesFamilyName, hasActiveFilters } from './data/queries.js';
@@ -356,8 +356,14 @@ document.addEventListener('click', (e) => {
     input?.focus();
     return;
   }
-  // La remise a zero depuis l'administration demande confirmation, puis reutilise
-  // le bouton « data-reset » commun : le mecanisme de reset n'est pas duplique.
+  if (b.hasAttribute('data-quote-reset')) {
+    resetQuoteRequest();
+    render();
+    focusForm();
+    return;
+  }
+  // La remise a zero depuis l'administration demande confirmation avant de
+  // declencher le reset global (resetSimulation), reserve a l'Admin.
   if (b.hasAttribute('data-featured-apply')) {
     const select = document.getElementById('adm-featured-select');
     if (select?.value) {

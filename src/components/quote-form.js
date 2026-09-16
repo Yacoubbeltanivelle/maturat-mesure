@@ -131,7 +131,7 @@ export function fields() {
   const progress = Math.round(((step + 1) / 4) * 100);
 
   if (done) {
-    return `<div class="form-success" role="status"><span class="success-mark" aria-hidden="true">✓</span><span class="mono">DÉMONSTRATION TERMINÉE</span><h2>Le premier pas<br>est fait.</h2><p>Votre fiche de cadrage est prête. Aucune demande n'a été réellement envoyée à Maturat.</p><p class="small-note">Recommencez pour explorer un autre besoin ou une autre famille.</p>${primary('Recommencer', 'type="button" data-reset')}</div>`;
+    return `<div class="form-success" role="status"><span class="success-mark" aria-hidden="true">✓</span><span class="mono">DÉMONSTRATION TERMINÉE</span><h2>Le premier pas<br>est fait.</h2><p>Votre fiche de cadrage est prête. Aucune demande n'a été réellement envoyée à Maturat.</p><p class="small-note">Recommencez pour explorer un autre besoin ou une autre famille.</p>${primary('Recommencer', 'type="button" data-quote-reset')}</div>`;
   }
 
   const bar = `<div class="form-progress-bar" aria-hidden="true"><span style="width:${progress}%"></span></div>`;
