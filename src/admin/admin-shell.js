@@ -6,11 +6,12 @@ import { escapeHTML } from '../lib/dom.js';
 const NAV = [
   { label: 'Tableau de bord', href: '#/admin', pages: ['admin'] },
   { label: 'Catalogue', href: '#/admin/catalog', pages: ['admin-catalog', 'admin-product'] },
+  { label: 'Demandes', href: '#/admin/requests', pages: ['admin-requests'] },
 ];
 
-/* Visibles mais inactives : elles situent ce lot dans l'ensemble à construire.
- * Aucune n'est simulée ici — ce sont des repères, pas des promesses. */
-const LATER = ['Familles', 'Fournisseurs', 'Produit du moment', 'Demandes', 'Pages & FAQ'];
+/* Sections existantes mais non simulées dans ce lot.
+ * Rendues inactives sans promesse de livraison. */
+const UNSIMULATED = ['Familles', 'Fournisseurs', 'Pages & FAQ'];
 
 function navHTML(page) {
   const links = NAV.map((item) => {
@@ -18,14 +19,16 @@ function navHTML(page) {
     return `<li><a class="adm-nav-link" href="${item.href}" aria-current="${current ? 'page' : 'false'}">${escapeHTML(item.label)}</a></li>`;
   }).join('');
 
-  const later = LATER.map((label) =>
-    `<li><span class="adm-nav-link adm-nav-link--later">${escapeHTML(label)}<span class="adm-nav-tag">bientôt</span></span></li>`
+  const unsimulated = UNSIMULATED.map((label) =>
+    `<li><span class="adm-nav-link adm-nav-link--later">${escapeHTML(label)}</span></li>`
   ).join('');
 
-  return `<nav class="adm-nav" aria-label="Sections de l’administration">
+  return `<nav class="adm-nav" aria-label="Sections de l'administration">
+    <div class="adm-nav-brand"><span>MATURAT MESURE</span><small>Administration de démonstration</small></div>
+    <p class="adm-nav-heading adm-nav-heading--active">Navigation</p>
     <ul class="adm-nav-list">${links}</ul>
-    <p class="adm-nav-heading" id="adm-nav-later">Prévu dans les prochains lots</p>
-    <ul class="adm-nav-list adm-nav-list--later" aria-labelledby="adm-nav-later">${later}</ul>
+    <p class="adm-nav-heading" id="adm-nav-later">Non simulé dans cette maquette</p>
+    <ul class="adm-nav-list adm-nav-list--later" aria-labelledby="adm-nav-later">${unsimulated}</ul>
   </nav>`;
 }
 
@@ -48,13 +51,13 @@ export function adminShell({ page, title, intro = '', body = '' }) {
 
     <p class="adm-simulation" role="note">
       <span class="adm-simulation-dot" aria-hidden="true"></span>
-      Simulation — aucune donnée n’est enregistrée. Les modifications vivent dans cet onglet
+      Simulation — aucune donnée n'est enregistrée. Les modifications vivent dans cet onglet
       et disparaissent au rechargement de la page.
     </p>
 
     <div id="adm-reset-confirm" class="adm-reset" role="group" aria-label="Confirmer la réinitialisation" hidden>
       <p class="adm-reset-text">Réinitialiser la démonstration ? Toutes les modifications faites
-        depuis l’administration seront perdues et le catalogue repartira de ses données d’origine.</p>
+        depuis l'administration seront perdues et le catalogue repartira de ses données d'origine.</p>
       <div class="adm-reset-actions">
         <button type="button" class="adm-button adm-button--danger" data-reset>Oui, réinitialiser</button>
         <button type="button" class="adm-button" data-admin-reset-cancel>Annuler</button>
@@ -63,7 +66,7 @@ export function adminShell({ page, title, intro = '', body = '' }) {
 
     <div class="adm-body">
       ${navHTML(page)}
-      <div class="adm-main">
+      <div class="adm-main adm-main--${page}">
         <div class="adm-screen-head">
           <h1 class="adm-screen-title">${escapeHTML(title)}</h1>
           ${intro ? `<p class="adm-screen-intro">${escapeHTML(intro)}</p>` : ''}
@@ -82,8 +85,8 @@ export function adminNotFound(slug = '') {
     : '';
   return adminShell({
     page: 'admin-notfound',
-    title: 'Cette page d’administration n’existe pas',
-    intro: 'La section demandée n’est pas disponible, ou la fiche a été retirée du catalogue.',
+    title: `Cette page d’administration n’existe pas`,
+    intro: `La section demandée n’est pas disponible, ou la fiche a été retirée du catalogue.`,
     body: `<div class="adm-card adm-empty">
       ${detail}
       <div class="adm-empty-actions">

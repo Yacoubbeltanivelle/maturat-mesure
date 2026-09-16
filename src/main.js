@@ -42,6 +42,7 @@ import { adminNotFound } from './admin/admin-shell.js';
 import { adminDashboard } from './admin/dashboard.js';
 import { adminCatalogList, adminCatalogResultsHTML } from './admin/catalog-list.js';
 import { adminProductEditor, adminProductTitle } from './admin/product-editor.js';
+import { adminRequests } from './admin/requests.js';
 
 import { mount as mountHeroBloom } from './effects/hero-bloom.js';
 import { setupReveal } from './effects/reveal.js';
@@ -58,12 +59,14 @@ const PAGES = {
   admin: adminDashboard,
   'admin-catalog': adminCatalogList,
   'admin-product': adminProductEditor,
+  'admin-requests': adminRequests,
   'admin-notfound': () => adminNotFound(state.slug),
 };
 const TITLES = {
   home: 'Accueil', dropout: 'Dropout', quote: 'Votre besoin', products: 'Produits',
   about: 'Maturat Mesure', faq: 'Questions fréquentes', suppliers: 'Fournisseurs',
   admin: 'Administration', 'admin-catalog': 'Administration — Catalogue',
+  'admin-requests': 'Administration — Demandes',
   'admin-notfound': 'Administration — page introuvable',
 };
 // Les pages d'une famille, d'une fiche ou des fournisseurs restent rattachees
@@ -358,6 +361,14 @@ document.addEventListener('click', (e) => {
   }
   // La remise a zero depuis l'administration demande confirmation, puis reutilise
   // le bouton « data-reset » commun : le mecanisme de reset n'est pas duplique.
+  if (b.hasAttribute('data-featured-apply')) {
+    const select = document.getElementById('adm-featured-select');
+    if (select?.value) {
+      state.featuredProductId = select.value;
+      render();
+    }
+    return;
+  }
   if (b.hasAttribute('data-admin-reset')) {
     const zone = $('#adm-reset-confirm');
     if (!zone) return;

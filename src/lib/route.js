@@ -11,7 +11,7 @@ import { familyBySlug, productBySlug, productByIdOrSlug } from '../data/queries.
 export const ROUTES = ['home', 'dropout', 'quote', 'products', 'about', 'faq', 'suppliers'];
 
 /* L'administration a ses propres niveaux d'adresse : elle est analysée à part. */
-export const ADMIN_PAGES = ['admin', 'admin-catalog', 'admin-product', 'admin-notfound'];
+export const ADMIN_PAGES = ['admin', 'admin-catalog', 'admin-product', 'admin-requests', 'admin-notfound'];
 export const isAdminPage = (page) => ADMIN_PAGES.includes(page);
 
 const decode = (value) => {
@@ -23,6 +23,7 @@ const decode = (value) => {
 function adminRoute(rest, catalog) {
   const [section = '', key = ''] = rest;
   if (!section) return { page: 'admin', slug: '' };
+  if (section === 'requests') return { page: 'admin-requests', slug: '' };
   if (section !== 'catalog') return { page: 'admin-notfound', slug: decode(rest.join('/')) };
 
   const target = decode(key);
