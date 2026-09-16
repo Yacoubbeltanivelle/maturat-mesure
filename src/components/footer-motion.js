@@ -31,8 +31,8 @@ export function mountFooterMotion(root, reduced) {
     for (const [el, depth] of layers) {
       const anchor = heading?.contains(el) ? headingRect : rect;
       const progress = Math.max(0, Math.min(1, (innerHeight - anchor.top) / (innerHeight + anchor.height * .25)));
-      // Reset each layer when it has keyboard focus, keeping controls stable.
-      el.style.translate = disabled() || el.matches(':focus-within') ? '' : `0 ${((1 - progress) * depth * mobileScale).toFixed(2)}px`;
+      // Keyboard focus only — mouse focus leaves translate intact.
+      el.style.translate = disabled() || el.matches(':focus-visible') || el.querySelector(':focus-visible') ? '' : `0 ${((1 - progress) * depth * mobileScale).toFixed(2)}px`;
     }
   };
   const schedule = () => { if (!frame) frame = requestAnimationFrame(update); };
